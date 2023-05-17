@@ -6,6 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import MoviesPage from "./components/MoviesPage";
+import MovieFormPage from "./components/MovieFormPage";
 
 
 function App() {
@@ -26,8 +27,11 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <MoviesPage />
+          </Route>
+          <Route exact path="/movies/new">
+            <MovieFormPage />
           </Route>
         </Switch>
       )}

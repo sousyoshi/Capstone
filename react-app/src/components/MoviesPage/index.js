@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMoviesThunk } from "../../store/movies";
 import ReactPlayer from "react-player/youtube";
+import {faker}  from '@faker-js/faker'
 
 function MoviesPage() {
   const dispatch = useDispatch();
@@ -14,8 +15,8 @@ function MoviesPage() {
   const movieMapper = movies.map((movie) => {
     return (
       <>
-        <ReactPlayer url={movie.trailer} width={"50%"} className="hidden" />
-         <img alt="poster" src={movie.image} />
+         <img alt="poster" src={faker.image.urlLoremFlickr()}  />
+        <ReactPlayer url={movie.trailer} width={"50%"}  controls light={true} />
       </>
     );
   });
