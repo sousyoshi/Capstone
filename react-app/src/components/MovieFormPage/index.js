@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createMovieThunk } from "../../store/movies";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const MovieFormPage = () => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,13 +21,16 @@ const MovieFormPage = () => {
       const errors = {};
       if (!title.length) errors.title = "Please enter a movie title";
       if (!description.length) errors.description = "Please enter a synopsis";
+      if (!image.length) errors.image = "Please provide an image";
+      if (!genre.length) errors.genre = "Please provide a genre";
       setValErrors(errors);
     }
-  }, [title, description, hasSubmitted]);
+  }, [title, description, image, hasSubmitted, genre]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
+    if (valErrors.length) return alert("Your form has errors.");
 
     const formData = new FormData();
     formData.append("title", title);
@@ -37,6 +41,7 @@ const MovieFormPage = () => {
     formData.append("trailer", trailer);
 
     const newMovie = await dispatch(createMovieThunk(formData));
+    
     if (newMovie) {
       setTitle("");
       setDescription("");
@@ -45,6 +50,7 @@ const MovieFormPage = () => {
       setImage("");
       setTrailer("");
       setHasSubmitted(false);
+      history.push("/");
     }
   };
 
@@ -85,14 +91,7 @@ const MovieFormPage = () => {
             <label>
               {" "}
               Release Year
-              <input
-
-                type="number"
-                min={"1900"}
-                max={2023}
-                value={releaseYear}
-                onChange={(e) => setReleaseYear(e.target.value)}
-              />
+              <input type="number" min={"1900"} max={2023} value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
             </label>
           </div>
           <div>

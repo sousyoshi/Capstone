@@ -27,7 +27,7 @@ def movie(id):
 @movie_routes.route('/new', methods=['POST'])
 @login_required
 def add_movie():
-    """ Query for creating a new ovie"""
+    """ Query for creating a new movie"""
     form = NewMovie()
     form['csrf_token'].data = request.cookies['csrf_token']
 
