@@ -7,7 +7,7 @@ def seed_movies():
                      description="Sam Lowry (Jonathan Pryce) is a harried technocrat in a futuristic society that is needlessly convoluted and inefficient. He dreams of a life where he can fly away from technology and overpowering bureaucracy, and spend eternity with the woman of his dreams. While trying to rectify the wrongful arrest of one Harry Buttle (Brian Miller), Lowry meets the woman he is always chasing in his dreams, Jill Layton (Kim Greist). Meanwhile, the bureaucracy has fingered him responsible for a rash of terrorist bombings, and Sam and Jill's lives are put in danger.",
                      genre='Sci-Fi',
                      release_year=1985,
-                     image='https://www.cinematerial.com/movies/brazil-i88846/p/ldq2k2cl',
+                     image='https://posters.movieposterdb.com/06_06/1985/0088846/l_119646_0088846_96868df8.jpg',
                      trailer='https://www.youtube.com/watch?v=ZKPFC8DA9_8',
                      creator_id=1)
 
@@ -16,7 +16,7 @@ def seed_movies():
                      genre='Crime',
                      release_year=1990,
                      image='https://posters.movieposterdb.com/14_06/1990/99685/l_99685_3c1fb0a3.jpg',
-                     trailer='https://www.youtube.com/watch?v=ZKPFC8DA9_8',
+                     trailer='https://www.youtube.com/watch?v=qo5jJpHtI1Y',
                      creator_id=1)
 
 
