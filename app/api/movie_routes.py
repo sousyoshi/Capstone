@@ -17,7 +17,7 @@ def movies():
     return {'movies': [movie.to_dict() for movie in movies]}
 
 
-@movie_routes.route('<int:id>')
+@movie_routes.route('/<int:id>')
 def movie(id):
     """ Query for a movie by its id"""
     movie = Movie.query.get(id)
@@ -27,7 +27,7 @@ def movie(id):
 @movie_routes.route('/new', methods=['POST'])
 @login_required
 def add_movie():
-
+    """ Query for creating a new ovie"""
     form = NewMovie()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -48,7 +48,7 @@ def add_movie():
     return {'errors': form.errors}
 
 
-@movie_routes.route('<int:id>/delete', methods=['DELETE'])
+@movie_routes.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def delete_movie(id):
     """Query for a movie to deleted by its id"""
@@ -58,4 +58,4 @@ def delete_movie(id):
         db.session.commit()
         return "Movie deleted"
     else:
-        return "UNAUTHORIZED USER!!!"
+        return 'Unauthorized user!'

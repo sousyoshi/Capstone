@@ -1,6 +1,7 @@
 const GET_ALL_MOVIES = "movies/getAll";
 const CREATE_MOVIE = "movie/addOne";
-const DELETE_MOVIE = 'movie/deleteOne'
+const DELETE_MOVIE = "movie/deleteOne";
+const GET_ONE_MOVIE = 'movie/getOne'
 
 const getAllMoviesAction = (movies) => {
   return {
@@ -16,10 +17,17 @@ const createMovieAction = (movie) => {
   };
 };
 
-const deleteOneMovieAction = movieId => {
+const deleteOneMovieAction = (movieId) => {
   return {
     type: DELETE_MOVIE,
-    movieId
+    movieId,
+  };
+};
+
+const getOneMovieAction = movie =>{
+  return {
+    type: GET_ONE_MOVIE,
+    movie
   }
 }
 
@@ -38,41 +46,52 @@ export const createMovieThunk = (movie) => async (dispatch) => {
     method: "POST",
     body: movie,
   });
-  if (res.ok) {
+  if(res.ok) {
     const movie = await res.json();
     dispatch(createMovieAction);
     return movie;
   }
 };
 
-export const deleteMovieThunk = movieId => async dispatch => {
-  const res =  await fetch(`/api/movies${movieId}/delete`, {
-    method: 'DELETE'
-  })
+export const deleteMovieThunk = (movieId) => async (dispatch) => {
+  const res = await fetch(`/api/movies/${movieId}/delete`, {
+    method: "DELETE",
+  });
+  if (res.ok) {
+    dispatch(deleteOneMovieAction(movieId));
+    return { message: "successful" };
+  }
+};
+
+export const getOneMovieThunk = movieId => async dispatch =>{
+  const res = await fetch(`/api/movies/${movieId}`);
   if(res.ok){
-    dispatch(deleteOneMovieAction(movieId))
-    return {'message': 'successful'}
+    const movie = await res.json()
+    dispatch(getOneMovieAction(movie))
+    return movie
   }
 }
 
 const initialState = {};
 const movieReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_MOVIES:
-      {const newState = { ...state };
+    case GET_ALL_MOVIES: {
+      const newState = { ...state };
       console.log(action);
       action.movies.forEach((movie) => {
         newState[movie.id] = movie;
       });
-      return newState;}
-    case CREATE_MOVIE:{
-     const newState = [...state]
-     newState[action.movie.id] = action.movie
-     return newState}
+      return newState;
+    }
+    case CREATE_MOVIE: {
+      const newState = [...state];
+      newState[action.movie.id] = action.movie;
+      return newState;
+    }
     case DELETE_MOVIE:
-      const newState = {...state}
-      delete newState[action.movieId]
-      return newState
+      const newState = { ...state };
+      delete newState[action.movieId];
+      return newState;
     default:
       return state;
   }

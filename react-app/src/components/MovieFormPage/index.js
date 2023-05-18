@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createMovieThunk } from "../../store/movies";
 
 const MovieFormPage = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.user);
+
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -86,7 +86,7 @@ const MovieFormPage = () => {
               {" "}
               Release Year
               <input
-                
+
                 type="number"
                 min={"1900"}
                 max={2023}
