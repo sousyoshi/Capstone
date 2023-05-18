@@ -22,7 +22,7 @@ function MoviesPage() {
           {" "}
           <img alt="poster" src={movie.image} />
           <OpenModalButton buttonText={"Delete"} modalComponent={<DeleteMovieModal movie={movie} />} />
-          <ReactPlayer url={movie.trailer} width={"50%"} controls light={true} className="hidden" />
+          <ReactPlayer url={movie.trailer} width={"50%"} controls light={true} />
         </div>
       </>
     );
