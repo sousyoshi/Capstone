@@ -1,7 +1,8 @@
 const GET_ALL_MOVIES = "movies/getAll";
 const CREATE_MOVIE = "movie/addOne";
 const DELETE_MOVIE = "movie/deleteOne";
-const GET_ONE_MOVIE = 'movie/getOne'
+const GET_ONE_MOVIE = "movie/getOne";
+const EDIT_MOVIE = "movie/edit";
 
 const getAllMoviesAction = (movies) => {
   return {
@@ -24,12 +25,19 @@ const deleteOneMovieAction = (movieId) => {
   };
 };
 
-const getOneMovieAction = movie =>{
+const getOneMovieAction = (movie) => {
   return {
     type: GET_ONE_MOVIE,
-    movie
-  }
-}
+    movie,
+  };
+};
+
+const editMovieAction = (movie) => {
+  return {
+    type: EDIT_MOVIE,
+    movie,
+  };
+};
 
 export const getAllMoviesThunk = () => async (dispatch) => {
   const res = await fetch("/api/movies");
@@ -46,7 +54,7 @@ export const createMovieThunk = (movie) => async (dispatch) => {
     method: "POST",
     body: movie,
   });
-  if(res.ok) {
+  if (res.ok) {
     const movie = await res.json();
     dispatch(createMovieAction);
     return movie;
@@ -63,14 +71,29 @@ export const deleteMovieThunk = (movieId) => async (dispatch) => {
   }
 };
 
-export const getOneMovieThunk = movieId => async dispatch =>{
+export const getOneMovieThunk = (movieId) => async (dispatch) => {
   const res = await fetch(`/api/movies/${movieId}`);
-  if(res.ok){
-    const movie = await res.json()
-    dispatch(getOneMovieAction(movie))
-    return movie
+  if (res.ok) {
+    const movie = await res.json();
+    dispatch(getOneMovieAction(movie));
+    return movie;
   }
-}
+};
+
+export const editMovieThunk = (movie) => async (dispatch) => {
+  const movieId = +movie.get("id");
+  const res = await fetch(`/api/movies/${movieId}/edit`, {
+    method: "PUT",
+    body: movie,
+  });
+  console.log("edit response hereererer", res);
+  if (res.ok) {
+    const movie = await res.json();
+    console.log("movie insdie of the thunk", movie);
+    dispatch(editMovieAction(movie));
+    return movie;
+  }
+};
 
 const initialState = {};
 const movieReducer = (state = initialState, action) => {
@@ -88,9 +111,14 @@ const movieReducer = (state = initialState, action) => {
       newState[action.movie.id] = action.movie;
       return newState;
     }
-    case DELETE_MOVIE:
+    case DELETE_MOVIE: {
       const newState = { ...state };
       delete newState[action.movieId];
+      return newState;
+    }
+    case GET_ONE_MOVIE:
+      const newState = { ...state };
+      newState[action.movie.id] = action.movie;
       return newState;
     default:
       return state;
