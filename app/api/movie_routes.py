@@ -3,6 +3,7 @@ from app.models import Movie
 from flask_login import login_required, current_user
 from ..models import db
 from ..forms.movie_form import NewMovie
+from ..forms.edit_movie_form import EditMovie
 
 
 movie_routes = Blueprint('movies', __name__)
@@ -27,7 +28,7 @@ def movie(id):
 @movie_routes.route('/new', methods=['POST'])
 @login_required
 def add_movie():
-    """ Query for creating a new ovie"""
+    """ Query for creating a new movie"""
     form = NewMovie()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -46,6 +47,31 @@ def add_movie():
         return movie.to_dict()
 
     return {'errors': form.errors}
+
+
+@movie_routes.route('/<int:id>/edit', methods=['PUT'])
+@login_required
+def edit_movie(id):
+    """ Query for updating a users movie"""
+    movie = Movie.query.get(id)
+    form = EditMovie()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print("this the inside of the backend route=>>>>>>>>>>>>>>>>>>>>>>>>", form.data)
+    if form.validate_on_submit():
+
+        movie.title=form.data['title']
+        movie.description = form.data['description']
+        movie.genre = form.data['genre']
+        movie.release_year = form.data['release_year']
+        movie.image = form.data['image']
+        movie.trailer = form.data['trailer']
+
+
+        db.session.commit()
+        return movie.to_dict()
+
+    return {'errors': form.errors}
+
 
 
 @movie_routes.route('/<int:id>/delete', methods=['DELETE'])

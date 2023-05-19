@@ -7,6 +7,8 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import MoviesPage from "./components/MoviesPage";
 import MovieFormPage from "./components/MovieFormPage";
+import EditMovieForm from "./components/MovieFormPage/EditMovieForm";
+import MoviePage from "./components/MoviePage";
 
 
 function App() {
@@ -32,6 +34,12 @@ function App() {
           </Route>
           <Route exact path="/movies/new">
             <MovieFormPage />
+          </Route>
+          <Route exact path="/movies/:movieId/edit">
+            <EditMovieForm />
+          </Route>
+          <Route exact path="/movies/:movieId">
+            <MoviePage />
           </Route>
         </Switch>
       )}
