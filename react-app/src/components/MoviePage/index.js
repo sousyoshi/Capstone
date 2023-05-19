@@ -4,7 +4,7 @@ import EditMovieForm from "../MovieFormPage/EditMovieForm";
 import { useEffect } from "react";
 import { getAllMoviesThunk } from "../../store/movies";
 import OpenModalButton from "../OpenModalButton";
-import DeleteMovieModal from "../DeleteMovieModal"
+import DeleteMovieModal from "../DeleteMovieModal";
 
 const MoviePage = () => {
   const dispatch = useDispatch();
@@ -15,12 +15,14 @@ const MoviePage = () => {
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
-if(!movie) return null
+  if (!movie) return null;
   return (
-    <> {movie.title}
-       <img alt="poster" src={movie.image}/>
+    <>
+      {" "}
+      <h1>{movie.title}</h1>
+      <img alt="poster" src={movie.image} />
       <OpenModalButton buttonText={"Edit your movie"} modalComponent={<EditMovieForm movie={movie} />} />
-      <OpenModalButton buttonText={'Delete your movie'} modalComponent={<DeleteMovieModal />} />
+      <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal />} />
     </>
   );
 };

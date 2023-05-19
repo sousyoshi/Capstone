@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createMovieThunk, editMovieThunk } from "../../store/movies";
+import { createMovieThunk } from "../../store/movies";
 import { useHistory } from "react-router-dom";
 
-const MovieFormPage = ({ movie, formType }) => {
+const MovieFormPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
