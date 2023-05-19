@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { createMovieThunk, editMovieThunk } from "../../store/movies";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { editMovieThunk } from "../../store/movies";
 
-const MovieFormPage = ({ movie, formType }) => {
+const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
+  const {id} = useSelector(state=> state.session.user)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [genre, setGenre] = useState("");
@@ -18,50 +18,37 @@ const MovieFormPage = ({ movie, formType }) => {
 
 
 
-  useEffect(() => {
-    if (hasSubmitted) {
-      const errors = {};
-      if (!title.length) errors.title = "Please enter a movie title";
-      if (!description.length) errors.description = "Please enter a synopsis";
-      if (!image.length) errors.image = "Please provide an image";
-      if (!genre.length) errors.genre = "Please provide a genre";
-      setValErrors(errors);
-    }
-  }, [title, description, image, hasSubmitted, genre]);
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setHasSubmitted(true);
     if (valErrors.length) return alert("Your form has errors.");
 
     const formData = new FormData();
+
     formData.append("title", title);
     formData.append("description", description);
     formData.append("genre", genre);
     formData.append("release_year", releaseYear);
     formData.append("image", image);
     formData.append("trailer", trailer);
+    formData.append("id", movie.id);
 
 
-      const newMovie = await dispatch(createMovieThunk(formData));
-      history.push(`/movies/${newMovie.id}`);
+    await dispatch(editMovieThunk(formData));
 
+    setTitle("");
+    setDescription("");
+    setGenre("");
+    setReleaseYear(1900);
+    setImage("");
+    setTrailer("");
+    setHasSubmitted(false);
 
-
-      setTitle("");
-      setDescription("");
-      setGenre("");
-      setReleaseYear(1900);
-      setImage("");
-      setTrailer("");
-      setHasSubmitted(false);
-
-
+    history.push(`/movies/${movie.id}`);
   };
-
   return (
     <>
-      <h1>Add a new Movie</h1>
+      <h1>Update a movie</h1>
       {hasSubmitted && valErrors.length > 0 && (
         <div>
           <ul>
@@ -76,7 +63,7 @@ const MovieFormPage = ({ movie, formType }) => {
           <label>
             {" "}
             Movie Title
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input placeholder={movie.title} type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
           <div>
             <label>
@@ -113,11 +100,10 @@ const MovieFormPage = ({ movie, formType }) => {
               <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
             </label>
           </div>
-          <button type="submit">"Create Movie"</button>
+          <button type="submit">Update Movie</button>
         </fieldset>
       </form>
     </>
   );
 };
-
-export default MovieFormPage;
+export default EditMovieForm;
