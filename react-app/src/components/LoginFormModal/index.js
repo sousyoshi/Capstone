@@ -20,6 +20,9 @@ function LoginFormModal() {
         closeModal()
     }
   };
+  const demoUser = () => {
+    return dispatch(login("demo@aa.io", "password" )).then(closeModal);
+  };
 
   return (
     <>
@@ -49,6 +52,7 @@ function LoginFormModal() {
           />
         </label>
         <button type="submit">Log In</button>
+        <button className='demoUser' onClick={demoUser}>Demo User</button>
       </form>
     </>
   );

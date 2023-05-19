@@ -11,6 +11,7 @@ import EditMovieForm from "./components/MovieFormPage/EditMovieForm";
 import MoviePage from "./components/MoviePage";
 
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <>
-      <Navigation isLoaded={isLoaded} />
+    {  <Navigation isLoaded={isLoaded} />}
       {isLoaded && (
         <Switch>
           <Route path="/login" >
@@ -29,7 +30,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/movies">
             <MoviesPage />
           </Route>
           <Route exact path="/movies/new">
@@ -41,6 +42,7 @@ function App() {
           <Route exact path="/movies/:movieId">
             <MoviePage />
           </Route>
+
         </Switch>
       )}
     </>

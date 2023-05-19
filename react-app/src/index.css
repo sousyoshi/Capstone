@@ -1,1 +1,16 @@
 /* TODO Add site wide styles */
+.carousel {
+
+    width:  300px;
+    height: 400px;
+    object-fit: cover;
+    box-shadow: 1px 1px 3px 3px rgb(224, 215, 215);
+
+
+}
+
+.carousel:hover {
+    box-shadow: 1px 1px 3px 3px rgb(139, 24, 24);
+border: 2px solid black;
+}
+
