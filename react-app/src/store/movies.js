@@ -66,8 +66,9 @@ export const deleteMovieThunk = (movieId) => async (dispatch) => {
     method: "DELETE",
   });
   if (res.ok) {
+
     dispatch(deleteOneMovieAction(movieId));
-    return { message: "successful" };
+    return { 'message': "successful" };
   }
 };
 

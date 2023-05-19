@@ -82,7 +82,7 @@ const MovieFormPage = () => {
             <label>
               {" "}
               Description
-              <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <textarea placeholder='Movie synopsis' value={description} onChange={(e) => setDescription(e.target.value)} > </textarea>
             </label>
           </div>
           <div>
@@ -113,7 +113,7 @@ const MovieFormPage = () => {
               <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
             </label>
           </div>
-          <button type="submit">"Create Movie"</button>
+          <button type="submit">Create Movie</button>
         </fieldset>
       </form>
     </>

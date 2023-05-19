@@ -56,7 +56,6 @@ function MoviesPage() {
           return (
             <Link to={`/movies/${movie.id}`}>
               {" "}
-
               <img className="carousel" alt="" src={movie.image} />
             </Link>
           );

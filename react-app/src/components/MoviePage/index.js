@@ -22,7 +22,7 @@ const MoviePage = () => {
       <h1>{movie.title}</h1>
       <img alt="poster" src={movie.image} />
       <OpenModalButton buttonText={"Edit your movie"} modalComponent={<EditMovieForm movie={movie} />} />
-      <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal />} />
+      <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal movie={movie} />} />
     </>
   );
 };
