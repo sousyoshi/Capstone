@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useState } from "react";
+import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editMovieThunk } from "../../store/movies";
 
 const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {id} = useSelector(state=> state.session.user)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [genre, setGenre] = useState("");
@@ -21,6 +20,7 @@ const EditMovieForm = ({ movie }) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     setHasSubmitted(true);
+    const errors = {}
     if (valErrors.length) return alert("Your form has errors.");
 
     const formData = new FormData();
@@ -32,7 +32,7 @@ const EditMovieForm = ({ movie }) => {
     formData.append("image", image);
     formData.append("trailer", trailer);
     formData.append("id", movie.id);
-
+    setValErrors(errors)
 
     await dispatch(editMovieThunk(formData));
 
