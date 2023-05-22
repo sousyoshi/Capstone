@@ -19,6 +19,7 @@ class Movie(db.Model):
         add_prefix_for_prod('users.id')))
 
     creator = db.relationship('User', back_populates='movies')
+    review = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -30,6 +31,4 @@ class Movie(db.Model):
             'image': self.image,
             'trailer': self.trailer,
             'creatorId': self.creator_id
-
-
-        }
+ }

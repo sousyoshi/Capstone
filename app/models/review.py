@@ -15,7 +15,10 @@ class Review(db.Model):
     review = db.Column(db.TEXT, nullable=False)
     stars = db.Column(db.Integer)
 
+    user = db.relationship('User', back_populates='reviews')
+    movie = db.relationship('Movie', back_populates='review')
 
+    
     def to_dict(self):
         return {
             'id': self.id,

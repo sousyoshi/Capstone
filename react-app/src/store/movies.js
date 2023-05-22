@@ -66,9 +66,8 @@ export const deleteMovieThunk = (movieId) => async (dispatch) => {
     method: "DELETE",
   });
   if (res.ok) {
-
     dispatch(deleteOneMovieAction(movieId));
-    return { 'message': "successful" };
+    return { message: "successful" };
   }
 };
 
@@ -101,7 +100,6 @@ const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_MOVIES: {
       const newState = { ...state };
-      console.log(action);
       action.movies.forEach((movie) => {
         newState[movie.id] = movie;
       });
@@ -117,7 +115,12 @@ const movieReducer = (state = initialState, action) => {
       delete newState[action.movieId];
       return newState;
     }
-    case GET_ONE_MOVIE:
+    case GET_ONE_MOVIE: {
+      const newState = { ...state };
+      newState[action.movie.id] = action.movie;
+      return newState;
+    }
+    case EDIT_MOVIE:
       const newState = { ...state };
       newState[action.movie.id] = action.movie;
       return newState;
