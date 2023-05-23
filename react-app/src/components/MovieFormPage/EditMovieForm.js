@@ -2,6 +2,7 @@ import {  useState } from "react";
 import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editMovieThunk } from "../../store/movies";
+import './movieform.css'
 
 const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
@@ -58,46 +59,46 @@ const EditMovieForm = ({ movie }) => {
           </ul>
         </div>
       )}{" "}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="movieform" onSubmit={handleSubmit} encType="multipart/form-data">
         <fieldset>
           <label>
             {" "}
             Movie Title
-            <input placeholder={movie.title} type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input  type="text" value={movie.title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
           <div>
             <label>
               {" "}
-              Description
-              <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-            </label>
+              Synopsis: </label>
+              <textarea minLength={10} rows={10} cols={50}   type="text" value={movie.description} onChange={(e) => setDescription(e.target.value)} />
+
           </div>
           <div>
             <label>
               {" "}
               Genre
-              <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
+              <input type="text" value={movie.genre} onChange={(e) => setGenre(e.target.value)} />
             </label>
           </div>
           <div>
             <label>
               {" "}
               Release Year
-              <input type="number" min={"1900"} max={2023} value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
+              <input type="number" min={"1900"} max={2023} value={movie.releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
             </label>
           </div>
           <div>
             <label>
               {" "}
               Image
-              <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+              <input type="text" value={movie.image} onChange={(e) => setImage(e.target.value)} />
             </label>
           </div>
           <div>
             <label>
               {" "}
               Trailer
-              <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
+              <input type="text" value={movie.trailer} onChange={(e) => setTrailer(e.target.value)} />
             </label>
           </div>
           <button type="submit">Update Movie</button>
