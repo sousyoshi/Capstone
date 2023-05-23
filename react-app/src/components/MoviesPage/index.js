@@ -51,7 +51,7 @@ function MoviesPage() {
 
   const MyCarousel = () => {
     return (
-      <Carousel  responsive={responsive} draggable={true}  showDots={true}>
+      <Carousel  responsive={responsive}  showDots={true}>
         {movies.map((movie) => {
           return (
             <Link to={`/movies/${movie.id}`}>
@@ -63,6 +63,11 @@ function MoviesPage() {
       </Carousel>
     );
   };
+
+
+
+
+
   return <>{<MyCarousel />}</>;
 }
 

@@ -7,12 +7,12 @@ const DeleteMovieModal = ({ movie }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { closeModal } = useModal();
-  
+
   const deleteMovie = async (e) => {
     e.preventDefault();
-    await dispatch(deleteMovieThunk(movie.id));
-
+    dispatch(deleteMovieThunk(movie.id));
     history.push("/");
+
     closeModal();
   };
 

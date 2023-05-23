@@ -30,5 +30,8 @@ class Movie(db.Model):
             'releaseYear': self.release_year,
             'image': self.image,
             'trailer': self.trailer,
-            'creatorId': self.creator_id
+            'creatorId': self.creator_id,
+            'review' : [review.to_dict() for review in self.review],
+            'creator': self.creator.to_dict()
+
  }

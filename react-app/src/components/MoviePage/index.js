@@ -7,6 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteMovieModal from "../DeleteMovieModal";
 import ReviewFormPage from "../ReviewFormPage";
 import { getAllReviewsThunk } from "../../store/reviews";
+import ReactPlayer from 'react-player'
 
 const MoviePage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const MoviePage = () => {
     <>
       {" "}
       <h1>{movie.title}</h1>
+      <ReactPlayer url={movie.trailer}></ReactPlayer>
       <img alt="poster" src={movie.image} />
       <OpenModalButton buttonText={"Edit your movie"} modalComponent={<EditMovieForm movie={movie} />} />
       <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal movie={movie} />} />
