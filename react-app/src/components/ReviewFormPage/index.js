@@ -1,43 +1,36 @@
 import { createReviewThunk } from "../../store/reviews";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useHistory} from 'react-router-dom'
-import './reviewform.css'
 
+import "./reviewform.css";
+import { getOneMovieThunk } from "../../store/movies";
 
 const ReviewFormPage = ({ movie }) => {
-    const history = useHistory()
   const dispatch = useDispatch();
-
+  const { closeModal } = useModal();
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [hover, setHover] = useState(0);
-//   const sessionUser = useSelector((state) => state.session.user);
-//   const { closeModal } = useModal();
+
 
   useEffect(() => {
     setStars(stars);
     setReview(review);
-
-
   }, [stars, review]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const reviewFormData = new FormData()
-    reviewFormData.append('stars', stars )
-    reviewFormData.append('review', review)
-    reviewFormData.append('movieId', movie.id)
+    e.preventDefault();
+    const reviewFormData = new FormData();
+    reviewFormData.append("stars", stars);
+    reviewFormData.append("review", review);
+    reviewFormData.append("movieId", movie.id);
 
-    for(let keys of reviewFormData){
-        console.log(keys)
-    }
-    await dispatch(createReviewThunk(reviewFormData))
-    history.push(`/api/movies/${movie.id}`)
-}
-
-
+    await dispatch(createReviewThunk(reviewFormData));
+    dispatch(getOneMovieThunk(movie.id));
+    closeModal();
+    
+  };
 
   const starRating = () => {
     return (
@@ -53,7 +46,6 @@ const ReviewFormPage = ({ movie }) => {
               onMouseLeave={() => setHover(stars)}
             >
               {console.log(i)}
-              h
             </div>
           );
         })}
@@ -70,13 +62,11 @@ const ReviewFormPage = ({ movie }) => {
         <div className="rating-input"></div>
         {starRating()}
         <p>Stars</p>
-        <button type="submit" disabled={!review || !stars}>Submit Your Review</button>
+        <button type="submit" disabled={!review || !stars}>
+          Submit Your Review
+        </button>
       </form>
     </>
   );
-
-
-
-
 };
 export default ReviewFormPage;

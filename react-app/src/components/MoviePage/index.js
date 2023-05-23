@@ -9,16 +9,17 @@ import ReviewFormPage from "../ReviewFormPage";
 import { getAllReviewsThunk } from "../../store/reviews";
 import ReactPlayer from "react-player";
 import "./moviepage.css";
+import ReviewDisplayer from "../ReviewDisplayer";
 
 const MoviePage = () => {
   const dispatch = useDispatch();
   const { movieId } = useParams();
   const movie = useSelector((state) => state.movies[movieId]);
-  const reviewsArr = useSelector((state) => Object.values(state.reviews));
 
-  const reviews = reviewsArr.filter((review) => review.movieId !== movie.id);
 
-  console.log("this is the thing", reviews);
+
+
+
   useEffect(() => {
     dispatch(getAllMoviesThunk());
     dispatch(getAllReviewsThunk());
@@ -40,6 +41,7 @@ const MoviePage = () => {
       <OpenModalButton buttonText={"Edit your movie"} modalComponent={<EditMovieForm movie={movie} />} />
       <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal movie={movie} />} />
       <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />
+      <ReviewDisplayer movie={movie} />
     </section>
   );
 };

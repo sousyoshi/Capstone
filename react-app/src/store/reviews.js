@@ -1,3 +1,5 @@
+import { getOneMovieThunk } from "./movies";
+
 const GET_ALL_REVIEWS = "reviews/getAll";
 const CREATE_REVIEW = "review/addOne";
 const DELETE_REVIEW = "review/delete";
@@ -55,11 +57,12 @@ export const createReviewThunk = (review) => async (dispatch) => {
 };
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
-  const res = await fetch(`/api/reviews/${reviewId}`, {
+  const res = await fetch(`/api/reviews/${reviewId}/delete`, {
     method: "DELETE",
   });
   if (res.ok) {
     dispatch(deleteReviewAction(reviewId));
+
     return { message: "successful" };
   }
 };

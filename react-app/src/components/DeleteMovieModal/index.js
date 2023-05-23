@@ -11,10 +11,10 @@ const DeleteMovieModal = ({ movie }) => {
 
   const deleteMovie = async (e) => {
     e.preventDefault();
-    dispatch(deleteMovieThunk(movie.id));
-    history.push("/");
+    await dispatch(deleteMovieThunk(movie.id));
 
     closeModal();
+    history.push("/");
   };
 
   return (
