@@ -40,7 +40,7 @@ function MoviesPage() {
   //       <ul key={movie.id}>
   //         {" "}
   //         <li>
-  //           {" "}
+  //           {" "}                                                                                       
   //           <Carousel responsive={responsive}>
   //             <img alt="poster" src={movie.image} />
   //           </Carousel>
@@ -55,9 +55,9 @@ function MoviesPage() {
       <Carousel  responsive={responsive}  showDots={true}>
         {movies.map((movie) => {
           return (
-            <Link to={`/movies/${movie.id}`}>
+            <Link key={movie.id} to={`/movies/${movie.id}`}>
               {" "}
-              <img className="carousel" alt="" src={movie.image} /> 
+              <img className="carousel" alt="" src={movie.image} />
             </Link>
           );
         })}
