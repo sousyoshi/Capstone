@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import React, {  useState, useEffect } from "react";
 import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editMovieThunk } from "../../store/movies";
@@ -7,21 +7,31 @@ import './movieform.css'
 const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [genre, setGenre] = useState("");
-  const [releaseYear, setReleaseYear] = useState(1900);
-  const [image, setImage] = useState("");
-  const [trailer, setTrailer] = useState("");
+  const [title, setTitle] = useState(movie.title);
+  const [description, setDescription] = useState(movie.description);
+  const [genre, setGenre] = useState(movie.genre);
+  const [releaseYear, setReleaseYear] = useState(movie.releaseYear);
+  const [image, setImage] = useState(movie.image);
+  const [trailer, setTrailer] = useState(movie.trailer);
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [valErrors, setValErrors] = useState({});
+  const [valErrors, setValErrors] = useState([]);
 
+  useEffect(() => {
 
+      const errors = [];
+      if (!title) errors.push("Please enter a movie title");
+      if (!description.length) errors.push("Please enter a synopsis");
+      if (!image.length) errors.push("Please provide an image");
+      if (!genre.length) errors.push("Please provide a genre");
+      if(!image.endsWith('.png') && !image.endsWith(".jpeg") && !image.endsWith('.jpg')) errors.push('Image URL must be end with png, jpeg, or jpg')
+      setValErrors(errors);
+
+  }, [title, description, image, genre]);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const errors = {}
+    const errors = []
     if (valErrors.length) return alert("Your form has errors.");
 
     const formData = new FormData();
@@ -54,7 +64,7 @@ const EditMovieForm = ({ movie }) => {
         <div>
           <ul>
             {valErrors.map((error) => (
-              <li key={error}>{error}</li>
+              <li className="errors" key={error}>{error}</li>
             ))}
           </ul>
         </div>
@@ -64,41 +74,41 @@ const EditMovieForm = ({ movie }) => {
           <label>
             {" "}
             Movie Title
-            <input  type="text" value={movie.title} onChange={(e) => setTitle(e.target.value)} />
+            <input  type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
           <div>
             <label>
               {" "}
               Synopsis: </label>
-              <textarea minLength={10} rows={10} cols={50}   type="text" value={movie.description} onChange={(e) => setDescription(e.target.value)} />
+              <textarea minLength={10} rows={10} cols={50}   type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
 
           </div>
           <div>
             <label>
               {" "}
               Genre
-              <input type="text" value={movie.genre} onChange={(e) => setGenre(e.target.value)} />
+              <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
             </label>
           </div>
           <div>
             <label>
               {" "}
               Release Year
-              <input type="number" min={"1900"} max={2023} value={movie.releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
+              <input type="number" min={"1900"} max={2023} value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
             </label>
           </div>
           <div>
             <label>
               {" "}
               Image
-              <input type="text" value={movie.image} onChange={(e) => setImage(e.target.value)} />
+              <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
             </label>
           </div>
           <div>
             <label>
               {" "}
               Trailer
-              <input type="text" value={movie.trailer} onChange={(e) => setTrailer(e.target.value)} />
+              <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
             </label>
           </div>
           <button type="submit">Update Movie</button>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory} from 'react-router-dom'
+import './reviewform.css'
 
 
 const ReviewFormPage = ({ movie }) => {
