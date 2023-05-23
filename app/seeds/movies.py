@@ -19,12 +19,28 @@ def seed_movies():
                      trailer='https://www.youtube.com/watch?v=qo5jJpHtI1Y',
                      creator_id=1)
 
+    film_three = Movie(title='Amadeus',
+                     description="The life, success and troubles of Wolfgang Amadeus Mozart, as told by Antonio Salieri, the contemporaneous composer who was deeply jealous of Mozart's talent and claimed to have murdered him.",
+                     genre='Drama',
+                     release_year=1984,
+                     image='https://posters.movieposterdb.com/21_12/1984/86879/s_86879_2e87a3a0.jpg',
+                     trailer='https://www.youtube.com/watch?v=r7kWQj9FCGY&pp=ygUPYW1hZGV1cyB0cmFpbGVy',
+                     creator_id=1)
 
 
 
 
 
-    db.session.add_all([film_one, film_two])
+
+
+
+
+
+
+
+
+
+    db.session.add_all([film_one, film_two, film_three])
     db.session.commit()
 
 

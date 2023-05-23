@@ -1,10 +1,10 @@
 from flask import Blueprint, request
-from app.models import Movie
+from app.models import Movie, Review
 from flask_login import login_required, current_user
 from ..models import db
 from ..forms.movie_form import NewMovie
 from ..forms.edit_movie_form import EditMovie
-
+from ..forms.review_form import NewReview
 
 movie_routes = Blueprint('movies', __name__)
 
@@ -56,7 +56,7 @@ def edit_movie(id):
     movie = Movie.query.get(id)
     form = EditMovie()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("this the inside of the backend route=>>>>>>>>>>>>>>>>>>>>>>>>", form.data)
+
     if form.validate_on_submit():
 
         movie.title=form.data['title']
@@ -85,3 +85,25 @@ def delete_movie(id):
         return "Movie deleted"
     else:
         return 'Unauthorized user!'
+
+
+@movie_routes.route('/<int:id>/reviews', methods=['POST'])
+@login_required
+def add_review(id):
+
+    form = NewReview()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print('++++++++++++++++++++++++>>>>>>>>>>', form.data)
+
+    if form.validate_on_submit():
+        new_review = Review(
+            user_id = current_user.id,
+            review = form.data['review'],
+            stars = form.data['stars'],
+            movie_id = id)
+        db.session.add(new_review)
+        db.session.commit()
+        return new_review.to_dict()
+
+
+    return {'errors': form.errors}
