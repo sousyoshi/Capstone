@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteMovieThunk } from "../../store/movies";
 import { useHistory } from "react-router-dom";
+import './deletemovie.css'
 
 const DeleteMovieModal = ({ movie }) => {
   const dispatch = useDispatch();

@@ -2,6 +2,7 @@ import {  useState } from "react";
 import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editMovieThunk } from "../../store/movies";
+import './movieform.css'
 
 const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const EditMovieForm = ({ movie }) => {
           </ul>
         </div>
       )}{" "}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="movieform" onSubmit={handleSubmit} encType="multipart/form-data">
         <fieldset>
           <label>
             {" "}
@@ -68,9 +69,9 @@ const EditMovieForm = ({ movie }) => {
           <div>
             <label>
               {" "}
-              Description
-              <textarea   type="text" value={movie.description} onChange={(e) => setDescription(e.target.value)} />
-            </label>
+              Synopsis: </label>
+              <textarea minLength={10} rows={10} cols={50}   type="text" value={movie.description} onChange={(e) => setDescription(e.target.value)} />
+
           </div>
           <div>
             <label>

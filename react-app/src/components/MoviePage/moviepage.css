@@ -1,0 +1,20 @@
+section{
+    display: flex;
+   flex-direction: column;
+
+
+}
+
+.trailer{
+display: grid;
+grid-template-columns: 2fr 2fr ;
+}
+
+.plot{
+    margin: 0 20px;
+    text-align: justify;
+}
+
+.movietitle, h2{
+    text-align: center;
+}
