@@ -14,20 +14,21 @@ const MovieFormPage = () => {
   const [image, setImage] = useState("");
   const [trailer, setTrailer] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [valErrors, setValErrors] = useState({});
+  const [valErrors, setValErrors] = useState([]);
 
 
 
   useEffect(() => {
-    if (hasSubmitted) {
-      const errors = {};
-      if (!title.length) errors.title = "Please enter a movie title";
-      if (!description.length) errors.description = "Please enter a synopsis";
-      if (!image.length) errors.image = "Please provide an image";
-      if (!genre.length) errors.genre = "Please provide a genre";
+
+      const errors = [];
+      if (!title) errors.push("Please enter a movie title");
+      if (!description.length) errors.push("Please enter a synopsis");
+      if (!image.length) errors.push("Please provide an image");
+      if (!genre.length) errors.push("Please provide a genre");
+      if(!image.endsWith('.png') && !image.endsWith(".jpeg") && !image.endsWith('.jpg')) errors.push('Image URL must be end with png, jpeg, or jpg')
       setValErrors(errors);
-    }
-  }, [title, description, image, hasSubmitted, genre]);
+
+  }, [title, description, image, genre]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +45,7 @@ const MovieFormPage = () => {
 
 
       const newMovie = await dispatch(createMovieThunk(formData));
-      history.push(`/movies/${newMovie.id}`);
+
 
 
 
@@ -55,6 +56,9 @@ const MovieFormPage = () => {
       setImage("");
       setTrailer("");
       setHasSubmitted(false);
+
+
+      if(newMovie) history.push(`/movies/${newMovie.id}`);
 
 
   };
@@ -82,7 +86,7 @@ const MovieFormPage = () => {
             <label>
               {" "}
               Description
-              <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <textarea placeholder='Movie synopsis' value={description} onChange={(e) => setDescription(e.target.value)} > </textarea>
             </label>
           </div>
           <div>
@@ -113,7 +117,7 @@ const MovieFormPage = () => {
               <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
             </label>
           </div>
-          <button type="submit">"Create Movie"</button>
+          <button type="submit">Create Movie</button>
         </fieldset>
       </form>
     </>

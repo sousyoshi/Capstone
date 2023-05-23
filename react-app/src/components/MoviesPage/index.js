@@ -4,6 +4,7 @@ import { getAllMoviesThunk } from "../../store/movies";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import './moviespage.css'
 
 function MoviesPage() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function MoviesPage() {
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2
+      items: 4
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -51,20 +52,24 @@ function MoviesPage() {
 
   const MyCarousel = () => {
     return (
-      <Carousel  responsive={responsive} draggable={true}  showDots={true}>
+      <Carousel  responsive={responsive}  showDots={true}>
         {movies.map((movie) => {
           return (
             <Link to={`/movies/${movie.id}`}>
               {" "}
-
-              <img className="carousel" alt="" src={movie.image} />
+              <img className="carousel" alt="" src={movie.image} /> 
             </Link>
           );
         })}
       </Carousel>
     );
   };
-  return <>{<MyCarousel />}</>;
+
+
+
+
+
+  return <main>{<MyCarousel className='myCaro' />}</main>;
 }
 
 export default MoviesPage;
