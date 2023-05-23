@@ -1,37 +1,32 @@
-import { createReviewThunk } from "../../store/reviews";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { editReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-
-import "./reviewform.css";
 import { getOneMovieThunk } from "../../store/movies";
 
-const ReviewFormPage = ({ movie}) => {
+const EditReviewForm = ({ review, movie }) => {
   const dispatch = useDispatch();
-  const { closeModal } = useModal();
-  const [review, setReview] = useState("");
-  const [stars, setStars] = useState(0);
+  const [review2, setReview2] = useState(review.review);
+  const [stars, setStars] = useState(review.stars);
   const [hover, setHover] = useState(0);
-
+  const {closeModal} = useModal()
 
   useEffect(() => {
     setStars(stars);
-    setReview(review);
-  }, [stars, review]);
+    setReview2(review2);
+  }, [stars, review2]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const reviewFormData = new FormData();
     reviewFormData.append("stars", stars);
     reviewFormData.append("review", review);
-    reviewFormData.append("movieId", movie.id);
+    reviewFormData.append('movieId', movie.id)
 
-    await dispatch(createReviewThunk(reviewFormData));
-    dispatch(getOneMovieThunk(movie.id));
-    closeModal();
-
+    await dispatch(editReviewThunk(reviewFormData));
+    dispatch(getOneMovieThunk(movie.id))
+    closeModal()
   };
-
   const starRating = () => {
     return (
       <div className="rating">
@@ -45,7 +40,7 @@ const ReviewFormPage = ({ movie}) => {
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(stars)}
             >
-             <i class="fa-solid fa-film-canister"></i>
+             <i class="fa-regular fa-star"></i>
             </div>
           );
         })}
@@ -58,7 +53,7 @@ const ReviewFormPage = ({ movie}) => {
       {" "}
       <h1>What did you think of the movie?</h1>
       <form onSubmit={handleSubmit}>
-        <textarea placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
+        <textarea placeholder="Just a quick review"  onChange={(e) => setReview2(e.target.value)}></textarea>
         <div className="rating-input"></div>
         {starRating()}
         <p>Stars</p>
@@ -69,4 +64,5 @@ const ReviewFormPage = ({ movie}) => {
     </>
   );
 };
-export default ReviewFormPage;
+
+export default EditReviewForm;
