@@ -51,8 +51,8 @@ const EditReviewForm = ({ review, movie }) => {
   return (
     <>
       {" "}
-  
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit} encType="mulitpart/form-data">
         <textarea placeholder="Just a quick review"  onChange={(e) => setReview2(e.target.value)}></textarea>
         <div className="rating-input"></div>
         {starRating()}

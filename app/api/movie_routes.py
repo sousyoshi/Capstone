@@ -36,12 +36,12 @@ def add_movie():
 
         movie = Movie(
             title=form.data['title'], creator_id=current_user.id,
-            description = form.data['description'],
-            genre = form.data['genre'],
-            release_year = form.data['release_year'],
-            image = form.data['image'],
-            trailer = form.data['trailer']
-              )
+            description=form.data['description'],
+            genre=form.data['genre'],
+            release_year=form.data['release_year'],
+            image=form.data['image'],
+            trailer=form.data['trailer']
+        )
         db.session.add(movie)
         db.session.commit()
         return movie.to_dict()
@@ -59,19 +59,17 @@ def edit_movie(id):
 
     if form.validate_on_submit():
 
-        movie.title=form.data['title']
+        movie.title = form.data['title']
         movie.description = form.data['description']
         movie.genre = form.data['genre']
         movie.release_year = form.data['release_year']
         movie.image = form.data['image']
         movie.trailer = form.data['trailer']
 
-
         db.session.commit()
         return movie.to_dict()
 
     return {'errors': form.errors}
-
 
 
 @movie_routes.route('/<int:id>/delete', methods=['DELETE'])
@@ -90,20 +88,21 @@ def delete_movie(id):
 @movie_routes.route('/<int:id>/reviews', methods=['POST'])
 @login_required
 def add_review(id):
-
+    if len(current_user.reviews) == 1:
+        return
     form = NewReview()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('++++++++++++++++++++++++>>>>>>>>>>', form.data)
+
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', (current_user.reviews))
 
     if form.validate_on_submit():
         new_review = Review(
-            user_id = current_user.id,
-            review = form.data['review'],
-            stars = form.data['stars'],
-            movie_id = id)
+            user_id=current_user.id,
+            review=form.data['review'],
+            stars=form.data['stars'],
+            movie_id=id)
         db.session.add(new_review)
         db.session.commit()
         return new_review.to_dict()
-
 
     return {'errors': form.errors}
