@@ -90,11 +90,11 @@ const MovieFormPage = () => {
             </label>
           </div>
           <div>
-            <label>
+        
               {" "}
               Genre
-              <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
-            </label>
+              <select type="text" value={genre} onChange={(e) => setGenre(e.target.value)} >
+            </select>
           </div>
           <div>
             <label>

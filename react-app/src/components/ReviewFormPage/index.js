@@ -45,7 +45,7 @@ const ReviewFormPage = ({ movie}) => {
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(stars)}
             >
-             <i class="fa-solid fa-film-canister"></i>
+             <i className="fa-solid fa-film-canister"></i>
             </div>
           );
         })}

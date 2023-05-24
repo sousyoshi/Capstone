@@ -29,7 +29,7 @@ const MoviePage = () => {
       <h1 className="movietitle">
         {movie.title} ({movie.releaseYear})
       </h1>
-      <h2>{movie.genre}</h2>
+
       <div className="trailer">
         <img alt="poster" src={movie.image} />
         <ReactPlayer url={movie.trailer}></ReactPlayer>
