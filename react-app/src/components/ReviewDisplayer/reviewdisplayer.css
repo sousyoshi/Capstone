@@ -1,5 +1,5 @@
 .reviewDiv{
     display: flex;
-    justify-content: space-around;
+    
     border: 2px solid black;
 }

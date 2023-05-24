@@ -35,7 +35,7 @@ def edit_review(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        review.rating = form.data['rating']
+        review.review = form.data['review']
         review.stars = form.data['stars']
 
         db.session.commit()

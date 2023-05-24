@@ -14,7 +14,7 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
     review = db.Column(db.TEXT, nullable=False)
     stars = db.Column(db.Integer)
-    
+
 
     user = db.relationship('User', back_populates='reviews')
     movie = db.relationship('Movie', back_populates='review')
@@ -26,5 +26,6 @@ class Review(db.Model):
             'movieId': self.movie_id,
             'userId': self.user_id,
             'review': self.review,
-            'stars': self.stars
+            'stars': self.stars,
+            'user' : self.user.to_dict()
         }

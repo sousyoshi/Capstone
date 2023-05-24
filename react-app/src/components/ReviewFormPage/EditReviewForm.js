@@ -20,8 +20,8 @@ const EditReviewForm = ({ review, movie }) => {
     e.preventDefault();
     const reviewFormData = new FormData();
     reviewFormData.append("stars", stars);
-    reviewFormData.append("review", review);
-    reviewFormData.append('movieId', movie.id)
+    reviewFormData.append("review", review2);
+    reviewFormData.append('id', review.id)
 
     await dispatch(editReviewThunk(reviewFormData));
     dispatch(getOneMovieThunk(movie.id))
@@ -40,7 +40,7 @@ const EditReviewForm = ({ review, movie }) => {
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(stars)}
             >
-             <i class="fa-regular fa-star"></i>
+             <i className="fa-regular fa-star"></i>
             </div>
           );
         })}
@@ -51,7 +51,7 @@ const EditReviewForm = ({ review, movie }) => {
   return (
     <>
       {" "}
-      <h1>What did you think of the movie?</h1>
+  
       <form onSubmit={handleSubmit}>
         <textarea placeholder="Just a quick review"  onChange={(e) => setReview2(e.target.value)}></textarea>
         <div className="rating-input"></div>
