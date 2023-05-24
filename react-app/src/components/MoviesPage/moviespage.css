@@ -4,11 +4,16 @@ main {
  height: min-content;
 
 
+
 }
 
 .carousel{
     width: 200px;
     height: 300px;
+}
+
+.carousel:hover{
+  border: 2px solid black;
 }
 
 .movieform{

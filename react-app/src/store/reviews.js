@@ -1,4 +1,4 @@
-import { getOneMovieThunk } from "./movies";
+
 
 const GET_ALL_REVIEWS = "reviews/getAll";
 const CREATE_REVIEW = "review/addOne";
@@ -69,11 +69,14 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
 
 export const editReviewThunk = review => async dispatch => {
   const reviewId = +review.get('id')
-  const res = await fetch(`/api/reviews/${reviewId}/edit`)
+  const res = await fetch(`/api/reviews/${reviewId}/edit`, {
+    method: 'PUT',
+    body: review
+  })
   if (res.ok){
-    const review = await res.json()
-    dispatch(editReviewAction(review))
-    return review
+    const newReview = await res.json()
+    dispatch(editReviewAction(newReview))
+    return newReview
   }
 }
 

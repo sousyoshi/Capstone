@@ -14,7 +14,7 @@ function Navigation({ isLoaded }){
 			</li>
 			{isLoaded && (
 				<li>
-					<NavLink className='newMovie' exact to='/movies/new'>Create a new movie</NavLink>
+					{sessionUser && <NavLink className='newMovie' exact to='/movies/new'>Create a new movie</NavLink>}
 					<ProfileButton user={sessionUser} />
 				</li>
 			)}
