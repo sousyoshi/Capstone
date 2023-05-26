@@ -9,7 +9,7 @@ from ..forms.review_form import NewReview
 movie_routes = Blueprint('movies', __name__)
 
 
-@movie_routes.route('/')
+@movie_routes.route('')
 def movies():
     """
     Query for all movies

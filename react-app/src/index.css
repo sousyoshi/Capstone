@@ -3,6 +3,9 @@
     color: red
 }
 
-html{
-    background-color: black;
+html {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px;
+
 }

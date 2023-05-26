@@ -10,11 +10,11 @@ function Navigation({ isLoaded }){
 	return (
 		<ul className='navbar'>
 			<li>
-				<NavLink exact to="/">Home</NavLink>
+				<NavLink exact to="/main"><img alt='logo' src='flickpicks.png'></img></NavLink>
 			</li>
 			{isLoaded && (
 				<li>
-					{sessionUser && <NavLink className='newMovie' exact to='/movies/new'>Create a new movie</NavLink>}
+
 					<ProfileButton user={sessionUser} />
 				</li>
 			)}

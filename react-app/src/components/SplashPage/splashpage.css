@@ -1,0 +1,15 @@
+.container{
+  border: 2px solid black;
+width: 100%;
+
+
+}
+
+.loginForm{
+    border-radius: 20px;
+    border: 2px solid black;
+    height: auto;
+    color: black;
+    background-color: transparent;
+    height: 100%;
+}

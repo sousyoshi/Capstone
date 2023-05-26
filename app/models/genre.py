@@ -11,7 +11,7 @@ class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     genre = db.Column(db.String(50), nullable=False)
 
-    movie_genre = db.relationship('Movie', back_populates='genre_g')
+    movie_genre = db.relationship('Movie', back_populates='genre_')
 
     def to_dict(self):
         return {

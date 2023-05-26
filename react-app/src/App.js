@@ -9,6 +9,8 @@ import MoviesPage from "./components/MoviesPage";
 import MovieFormPage from "./components/MovieFormPage";
 import EditMovieForm from "./components/MovieFormPage/EditMovieForm";
 import MoviePage from "./components/MoviePage";
+import ReviewFormPage from "./components/ReviewFormPage";
+import SplashPage from "./components/SplashPage";
 
 
 function App() {
@@ -29,7 +31,7 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route exact path="/">
+          <Route exact path="/main">
             <MoviesPage />
           </Route>
           <Route exact path="/movies/new">
@@ -40,6 +42,12 @@ function App() {
           </Route>
           <Route exact path="/movies/:movieId">
             <MoviePage />
+          </Route>
+          <Route exact path="/movies/:movieId/review">
+            <ReviewFormPage />
+          </Route>
+          <Route exact path="/">
+            <SplashPage />
           </Route>
         </Switch>
       )}
