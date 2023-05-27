@@ -32,7 +32,7 @@ function MoviesPage() {
       items: 1,
     },
   };
-
+  if(!movies) return <h1>LOADING....</h1>
   const movieGenresMapped = movies.reduce((acc, movie) => {
     acc[movie.genreStr] ? (acc[movie.genreStr] = [...acc[movie.genreStr], movie]) : (acc[movie.genreStr] = [movie]);
     return acc;
@@ -69,7 +69,7 @@ function MoviesPage() {
     return Object.keys(movieGenresMapped).map((genreStr, i) => {
       return (
         <div key={movies[i].id}>
-     
+
           <h3>{genreStr}</h3>
 
           <Carousel responsive={responsive} showDots={true} infinite>

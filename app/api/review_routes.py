@@ -9,7 +9,7 @@ from ..forms.edit_review_form import EditReview
 review_routes = Blueprint('reviews', __name__)
 
 
-@review_routes.route('')
+@review_routes.route('/')
 def reviews():
     """ Query for all reviews"""
     reviews = Review.query.all()
