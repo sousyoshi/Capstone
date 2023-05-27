@@ -14,7 +14,7 @@ const DeleteMovieModal = ({ movie }) => {
     await dispatch(deleteMovieThunk(movie.id));
 
     closeModal();
-    history.push("/");
+    history.push("/main");
   };
 
   return (

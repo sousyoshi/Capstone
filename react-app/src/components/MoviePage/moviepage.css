@@ -1,20 +1,26 @@
-section{
-    display: flex;
-   flex-direction: column;
-
-
+section {
+  display: flex;
+  flex-direction: column;
+  width: 0 auto;
+  margin: 20px;
 }
 
-.trailer{
-display: grid;
-grid-template-columns: 2fr 2fr ;
+.trailer {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 2fr 2fr;
+  width: 0 auto;
 }
 
-.plot{
-    margin: 0 20px;
-    text-align: justify;
+.plot {
+  margin: 0 20px;
+  text-align: left;
+  border: 2px solid white;
+  width: 200px;
 }
 
-.movietitle, h2{
-    text-align: center;
+.movietitle,
+h2 {
+  text-align: center;
 }

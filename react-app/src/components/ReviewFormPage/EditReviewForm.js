@@ -9,7 +9,7 @@ const EditReviewForm = ({ review, movie }) => {
   const [review2, setReview2] = useState(review.review);
   const [stars, setStars] = useState(review.stars);
   const [hover, setHover] = useState(0);
-  const {closeModal} = useModal()
+  const { closeModal } = useModal();
 
   useEffect(() => {
     setStars(stars);
@@ -21,11 +21,11 @@ const EditReviewForm = ({ review, movie }) => {
     const reviewFormData = new FormData();
     reviewFormData.append("stars", stars);
     reviewFormData.append("review", review2);
-    reviewFormData.append('id', review.id)
+    reviewFormData.append("id", review.id);
 
     await dispatch(editReviewThunk(reviewFormData));
-    dispatch(getOneMovieThunk(movie.id))
-    closeModal()
+    dispatch(getOneMovieThunk(movie.id));
+    closeModal();
   };
   const starRating = () => {
     return (
@@ -35,12 +35,13 @@ const EditReviewForm = ({ review, movie }) => {
           return (
             <div
               key={i}
+
               className={i <= (hover || stars) ? "filled" : "empty"}
               onClick={() => setStars(i)}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(stars)}
             >
-             <i className="fa-regular fa-star"></i>
+              <i className="fa-regular fa-star"></i>
             </div>
           );
         })}
@@ -51,9 +52,8 @@ const EditReviewForm = ({ review, movie }) => {
   return (
     <>
       {" "}
-
       <form onSubmit={handleSubmit} encType="mulitpart/form-data">
-        <textarea placeholder="Just a quick review"  onChange={(e) => setReview2(e.target.value)}></textarea>
+        <textarea value={review2} placeholder="Just a quick review" onChange={(e) => setReview2(e.target.value)}></textarea>
         <div className="rating-input"></div>
         {starRating()}
         <p>Stars</p>
