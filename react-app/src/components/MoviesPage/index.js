@@ -10,22 +10,22 @@ import "./moviespage.css";
 
 function MoviesPage() {
   const dispatch = useDispatch();
+  const movies = useSelector((state) => Object.values(state.movies));
 
   useEffect(() => {
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
-  const movies = useSelector((state) => Object.values(state.movies));
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 4,
-      slidesToSlide: 3
+      slidesToSlide: 3,
     },
     tablet: {
       breakpoint: { max: 1024, min: 960 },
       items: 3,
-      slidesToSlide: 3
+      slidesToSlide: 3,
     },
     mobile: {
       breakpoint: { max: 960, min: 0 },
@@ -38,6 +38,7 @@ function MoviesPage() {
     return acc;
   }, {});
 
+
   const reviewLink = (movie) => {
     return <OpenReviewModal modalComponent={<ReviewFormPage movie={movie} />} />;
   };
@@ -46,17 +47,16 @@ function MoviesPage() {
     return (
       <>
         <h2>All films</h2>
-        <Carousel className="mainCaro" responsive={responsive} infinite itemClass="carousel-item-padding-40-px"  >
+        <Carousel className="mainCaro" responsive={responsive} infinite itemClass="carousel-item-padding-40-px">
           {movies.map((movie) => {
             return (
-              <div>
+              <div key={movie.id}>
                 {" "}
                 <Link key={movie.id} to={`/movies/${movie.id}`}>
                   {" "}
                   <img className="carousel" alt="" src={movie.image} title={movie.title} />
                 </Link>
-                <div></div>
-                <div>{}</div>
+
               </div>
             );
           })}
@@ -66,28 +66,27 @@ function MoviesPage() {
   };
 
   const GenreCarousel = () => {
-    return Object.keys(movieGenresMapped).map((genreStr) => {
+    return Object.keys(movieGenresMapped).map((genreStr, i) => {
       return (
-        <>
+        <div key={movies[i].id}>
+     
           <h3>{genreStr}</h3>
 
           <Carousel responsive={responsive} showDots={true} infinite>
             {movieGenresMapped[genreStr].map((movie) => {
               return (
-                <>
-                  <Link key={movie.id} to={`/movies/${movie.id}`}>
-                    {" "}
-                    <img className="carousel" alt="" src={movie.image} title={movie.title} />
-                  </Link>
+                <Link key={movie.id} to={`/movies/${movie.id}`}>
+                  {" "}
+                  <img className="carousel" alt="" src={movie.image} title={movie.title} />
                   <div>
                     {reviewLink(movie)}
                     {movie.title}
                   </div>
-                </>
+                </Link>
               );
             })}
           </Carousel>
-        </>
+        </div>
       );
     });
   };
