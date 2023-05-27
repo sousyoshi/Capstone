@@ -26,6 +26,6 @@ def undo_genres():
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.genres RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM movies"))
+        db.session.execute(text("DELETE FROM genres"))
 
     db.session.commit()

@@ -43,8 +43,7 @@ export const getAllMoviesThunk = () => async (dispatch) => {
   const res = await fetch("/api/movies");
   if (res.ok) {
     const { movies } = await res.json();
-    console.log("movies", movies);
-    dispatch(getAllMoviesAction(movies));
+    await dispatch(getAllMoviesAction(movies));
     return movies;
   }
 };

@@ -1,5 +1,7 @@
+from email.policy import default
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy.schema import ForeignKey
+from sqlalchemy.sql import func
 
 
 class Review(db.Model):
@@ -14,6 +16,8 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('users.id')))
     review = db.Column(db.TEXT, nullable=False)
     stars = db.Column(db.Integer)
+    created_at = db.Column(db.DateTime, default=func.now())
+
 
 
     user = db.relationship('User', back_populates='reviews')
@@ -27,5 +31,7 @@ class Review(db.Model):
             'userId': self.user_id,
             'review': self.review,
             'stars': self.stars,
-            'user' : self.user.to_dict()
+            'user' : self.user.username,
+            'createdAt': self.created_at
+
         }
