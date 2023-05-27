@@ -16,18 +16,15 @@ const MovieFormPage = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [valErrors, setValErrors] = useState([]);
 
-
-
   useEffect(() => {
-
-      const errors = [];
-      if (!title) errors.push("Please enter a movie title");
-      if (!description.length) errors.push("Please enter a synopsis");
-      if (!image.length) errors.push("Please provide an image");
-      if (!genre.length) errors.push("Please provide a genre");
-      if(!image.endsWith('.png') && !image.endsWith(".jpeg") && !image.endsWith('.jpg')) errors.push('Image URL must be end with png, jpeg, or jpg')
-      setValErrors(errors);
-
+    const errors = [];
+    if (!title) errors.push("Please enter a movie title");
+    if (!description.length) errors.push("Please enter a synopsis");
+    if (!image.length) errors.push("Please provide an image");
+    if (!genre.length) errors.push("Please provide a genre");
+    if (!image.endsWith(".png") && !image.endsWith(".jpeg") && !image.endsWith(".jpg"))
+      errors.push("Image URL must be end with png, jpeg, or jpg");
+    setValErrors(errors);
   }, [title, description, image, genre]);
 
   const handleSubmit = async (e) => {
@@ -43,24 +40,17 @@ const MovieFormPage = () => {
     formData.append("image", image);
     formData.append("trailer", trailer);
 
+    const newMovie = await dispatch(createMovieThunk(formData));
 
-      const newMovie = await dispatch(createMovieThunk(formData));
+    setTitle("");
+    setDescription("");
+    setGenre("");
+    setReleaseYear(1900);
+    setImage("");
+    setTrailer("");
+    setHasSubmitted(false);
 
-
-
-
-      setTitle("");
-      setDescription("");
-      setGenre("");
-      setReleaseYear(1900);
-      setImage("");
-      setTrailer("");
-      setHasSubmitted(false);
-
-
-      if(newMovie) history.push(`/movies/${newMovie.id}`);
-
-
+    if (newMovie) history.push(`/movies/${newMovie.id}`);
   };
 
   return (
@@ -86,15 +76,29 @@ const MovieFormPage = () => {
             <label>
               {" "}
               Description
-              <textarea placeholder='Movie synopsis' value={description} onChange={(e) => setDescription(e.target.value)} > </textarea>
+              <textarea placeholder="Movie synopsis" value={description} onChange={(e) => setDescription(e.target.value)}>
+                {" "}
+              </textarea>
             </label>
           </div>
           <div>
-            <label>
-              {" "}
-              Genre
-              <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
-            </label>
+            {" "}
+            Genre
+            <select name="genre" onChange={(e) => setGenre(e.target.value)}>
+              <option value={''}>Please select an option</option>
+              <option value={1}>Crime</option>
+              <option value={2}>Fantasy</option>
+              <option value={3}>Comedy</option>
+              <option value={4}>Adventure</option>
+              <option value={5}>Sci-Fi</option>
+              <option value={6}>Drama</option>
+              <option value={7}>Horror</option>
+              <option value={8}>Western</option>
+              <option value={9}>Animation</option>
+              <option value={10}>Thriller</option>
+              <option value={11}>Mystery</option>
+              <option value={12}>Super-hero</option>
+            </select>
           </div>
           <div>
             <label>

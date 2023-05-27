@@ -45,7 +45,7 @@ const ReviewFormPage = ({ movie}) => {
               onMouseEnter={() => setHover(i)}
               onMouseLeave={() => setHover(stars)}
             >
-             <i class="fa-solid fa-film-canister"></i>
+              <i className="fa-regular fa-star"></i>
             </div>
           );
         })}
@@ -57,7 +57,7 @@ const ReviewFormPage = ({ movie}) => {
     <>
       {" "}
       <h1>What did you think of the movie?</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="reviewForm" encType="multipart/form-data" onSubmit={handleSubmit}>
         <textarea placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
         <div className="rating-input"></div>
         {starRating()}

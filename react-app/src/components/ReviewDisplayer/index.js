@@ -6,13 +6,18 @@ import "./reviewdisplayer.css";
 const ReviewDisplayer = ({ movie, sessionUser }) => {
   const reviews = movie.review.map((review) => (
     <div key={review.id} className="reviewDiv">
-      <p>{review.review} {review?.user.username}</p>
-      { sessionUser && <div>  <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
-      <OpenModalButton buttonText={'Edit your review'} modalComponent={<EditReviewForm review={review} movie={movie} />} /></div>}
+      {console.log("REVIEWSSSSSSSSSSSSSSSSSSSS", review)}
 
+      {sessionUser && (
+        <div>
+          {" "}
+          <div>{review.review} {review.user} {review.createdAt.slice(0, 17)}</div>
+          <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
+          <OpenModalButton buttonText={"Edit your review"} modalComponent={<EditReviewForm review={review} movie={movie} />} />
+        </div>
+      )}
     </div>
   ));
-  
 
   return reviews;
 };

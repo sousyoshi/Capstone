@@ -1,65 +1,30 @@
-main {
- border: 2px solid black;
- padding: 20px 20px;
- height: min-content;
-
-
-
+.mainCarousel{
+  margin: 0 200px;
+  gap: 20px;
 }
 
 .carousel{
-    width: 200px;
-    height: 300px;
+  width: 150px;
+  height: 200px;
+
+
 }
 
 .carousel:hover{
+  box-shadow: 5px 5px 8px whitesmoke;
+ 
+
+}
+
+.carouselContainer{
+  max-height: 100%;
   border: 2px solid black;
 }
 
-.movieform{
-    display: flex;
-  justify-content: center;
-  align-items: center;
+.mainCaro{
+border: 5px dotted white;
+box-sizing: inherit;
 
-text-align: center;
-  width: 100%;
+
+
 }
-
-.movieform .textarea {
-    border-bottom: 2px solid black;
-    margin-bottom: 10px;
-}
-
-.movieform textarea {
-    margin-bottom: 10px;
-
-  }
-
-  .movieform h2 {
-    font-size: 28pt;
-
-  }
-  .movieform h3 {
-    font-size: 18pt;
-  }
-
-
-  .movieform .firstField {
-    margin: 0;
-    padding: 0;
-    border: none;
-    margin-bottom: 20px;
-  }
-
-  .movieform .firstField input {
-
-    margin: 0;
-    padding: 0;
-    height: 20px;
-  }
-
-  .movieform input {
-    width: 100%;
-    background-color: #e8f0fe;
-    margin: 5px;
-  }
