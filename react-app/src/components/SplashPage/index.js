@@ -15,7 +15,7 @@ export default function SplashPage() {
 
   const background = movies[0]?.image;
   const background2 = movies[1]?.image;
-  console.log("fffffffffffffffffffffff", background);
+ 
   return (
     <div className="container">
       <div
