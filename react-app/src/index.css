@@ -3,9 +3,12 @@
     color: red
 }
 
-html {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 10px;
+html,
+body {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px;
+  color: white;
+background-color: black;
 
 }

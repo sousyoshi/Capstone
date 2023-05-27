@@ -1,16 +1,30 @@
 .mainCarousel{
   margin: 0 200px;
+  gap: 20px;
 }
 
 .carousel{
-    width: 150px;
-    height: 200px;
+  width: 150px;
+  height: 200px;
+
+
 }
 
 .carousel:hover{
-  border: 2px solid black;
+  box-shadow: 5px 5px 8px whitesmoke;
+ 
+
 }
 
 .carouselContainer{
   max-height: 100%;
+  border: 2px solid black;
+}
+
+.mainCaro{
+border: 5px dotted white;
+box-sizing: inherit;
+
+
+
 }

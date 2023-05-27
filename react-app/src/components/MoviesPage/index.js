@@ -4,9 +4,9 @@ import { getAllMoviesThunk } from "../../store/movies";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "./moviespage.css";
 import ReviewFormPage from "../ReviewFormPage";
 import OpenReviewModal from "../OpenModalButton/OpenReviewModal";
+import "./moviespage.css";
 
 function MoviesPage() {
   const dispatch = useDispatch();
@@ -17,21 +17,18 @@ function MoviesPage() {
 
   const movies = useSelector((state) => Object.values(state.movies));
   const responsive = {
-    superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 2,
-    },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 4,
+      slidesToSlide: 3
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 4,
+      breakpoint: { max: 1024, min: 960 },
+      items: 3,
+      slidesToSlide: 3
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
+      breakpoint: { max: 960, min: 0 },
       items: 1,
     },
   };
@@ -47,23 +44,24 @@ function MoviesPage() {
 
   const MyCarousel = () => {
     return (
-      <Carousel itemClass="carousel-item-padding-40-px" responsive={responsive} showDots={true}>
-        {movies.map((movie) => {
-          return (
-            <div>
-              {" "}
-              <Link key={movie.id} to={`/movies/${movie.id}`}>
-                {" "}
-                <img className="carousel" alt="" src={movie.image} title={movie.title} />
-              </Link>
+      <>
+        <h2>All films</h2>
+        <Carousel className="mainCaro" responsive={responsive} infinite itemClass="carousel-item-padding-40-px"  >
+          {movies.map((movie) => {
+            return (
               <div>
-
+                {" "}
+                <Link key={movie.id} to={`/movies/${movie.id}`}>
+                  {" "}
+                  <img className="carousel" alt="" src={movie.image} title={movie.title} />
+                </Link>
+                <div></div>
+                <div>{}</div>
               </div>
-              <div>{}</div>
-            </div>
-          );
-        })}
-      </Carousel>
+            );
+          })}
+        </Carousel>
+      </>
     );
   };
 
@@ -73,7 +71,7 @@ function MoviesPage() {
         <>
           <h3>{genreStr}</h3>
 
-          <Carousel responsive={responsive} showDots={true}>
+          <Carousel responsive={responsive} showDots={true} infinite>
             {movieGenresMapped[genreStr].map((movie) => {
               return (
                 <>
@@ -84,7 +82,6 @@ function MoviesPage() {
                   <div>
                     {reviewLink(movie)}
                     {movie.title}
-
                   </div>
                 </>
               );
