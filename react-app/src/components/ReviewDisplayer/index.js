@@ -11,7 +11,9 @@ const ReviewDisplayer = ({ movie, sessionUser }) => {
       {sessionUser && (
         <div>
           {" "}
-          <div>{review.review} {review.user} {review.createdAt.slice(0, 17)}</div>
+          <div>
+            {review.review} {review.user} {review.createdAt.slice(0, 17)}
+          </div>
           <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
           <OpenModalButton buttonText={"Edit your review"} modalComponent={<EditReviewForm review={review} movie={movie} />} />
         </div>

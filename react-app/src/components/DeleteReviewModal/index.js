@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-import { useHistory } from "react-router-dom";
+
 import { getOneMovieThunk } from "../../store/movies";
 
 const DeleteReviewModal = ({ review }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const { closeModal } = useModal();
 
   const deleteReview = async (e) => {
@@ -15,7 +15,7 @@ const DeleteReviewModal = ({ review }) => {
     dispatch(getOneMovieThunk(review.movieId))
 
     closeModal();
-    history.push(`/movies/${review.movieId}`);
+
   };
 
   return (

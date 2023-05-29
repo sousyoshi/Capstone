@@ -11,6 +11,7 @@ import EditMovieForm from "./components/MovieFormPage/EditMovieForm";
 import MoviePage from "./components/MoviePage";
 import ReviewFormPage from "./components/ReviewFormPage";
 import SplashPage from "./components/SplashPage";
+import ProfilePage from "./components/ProfilePage";
 
 
 function App() {
@@ -48,6 +49,9 @@ function App() {
           </Route>
           <Route exact path="/">
             <SplashPage />
+          </Route>
+          <Route exact path="/users/:userId">
+            <ProfilePage />
           </Route>
         </Switch>
       )}

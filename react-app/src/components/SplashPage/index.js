@@ -13,44 +13,42 @@ export default function SplashPage() {
 
   if (!movies) return null;
 
-  const background = movies[0]?.image;
-  const background2 = movies[1]?.image;
- 
+  const ImageMapper = () => {
+    return (
+      <>
+        {movies.slice(1, 6).map((movie) => (
+          <div
+            style={{
+              backgroundImage: `url(${movie.image})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "repeat",
+              width: "15rem",
+              height: "15rem",
+              position: "relative",
+              borderRadius: '20px'
+            }}
+          ></div>
+        ))}
+      </>
+    );
+  };
   return (
     <div className="container">
-      <div
+      {/* <div
         style={{
           backgroundImage: `url(${"spiverse.jpg"})`,
           backgroundPosition: "top",
           backgroundSize: "100%",
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: "repeat",
           width: "300px",
           height: "100rem",
           position: "relative",
         }}
-      ></div>
-         <div
-        style={{
-          backgroundImage: `url(${background})`,
-          backgroundPosition: " top center",
-          backgroundSize: "100%",
-          backgroundRepeat: "no-repeat",
-          width: "300px",
-          height: "100rem",
-          position: "relative",
-        }}
-      ></div>
-         <div
-        style={{
-          backgroundImage: `url(${background2})`,
-          backgroundPosition: " center",
-          backgroundSize: "100%",
-          backgroundRepeat: "no-repeat",
-          width: "300px",
-          height: "100rem",
-          position: "relative",
-        }}
-      ></div>
+      ></div> */}
+
+      {<ImageMapper />}
+
     </div>
   );
 }

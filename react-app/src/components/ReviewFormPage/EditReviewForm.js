@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editReviewThunk } from "../../store/reviews";
+import { editReviewThunk} from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import { getOneMovieThunk } from "../../store/movies";
 
-const EditReviewForm = ({ review, movie }) => {
+const EditReviewForm = ({ review }) => {
   const dispatch = useDispatch();
   const [review2, setReview2] = useState(review.review);
   const [stars, setStars] = useState(review.stars);
@@ -24,10 +24,11 @@ const EditReviewForm = ({ review, movie }) => {
     reviewFormData.append("id", review.id);
 
     await dispatch(editReviewThunk(reviewFormData));
-    dispatch(getOneMovieThunk(movie.id));
+    dispatch(getOneMovieThunk(review.movieId));
+
     closeModal();
   };
-  const starRating = () => {
+  const StarRating = () => {
     return (
       <div className="rating">
         {[...Array(10)].map((star, i) => {
@@ -55,7 +56,7 @@ const EditReviewForm = ({ review, movie }) => {
       <form onSubmit={handleSubmit} encType="mulitpart/form-data">
         <textarea value={review2} placeholder="Just a quick review" onChange={(e) => setReview2(e.target.value)}></textarea>
         <div className="rating-input"></div>
-        {starRating()}
+        <StarRating />
         <p>Stars</p>
         <button type="submit" disabled={!review || !stars}>
           Submit Your Review

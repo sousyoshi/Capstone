@@ -11,10 +11,12 @@ import "./moviespage.css";
 function MoviesPage() {
   const dispatch = useDispatch();
   const movies = useSelector((state) => Object.values(state.movies));
+  const user = useSelector((state) => state.session.user);
+  console.log(")))))))))))))))))))))))))))))))))", user);
 
   useEffect(() => {
     dispatch(getAllMoviesThunk());
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const responsive = {
     desktop: {
@@ -29,18 +31,29 @@ function MoviesPage() {
     },
     mobile: {
       breakpoint: { max: 960, min: 0 },
-      items: 1,
+      items: 3,
     },
   };
-  if(!movies) return <h1>LOADING....</h1>
+  if (!movies) return <h1>LOADING....</h1>;
+
   const movieGenresMapped = movies.reduce((acc, movie) => {
     acc[movie.genreStr] ? (acc[movie.genreStr] = [...acc[movie.genreStr], movie]) : (acc[movie.genreStr] = [movie]);
     return acc;
   }, {});
 
-
   const reviewLink = (movie) => {
     return <OpenReviewModal modalComponent={<ReviewFormPage movie={movie} />} />;
+  };
+
+  const likeButton = async (e, movieId) => {
+    e.preventDefault();
+    const res = await fetch(`/api/movies/${movieId}/like`, {
+      method: "POST",
+    });
+    if (res.ok) {
+      const like = await res.json();
+      return like;
+    }
   };
 
   const MyCarousel = () => {
@@ -56,7 +69,6 @@ function MoviesPage() {
                   {" "}
                   <img className="carousel" alt="" src={movie.image} title={movie.title} />
                 </Link>
-
               </div>
             );
           })}
@@ -69,7 +81,6 @@ function MoviesPage() {
     return Object.keys(movieGenresMapped).map((genreStr, i) => {
       return (
         <div key={movies[i].id}>
-
           <h3>{genreStr}</h3>
 
           <Carousel responsive={responsive} showDots={true} infinite>
@@ -82,6 +93,9 @@ function MoviesPage() {
                     {reviewLink(movie)}
                     {movie.title}
                   </div>
+                  <button onClick={(e) => likeButton(e, movie.id)}>
+                    <i className="fa-light fa-thumbs-up"></i>
+                  </button>
                 </Link>
               );
             })}

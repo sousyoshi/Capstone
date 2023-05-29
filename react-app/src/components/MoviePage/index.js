@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import EditMovieForm from "../MovieFormPage/EditMovieForm";
+import React, { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min"
 import { useEffect } from "react";
 import { getAllMoviesThunk } from "../../store/movies";
 import OpenModalButton from "../OpenModalButton";
-import DeleteMovieModal from "../DeleteMovieModal";
 import ReviewFormPage from "../ReviewFormPage";
 import ReactPlayer from "react-player";
 import "./moviepage.css";
@@ -34,8 +32,8 @@ const MoviePage = () => {
       <div className="plot"> Synopsis: {movie.description}</div>
       {sessionUser && (
         <div>
-          <OpenModalButton buttonText={"Edit your movie"} modalComponent={<EditMovieForm movie={movie} />} />
-          <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal movie={movie} />} />
+
+
           <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />
         </div>
       )}
