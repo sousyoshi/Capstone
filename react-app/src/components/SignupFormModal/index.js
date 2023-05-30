@@ -31,7 +31,7 @@ function SignupFormModal() {
 
 	return (
 		<>
-			
+
 			<form className="signupContainer" onSubmit={handleSubmit}>
 				<ul>
 					{errors.map((error, idx) => (
@@ -74,7 +74,7 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				<button type="submit">Sign Up</button>
+				<button type="submit" disabled={password.length < 6 || !confirmPassword.length || !email.length || !username.length}>Sign Up</button>
 			</form>
 		</>
 	);
