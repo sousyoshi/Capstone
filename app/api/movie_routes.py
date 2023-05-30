@@ -57,7 +57,7 @@ def add_like(movie_id):
 
     if not movie:
         return ('Movie does not exist'), 400
-    
+
     elif like:
         db.session.delete(like)
         db.session.commit()
@@ -117,7 +117,7 @@ def add_review(id):
 
     form = NewReview()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('++++++++++++++++++++++++>>>>>>>>>>', form.data)
+   
 
     if form.validate_on_submit():
         new_review = Review(

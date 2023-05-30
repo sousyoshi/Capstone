@@ -85,10 +85,10 @@ export const editMovieThunk = (movie) => async (dispatch) => {
     method: "PUT",
     body: movie,
   });
-  console.log("edit response hereererer", res);
+
   if (res.ok) {
     const movie = await res.json();
-    console.log("movie insdie of the thunk", movie);
+
     dispatch(editMovieAction(movie));
     return movie;
   }

@@ -2,7 +2,7 @@
     background-color: transparent;
     cursor: pointer;
     border: none;
-    outline: black;
+    outline: white;
 
 }
 
@@ -12,5 +12,12 @@
 }
 
 .empty{
-    color: black;
+    color: white;
+}
+
+ #modal-content .reviewForm{
+    display: flex;
+    flex-flow: column;
+    border-radius: 20px;
+    width: auto;
 }

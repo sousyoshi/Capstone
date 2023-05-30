@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMoviesThunk } from "../../store/movies";
-import LoginFormModal from "../LoginFormModal";
 import "./splashpage.css";
 
 export default function SplashPage() {

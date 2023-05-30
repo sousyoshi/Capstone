@@ -1,22 +1,29 @@
 section {
   display: flex;
   flex-direction: column;
-  width: 0 auto;
+
   margin: 20px;
   border: 2px dotted white;
+  border-radius: 20px;
+
 }
 
 .trailer {
 display: flex;
 border: 2px solid white;
 gap: 30px;
+padding: 0 20px;
 }
 
 .plot {
-  margin: 0 20px;
-  text-align: left;
-  border: 2px solid white;
- width: 50%;
+
+text-align: center;
+
+font-size: larger;
+  border-bottom: 2px dotted white;
+ width: auto;
+ padding: 20px 20px;
+ float: right;
 }
 
 .movietitle,
@@ -25,7 +32,13 @@ h2 {
 }
 
 .reviewDisplay{
-  border: 2px solid green;
-  width: 100%;
+
+  width: auto;
   height: 10rem
+}
+
+
+.reviewButton{
+  margin: 10px 20px;
+
 }

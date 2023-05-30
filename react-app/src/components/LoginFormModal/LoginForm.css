@@ -10,12 +10,18 @@
 div #modal-content{
     display: flex;
     position: absolute;
-
+  color: white;
+  background-color: black;
     margin: 0;
     border-radius: 15px;
-    width: auto;
+    width: fit-content;
     height: auto;
 
+
+}
+
+div #modal-content fieldset{
+  border-radius: 20px;
 }
 
 div#modal-content button {
@@ -23,8 +29,14 @@ background-color: black;
 color: white;
 
 
-
   }
+
+  div#modal-content button:hover {
+    background-color: white;
+    color: black;
+
+
+      }
 
   div#modal-content label {
     display: flex;

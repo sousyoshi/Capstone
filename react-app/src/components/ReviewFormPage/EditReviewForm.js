@@ -36,7 +36,7 @@ const EditReviewForm = ({ review }) => {
           return (
             <div
               key={i}
-
+              value={stars}
               className={i <= (hover || stars) ? "filled" : "empty"}
               onClick={() => setStars(i)}
               onMouseEnter={() => setHover(i)}

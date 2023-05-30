@@ -6,13 +6,12 @@ import { useModal } from "../../context/Modal";
 import "./reviewform.css";
 import { getOneMovieThunk } from "../../store/movies";
 
-const ReviewFormPage = ({ movie}) => {
+const ReviewFormPage = ({ movie }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [hover, setHover] = useState(0);
-
 
   useEffect(() => {
     setStars(stars);
@@ -29,7 +28,6 @@ const ReviewFormPage = ({ movie}) => {
     await dispatch(createReviewThunk(reviewFormData));
     await dispatch(getOneMovieThunk(movie.id));
     closeModal();
-
   };
 
   const starRating = () => {
@@ -56,9 +54,9 @@ const ReviewFormPage = ({ movie}) => {
   return (
     <>
       {" "}
-      <h1>What did you think of the movie?</h1>
+     
       <form className="reviewForm" encType="multipart/form-data" onSubmit={handleSubmit}>
-        <textarea placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
+        <textarea rows={6}  placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
         <div className="rating-input"></div>
         {starRating()}
         <p>Stars</p>
