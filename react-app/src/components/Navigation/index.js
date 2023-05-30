@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
       {isLoaded && (
         <li>
           {sessionUser && (
-            <NavLink user={sessionUser} exact to={`/users/${sessionUser.id}`}>
+            <NavLink className='navBar' user={sessionUser} exact to={`/users/${sessionUser.id}`}>
               Profile
             </NavLink>
           )}

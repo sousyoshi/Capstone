@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createMovieThunk } from "../../store/movies";
 import { useHistory } from "react-router-dom";
+import './movieform.css'
 
 const MovieFormPage = () => {
   const dispatch = useDispatch();
@@ -60,17 +61,17 @@ const MovieFormPage = () => {
         <div>
           <ul>
             {valErrors.map((error) => (
-              <li key={error}>{error}</li>
+              <li className="errors" key={error}>{error}</li>
             ))}
           </ul>
         </div>
       )}{" "}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form className="movieform" onSubmit={handleSubmit} encType="multipart/form-data">
         <fieldset>
           <label>
             {" "}
             Movie Title
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input  minLength={10} rows={10} cols={50}  type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
           <div>
             <label>

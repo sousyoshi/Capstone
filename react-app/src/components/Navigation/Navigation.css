@@ -41,7 +41,25 @@ box-sizing: border-box;
 text-decoration: none;
 }
 
+.userButton{
+font-size: 2rem;
+border-radius: 10px;
+}
 
-.signupButton{
+.userButton:hover{
+  color: black;
+  background-color: white;
+}
 
+.navBar{
+  padding: 0 10px;
+  margin: 0 10px;
+  color: white;
+  border: 2px solid white;
+  text-decoration: none;
+}
+
+.navBar:hover{
+  color: black;
+  background-color: white;
 }

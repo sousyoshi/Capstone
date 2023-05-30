@@ -1,8 +1,8 @@
 .container{
   display: flex;
-  width: auto;
-  height:100%;
-  border: 5px solid rgb(241, 238, 238);
+  width: 0 auto;
+  height:auto;
+  border: 5px dotted rgb(241, 238, 238);
   border-radius: 30px;
   transition: transform .8s;
 
@@ -17,10 +17,17 @@
 
   transform: scale(.95);
   color: black;
+
 }
 
-.loginForm{
-    border-radius: 20px;
-    border: 2px solid rgb(216, 13, 13);
+
+
+  .welcomeContainer{
+    display: flex;
+    justify-content: center;
+    background-image: url('https://thumbs.gfycat.com/SmartRelievedKakapo.webp');
+    background-size: cover ;
+
+
 
   }

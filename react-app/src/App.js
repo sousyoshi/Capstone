@@ -53,6 +53,9 @@ function App() {
           <Route exact path="/users/:userId">
             <ProfilePage />
           </Route>
+          <Route>
+            404 Page Not Found
+          </Route>
         </Switch>
       )}
     </>

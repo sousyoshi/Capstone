@@ -1,15 +1,20 @@
 /* TODO Add site wide styles */
 .errors{
-    color: red
+    color: red;
+    list-style-type: none;
 }
 
 html,
 body {
   max-width: 960px;
-  margin: 0 auto;
+  margin: 0 20px;
   padding: 10px;
   color: white;
 background-color: black;
 
+
 }
 
+button{
+  cursor: pointer;
+}

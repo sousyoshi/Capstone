@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import "./LoginForm.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -30,12 +30,12 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="loginContainer">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit}>
         <ul>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <li className="errors" key={idx}>{error}</li>
           ))}
         </ul>
         <label>
@@ -50,7 +50,7 @@ function LoginFormModal() {
           Demo User
         </button>
       </form>
-    </>
+    </div>
   );
 }
 

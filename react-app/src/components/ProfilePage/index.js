@@ -8,6 +8,7 @@ import EditReviewForm from "../ReviewFormPage/EditReviewForm";
 import DeleteMovieModal from "../DeleteMovieModal";
 import EditMovieForm from "../MovieFormPage/EditMovieForm";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import MovieFormPage from "../MovieFormPage";
 import "./profilepage.css";
 
 const ProfilePage = () => {
@@ -41,7 +42,7 @@ const ProfilePage = () => {
     });
     if (res.ok) {
       const like = await res.json();
-      dispatch(getAllMoviesThunk());
+      await dispatch(getAllMoviesThunk());
       return like;
     }
   };
@@ -105,6 +106,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profileContainer">
+      <OpenModalButton buttonText={'Add a movie' } modalComponent={<MovieFormPage/>}/>
       <UserMadeMovies />
       <LikedMovies />
       <UserReviews />
