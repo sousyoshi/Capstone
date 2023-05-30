@@ -15,12 +15,9 @@ const MoviePage = () => {
 
   const sessionUser = useSelector((state) => state.session.user);
 
-  const userReview = movie?.review.find(el=> el.userId === sessionUser.id)
-
-
+  const userReview = movie?.review.find((el) => el.userId === sessionUser.id);
 
   useEffect(() => {
-
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
@@ -30,20 +27,19 @@ const MoviePage = () => {
     <section className="movieContainer">
       {" "}
       <h1 className="movietitle">
-        {movie.title} ({movie.releaseYear})
+        {movie.title} ({movie.releaseYear}) {movie.genreStr}
       </h1>
       <div className="trailer">
         <img alt="poster" src={movie.image} />
-      <ReactPlayer controls url={movie.trailer}></ReactPlayer>
+        <ReactPlayer controls url={movie.trailer}></ReactPlayer>
       </div>
       <div className="plot"> Synopsis: {movie.description}</div>
       {sessionUser && (
-        <div>
-         {!userReview &&  <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />}
-        </div>
+        <div  className="reviewButton">{!userReview && <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />}</div>
       )}
-      <div className="reviewDisplay"><ReviewDisplayer movie={movie} sessionUser={sessionUser} /></div>
-
+      <div className="reviewDisplay">
+        <ReviewDisplayer movie={movie} sessionUser={sessionUser} />
+      </div>
     </section>
   );
 };

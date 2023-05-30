@@ -1,12 +1,14 @@
 .reviewDiv{
-    display: flex;
-    width: 50%;
+    display: grid;
+    width: auto;
     border: 2px solid white;
 }
 
 .reviewBox{
     display: flex;
-    border: 2px solid white;
+    flex-flow: column;
+
+
 }
 
 .reviewBox button {

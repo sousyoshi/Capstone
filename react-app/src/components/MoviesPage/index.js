@@ -4,7 +4,7 @@ import { getAllMoviesThunk } from "../../store/movies";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import "./moviespage.css";
+import styles from "./moviespage.module.css";
 
 function MoviesPage() {
   const dispatch = useDispatch();
@@ -39,8 +39,6 @@ function MoviesPage() {
     return acc;
   }, {});
 
-
-
   const likeButton = async (e, movieId) => {
     e.preventDefault();
     const res = await fetch(`/api/movies/${movieId}/like`, {
@@ -56,7 +54,7 @@ function MoviesPage() {
   const myCarousel = () => {
     return (
       <>
-        <div className="searchBar">
+        <div className={styles.searchBar}>
           <input
             size={50}
             placeholder="Search for movies by name, genre, and release year."
@@ -76,10 +74,10 @@ function MoviesPage() {
               return (
                 <>
                   <Link key={movie.id} to={`/movies/${movie.id}`}>
-                    <img className="carousel" alt="" src={movie.image} title={movie.title} />
+                    <img className={styles.carousel} alt="" src={movie.image} title={movie.title} />
                   </Link>
                   {user && (
-                    <button className="likeButton" onClick={(e) => likeButton(e, movie.id)}>
+                    <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
                       {
                         <i
                           className={movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"}
@@ -101,36 +99,41 @@ function MoviesPage() {
         {Object.keys(movieGenresMapped).map((genreStr, i) => {
           return (
             <div key={i}>
-              <h3>{genreStr}</h3>
+              <h2>{genreStr}</h2>
               <Carousel responsive={responsive} infinite>
                 {movieGenresMapped[genreStr].map((movie) => {
                   return (
-                    <>
-                      <Link key={movie.id} to={`/movies/${movie.id}`}>
+                    <div key={movie.id}>
+                      <Link  to={`/movies/${movie.id}`}>
                         {" "}
-                        <img className="carousel" alt="" src={movie.image} />
+                        <img className={styles.carousel} alt="" src={movie.image} />
                       </Link>
                       {movie.review.reduce((acc, el) => {
-                        const avg = acc + el.stars / movie.review.length;
+                        const sum = acc + el.stars
+                        const avg = +(sum / movie.review.length)
+
+
                         return (
                           <>
                             <p>
-                              {avg === 0 ? 'null' : +avg}
+                              {!avg ? null : avg}
                               <i className="fa-regular fa-star" />
                             </p>
                           </>
                         );
-                      },0)}
-                       {user && (
-                    <button className="likeButton" onClick={(e) => likeButton(e, movie.id)}>
-                      {
-                        <i
-                          className={movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"}
-                        />
-                      }
-                    </button>
-                  )}
-                    </>
+                      }, 0)}
+                      {user && (
+                        <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
+                          {
+                            <i
+                              className={
+                                movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                              }
+                            />
+                          }
+                        </button>
+                      )}
+                    </div>
                   );
                 })}
               </Carousel>

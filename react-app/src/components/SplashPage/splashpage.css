@@ -5,12 +5,14 @@
   border: 5px dotted rgb(241, 238, 238);
   border-radius: 30px;
   transition: transform .8s;
+  
 
 
 }
 
 .container  div {
   border-radius: 10px;
+
 }
 
 .container div:hover{

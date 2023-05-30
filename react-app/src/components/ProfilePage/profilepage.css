@@ -1,14 +1,22 @@
 .profileContainer{
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
     gap: 20px;
     transition: transform .2s;
     margin: 0 20px;
 
+
 }
 
 .profileContainer img{
-    width: 70px;
+    width: 150px;
+    height:200px;
+
+    align-items: center
+ ;
+
 }
 
 .profileContainer img:hover{
@@ -18,17 +26,37 @@
 
 .userMovies{
 border: 2px solid white;
+width: 50%;
+
+
 }
 
 .likedMovies{
     border: 2px solid white;
 
+    display: flex;
+    align-content: space-evenly;
+    gap: 20px;
+
 }
 
 .userReviews{
-    border: 2px dotted rgb(211, 10, 10);
+    border: 2px dotted rgb(253, 249, 249);
+    width: 50%;
+
 }
 
 .userButtons{
     width: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.userReviewContainer{
+    border: 2px dotted white;
+}
+
+.movieDiv{
+    display: flex;
+    justify-content: center;
 }

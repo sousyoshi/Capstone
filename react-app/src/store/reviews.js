@@ -50,7 +50,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
   });
   if (res.ok) {
     const newReview = await res.json();
-    console.log("review after res.ok", newReview);
+    
     dispatch(createReviewAction(newReview));
     return newReview;
   }

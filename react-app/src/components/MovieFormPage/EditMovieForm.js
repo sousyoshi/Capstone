@@ -63,7 +63,7 @@ const EditMovieForm = ({ movie }) => {
   };
   return (
     <>
-      <h1>Update a movie</h1>
+     
       {hasSubmitted && valErrors.length > 0 && (
         <div>
           <ul>

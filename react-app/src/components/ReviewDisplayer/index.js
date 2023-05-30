@@ -10,14 +10,17 @@ const ReviewDisplayer = ({ movie, sessionUser }) => {
         <>
           {" "}
           <div className="reviewBox">
-            <div>{review.user}
-              {review.createdAt.slice(0, 17)} {review.stars}{" "}
+            <div>User: {review.user}</div>
+            <div>
+              Date: {review.createdAt.slice(0, 17)}Rating: {review.stars} <i className="fa-regular fa-star"></i>{" "}
             </div>{" "}
-            <div>{review.review} </div>
-
+            <div>Review: {review.review} </div>
           </div>
-          <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
-          <OpenModalButton buttonText={"Edit your review"} modalComponent={<EditReviewForm review={review} movie={movie} />} />
+        { sessionUser.id === review.userId && <div>
+            {" "}
+            <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
+            <OpenModalButton buttonText={"Edit your review"} modalComponent={<EditReviewForm review={review} movie={movie} />} />
+          </div>}
         </>
       )}
     </div>

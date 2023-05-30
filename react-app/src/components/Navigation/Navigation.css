@@ -23,7 +23,7 @@
   list-style-type: none;
   max-width: 100%;
   height: fit-content;
-  border-bottom: 2px solid grey;
+  border-bottom: 2px dotted grey;
   padding-left: 20px;
   padding-right: 20px;
   margin: 20px;
@@ -51,15 +51,15 @@ border-radius: 10px;
   background-color: white;
 }
 
-.navBar{
+.nav{
   padding: 0 10px;
-  margin: 0 10px;
+  margin: 0 30px;
   color: white;
   border: 2px solid white;
   text-decoration: none;
 }
 
-.navBar:hover{
+.nav:hover{
   color: black;
   background-color: white;
 }
