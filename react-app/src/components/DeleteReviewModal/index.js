@@ -1,21 +1,28 @@
 import { useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-import { useHistory } from "react-router-dom";
-import { getOneMovieThunk } from "../../store/movies";
+import {  getOneMovieThunk } from "../../store/movies";
+import { useEffect } from "react";
+
 
 const DeleteReviewModal = ({ review }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
   const { closeModal } = useModal();
+
+  useEffect(()=>{
+
+  }, [review])
 
   const deleteReview = async (e) => {
     e.preventDefault();
     await dispatch(deleteReviewThunk(review.id));
-    dispatch(getOneMovieThunk(review.movieId))
+   await dispatch(getOneMovieThunk(review.movieId))
+
+
 
     closeModal();
-    history.push(`/movies/${review.movieId}`);
+
   };
 
   return (

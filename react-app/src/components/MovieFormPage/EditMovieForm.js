@@ -2,11 +2,14 @@ import React, {  useState, useEffect } from "react";
 import { useDispatch} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editMovieThunk } from "../../store/movies";
+import { useModal } from "../../context/Modal";
+
 import './movieform.css'
 
 const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const {closeModal} = useModal()
   const [title, setTitle] = useState(movie.title);
   const [description, setDescription] = useState(movie.description);
   const [genre, setGenre] = useState(movie.genre);
@@ -56,6 +59,7 @@ const EditMovieForm = ({ movie }) => {
     setHasSubmitted(false);
 
     history.push(`/movies/${movie.id}`);
+    closeModal()
   };
   return (
     <>
@@ -84,11 +88,23 @@ const EditMovieForm = ({ movie }) => {
 
           </div>
           <div>
-            <label>
-              {" "}
-              Genre
-              <input type="text" value={genre} onChange={(e) => setGenre(e.target.value)} />
-            </label>
+            {" "}
+            Genre
+            <select name="genre" onChange={(e) => setGenre(e.target.value)}>
+              <option value={''}>Please select an option</option>
+              <option value={1}>Crime</option>
+              <option value={2}>Fantasy</option>
+              <option value={3}>Comedy</option>
+              <option value={4}>Adventure</option>
+              <option value={5}>Sci-Fi</option>
+              <option value={6}>Drama</option>
+              <option value={7}>Horror</option>
+              <option value={8}>Western</option>
+              <option value={9}>Animation</option>
+              <option value={10}>Thriller</option>
+              <option value={11}>Mystery</option>
+              <option value={12}>Super-hero</option>
+            </select>
           </div>
           <div>
             <label>

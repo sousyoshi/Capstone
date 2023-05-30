@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import Movie, Review
+from app.models import Movie, Review, Like
 from flask_login import login_required, current_user
 from ..models import db
 from ..forms.movie_form import NewMovie
@@ -47,6 +47,30 @@ def add_movie():
         return movie.to_dict()
 
     return {'errors': form.errors}
+
+
+@movie_routes.route('/<movie_id>/like', methods=['POST'])
+@login_required
+def add_like(movie_id):
+    movie = Movie.query.filter_by(id=movie_id).first()
+    like = Like.query.filter_by(owner = current_user.id, movie_id = movie_id).first()
+
+    if not movie:
+        return ('Movie does not exist'), 400
+    
+    elif like:
+        db.session.delete(like)
+        db.session.commit()
+        return {'message': 'Liked Deleted'}
+
+    else:
+        like = Like(owner=current_user.id, movie_id=movie_id)
+        db.session.add(like)
+        db.session.commit()
+
+
+    return like.to_dict()
+
 
 
 @movie_routes.route('/<int:id>/edit', methods=['PUT'])

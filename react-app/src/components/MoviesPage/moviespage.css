@@ -1,30 +1,45 @@
-.mainCarousel{
-  margin: 0 200px;
-  gap: 20px;
+.mainCarousel {
+
+
+  border-radius: 20px;
+  transition: transform 0.8s;
 }
 
-.carousel{
-  width: 150px;
-  height: 200px;
-
-
+.carousel:hover {
+  transform: scale(0.95);
+  color: black;
+  box-shadow: 5px 5px 10px white;
+}
+.carousel {
+  width: 10rem;
+  height: 15rem;
+  border-radius: 20px;
 }
 
-.carousel:hover{
-  box-shadow: 5px 5px 8px whitesmoke;
- 
+.searchBar {
+  display: flex;
+  justify-content: space-around;
 
+  text-decoration-color: black;
 }
 
-.carouselContainer{
-  max-height: 100%;
-  border: 2px solid black;
+.searchBar input {
+  border-radius: 10px;
+  margin: 10px auto;
+  width: 50%;
+  height: 50%;
 }
 
-.mainCaro{
-border: 5px dotted white;
-box-sizing: inherit;
-
-
+.likeButton{
+  font-size: 2rem;
+  position: absolute;
+  right: 80px;
+  bottom: 10px;
+  border: none;
+  background-color: transparent;
+  color: red;
 
 }
+/*{user && reviewLink(movie)} */
+
+

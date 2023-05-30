@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
 
     movies = db.relationship('Movie', back_populates='creator', cascade='all, delete-orphan')
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan' )
+    likes = db.relationship('Like', backref='users', passive_deletes=True)
 
     @property
     def password(self):
@@ -32,5 +33,9 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'movies' : [movie.to_dict() for movie in self.movies],
+            'reviews' : [review.to_dict() for review in self.reviews],
+            'likes': len(self.likes)
+
         }

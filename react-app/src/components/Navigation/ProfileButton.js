@@ -4,8 +4,8 @@ import { logout } from "../../store/session";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import './Navigation.css'
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -43,32 +43,34 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button className="userButton" onClick={openMenu}>
+        <i className="fas fa-ticket" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
+            <li>Welcome, {user.username}</li>
             <li>{user.email}</li>
             <li>
               <button className="logout" onClick={handleLogout}>Log Out</button>
             </li>
           </>
         ) : (
-          <>
+          <div>
             <OpenModalButton
+            className='loginButton'
               buttonText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
             />
 
             <OpenModalButton
+            className="signupButton"
               buttonText="Sign Up"
               onItemClick={closeMenu}
               modalComponent={<SignupFormModal />}
             />
-          </>
+          </div>
         )}
       </ul>
     </>

@@ -1,5 +1,14 @@
 .reviewDiv{
     display: flex;
-    
-    border: 2px solid black;
+    width: 50%;
+    border: 2px solid white;
+}
+
+.reviewBox{
+    display: flex;
+    border: 2px solid white;
+}
+
+.reviewBox button {
+    border-radius: 20px;
 }

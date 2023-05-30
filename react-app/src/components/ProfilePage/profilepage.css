@@ -1,0 +1,34 @@
+.profileContainer{
+    display: flex;
+    flex-flow: row;
+    gap: 20px;
+    transition: transform .2s;
+    margin: 0 20px;
+
+}
+
+.profileContainer img{
+    width: 70px;
+}
+
+.profileContainer img:hover{
+    box-shadow: 5px 3px 5px rgb(214, 189, 189);
+    transform: scale(1.5);
+}
+
+.userMovies{
+border: 2px solid white;
+}
+
+.likedMovies{
+    border: 2px solid white;
+
+}
+
+.userReviews{
+    border: 2px dotted rgb(211, 10, 10);
+}
+
+.userButtons{
+    width: auto;
+}
