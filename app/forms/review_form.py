@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, TextAreaField
-from wtforms.validators import DataRequired, NumberRange, ValidationError
+from wtforms.validators import DataRequired, NumberRange, ValidationError, Length
 from app.models import Review
 
 def review_exists(form, field):
@@ -12,5 +12,5 @@ def review_exists(form, field):
 
 
 class NewReview(FlaskForm):
-    review = TextAreaField('Leave a review', validators=[DataRequired()])
+    review = TextAreaField('Leave a review', validators=[DataRequired(), Length(min=5)])
     stars = IntegerField('Rate the movie', validators=[DataRequired(), NumberRange(1, 10)])

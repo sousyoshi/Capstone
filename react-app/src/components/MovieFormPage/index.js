@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createMovieThunk } from "../../store/movies";
 import { useHistory } from "react-router-dom";
-import './movieform.css'
+import "./movieform.css";
 
 const MovieFormPage = () => {
   const dispatch = useDispatch();
@@ -51,7 +51,10 @@ const MovieFormPage = () => {
     setTrailer("");
     setHasSubmitted(false);
 
-    if (newMovie) history.push(`/movies/${newMovie.id}`);
+    if (newMovie) {
+      
+      history.push(`/movies/${newMovie.id}`);
+    }
   };
 
   return (
@@ -61,7 +64,9 @@ const MovieFormPage = () => {
         <div>
           <ul>
             {valErrors.map((error) => (
-              <li className="errors" key={error}>{error}</li>
+              <li className="errors" key={error}>
+                {error}
+              </li>
             ))}
           </ul>
         </div>
@@ -71,13 +76,20 @@ const MovieFormPage = () => {
           <label>
             {" "}
             Movie Title
-            <input  minLength={10} rows={10} cols={50}  type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
           <div>
             <label>
               {" "}
               Description
-              <textarea placeholder="Movie synopsis" value={description} onChange={(e) => setDescription(e.target.value)}>
+              <textarea
+                minLength={10}
+                rows={10}
+                cols={50}
+                placeholder="Movie synopsis"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              >
                 {" "}
               </textarea>
             </label>
@@ -86,7 +98,7 @@ const MovieFormPage = () => {
             {" "}
             Genre
             <select name="genre" onChange={(e) => setGenre(e.target.value)}>
-              <option value={''}>Please select an option</option>
+              <option value={""}>Please select an option</option>
               <option value={1}>Crime</option>
               <option value={2}>Fantasy</option>
               <option value={3}>Comedy</option>
