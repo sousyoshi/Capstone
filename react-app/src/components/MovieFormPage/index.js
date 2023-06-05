@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createMovieThunk } from "../../store/movies";
+import { createMovieThunk, getAllMoviesThunk } from "../../store/movies";
 import { useHistory } from "react-router-dom";
 import "./movieform.css";
 
@@ -52,7 +52,7 @@ const MovieFormPage = () => {
     setHasSubmitted(false);
 
     if (newMovie) {
-      
+       dispatch(getAllMoviesThunk())
       history.push(`/movies/${newMovie.id}`);
     }
   };
