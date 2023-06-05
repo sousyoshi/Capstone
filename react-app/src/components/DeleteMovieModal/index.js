@@ -1,19 +1,18 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteMovieThunk } from "../../store/movies";
+import { deleteMovieThunk} from "../../store/movies";
 
 
 import "./deletemovie.css";
 
-const DeleteMovieModal = ({ user, movie }) => {
+const DeleteMovieModal = ({ movie }) => {
   const dispatch = useDispatch();
-
 
   const { closeModal } = useModal();
 
   const deleteMovie = async () => {
+    await dispatch(deleteMovieThunk(movie.id));
 
-   await dispatch(deleteMovieThunk(movie.id));
 
     closeModal();
   };

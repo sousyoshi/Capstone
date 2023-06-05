@@ -49,7 +49,7 @@ def add_movie():
     return {'errors': form.errors}
 
 
-@movie_routes.route('/<movie_id>/like', methods=['POST'])
+@movie_routes.route('/<int:movie_id>/like', methods=['POST'])
 @login_required
 def add_like(movie_id):
     movie = Movie.query.filter_by(id=movie_id).first()
@@ -117,7 +117,7 @@ def add_review(id):
 
     form = NewReview()
     form['csrf_token'].data = request.cookies['csrf_token']
-   
+
 
     if form.validate_on_submit():
         new_review = Review(

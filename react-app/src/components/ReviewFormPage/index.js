@@ -12,14 +12,25 @@ const ReviewFormPage = ({ movie }) => {
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [hover, setHover] = useState(0);
+  const [hasSubmitted, setHasSubmitted] = useState(false)
+  const [valErrors, setValErrors] = useState([])
 
   useEffect(() => {
     setStars(stars);
     setReview(review);
   }, [stars, review]);
 
+  useEffect(()=>{
+    const errors = [];
+    if(!review) errors.push('Please enter a review')
+    if(review.length < 5) errors.push("Review must be longer than 5 characters")
+    if(!stars) errors.push('Please enter a star rating.')
+    setValErrors(errors)
+  },[review, stars])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setHasSubmitted(true)
     const reviewFormData = new FormData();
     reviewFormData.append("stars", stars);
     reviewFormData.append("review", review);
@@ -27,7 +38,7 @@ const ReviewFormPage = ({ movie }) => {
 
     await dispatch(createReviewThunk(reviewFormData));
     await dispatch(getOneMovieThunk(movie.id));
-    closeModal();
+
   };
 
   const starRating = () => {
@@ -38,6 +49,7 @@ const ReviewFormPage = ({ movie }) => {
           return (
             <div
               key={i}
+
               className={i <= (hover || stars) ? "filled" : "empty"}
               onClick={() => setStars(i)}
               onMouseEnter={() => setHover(i)}
@@ -54,13 +66,22 @@ const ReviewFormPage = ({ movie }) => {
   return (
     <>
       {" "}
-     
+      {hasSubmitted && valErrors.length > 0 && (
+        <div>
+          <ul>
+            {valErrors.map((error) => (
+              <li className="errors" key={error}>{error}</li>
+            ))}
+          </ul>
+        </div>
+      )}{" "}
+
       <form className="reviewForm" encType="multipart/form-data" onSubmit={handleSubmit}>
         <textarea rows={6}  placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
         <div className="rating-input"></div>
         {starRating()}
         <p>Stars</p>
-        <button type="submit" disabled={!review || !stars}>
+        <button type="submit" >
           Submit Your Review
         </button>
       </form>

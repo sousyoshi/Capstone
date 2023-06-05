@@ -21,7 +21,7 @@ class Movie(db.Model):
     creator = db.relationship('User', back_populates='movies')
     genre_ = db.relationship('Genre', back_populates='movie_genre')
     review = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
-    likes = db.relationship('Like', backref='movies', passive_deletes=True, cascade='all, delete-orphan')
+    likes = db.relationship('Like', back_populates='liked', cascade='all, delete-orphan')
 
     def to_dict(self):
 
