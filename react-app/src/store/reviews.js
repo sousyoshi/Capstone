@@ -1,9 +1,8 @@
-
-
 const GET_ALL_REVIEWS = "reviews/getAll";
 const CREATE_REVIEW = "review/addOne";
 const DELETE_REVIEW = "review/delete";
-const EDIT_REVIEW = 'review/edit'
+const EDIT_REVIEW = "review/edit";
+const GET_ONE_REVIEW = "review/getOne";
 
 const getAllReviewsAction = (reviews) => {
   return {
@@ -26,12 +25,19 @@ const deleteReviewAction = (reviewId) => {
   };
 };
 
-const editReviewAction = review => {
+const getOneReviewAction = (review) => {
+  return {
+    type: GET_ONE_REVIEW,
+    review,
+  };
+};
+
+const editReviewAction = (review) => {
   return {
     type: EDIT_REVIEW,
-    review
-  }
-}
+    review,
+  };
+};
 
 export const getAllReviewsThunk = () => async (dispatch) => {
   const res = await fetch("/api/reviews");
@@ -50,7 +56,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
   });
   if (res.ok) {
     const newReview = await res.json();
-    
+
     dispatch(createReviewAction(newReview));
     return newReview;
   }
@@ -67,18 +73,27 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   }
 };
 
-export const editReviewThunk = review => async dispatch => {
-  const reviewId = +review.get('id')
+export const editReviewThunk = (review) => async (dispatch) => {
+  const reviewId = +review.get("id");
   const res = await fetch(`/api/reviews/${reviewId}/edit`, {
-    method: 'PUT',
-    body: review
-  })
-  if (res.ok){
-    const newReview = await res.json()
-    dispatch(editReviewAction(newReview))
-    return newReview
+    method: "PUT",
+    body: review,
+  });
+  if (res.ok) {
+    const newReview = await res.json();
+    dispatch(editReviewAction(newReview));
+    return newReview;
   }
-}
+};
+
+export const getOneReviewThunk = (reviewId) => async (dispatch) => {
+  const res = await fetch(`/api/reviews/${reviewId}`);
+  if (res.ok) {
+    const review = await res.json();
+    dispatch(getOneReviewAction(review));
+    return review;
+  }
+};
 
 const initialState = {};
 const reviewReducer = (state = initialState, action) => {
@@ -96,6 +111,11 @@ const reviewReducer = (state = initialState, action) => {
     case DELETE_REVIEW: {
       const newState = { ...state };
       delete newState[action.reviewId];
+      return newState;
+    }
+    case GET_ONE_REVIEW: {
+      const newState = { ...state };
+      newState[action.review.id] = action.review;
       return newState;
     }
     default:

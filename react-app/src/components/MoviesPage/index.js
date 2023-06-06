@@ -14,7 +14,7 @@ function MoviesPage() {
 
   useEffect(() => {
     dispatch(getAllMoviesThunk());
-  }, [dispatch, user]);
+  }, [dispatch]);
 
   const responsive = {
     desktop: {

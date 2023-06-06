@@ -1,25 +1,30 @@
 import React, { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect } from "react";
-import { getAllMoviesThunk } from "../../store/movies";
+import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import OpenModalButton from "../OpenModalButton";
 import ReviewFormPage from "../ReviewFormPage";
 import ReactPlayer from "react-player";
 import "./moviepage.css";
 import ReviewDisplayer from "../ReviewDisplayer";
+import { getAllReviewsThunk } from "../../store/reviews";
 
 const MoviePage = () => {
   const dispatch = useDispatch();
   const { movieId } = useParams();
   const movie = useSelector((state) => state.movies[movieId]);
+  const reviews = useSelector(state => Object.values(state.reviews))
+
+  console.log(reviews)
 
   const sessionUser = useSelector((state) => state.session.user);
 
   const userReview = movie?.review.find((el) => el.userId === sessionUser.id);
 
   useEffect(() => {
-    dispatch(getAllMoviesThunk());
-  }, [dispatch]);
+    dispatch(getOneMovieThunk(movieId));
+    dispatch(getAllReviewsThunk())
+  }, [dispatch, movieId]);
 
   if (!movie) return null;
 
@@ -38,7 +43,7 @@ const MoviePage = () => {
         <div  className="reviewButton">{!userReview && <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />}</div>
       )}
       <div className="reviewDisplay">
-        <ReviewDisplayer movie={movie} sessionUser={sessionUser} />
+        <ReviewDisplayer movie={movie} sessionUser={sessionUser} reviews={reviews} />
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMoviesThunk } from "../../store/movies";
 import { getAllReviewsThunk } from "../../store/reviews";
@@ -10,6 +10,7 @@ import EditMovieForm from "../MovieFormPage/EditMovieForm";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import MovieFormPage from "../MovieFormPage";
 import "./profilepage.css";
+import { authenticate } from "../../store/session";
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -27,25 +28,24 @@ const ProfilePage = () => {
     const val = moviesObj[id];
     return val;
   });
+  const likeButton = useCallback(
+    async (e, movieId) => {
+      e.preventDefault();
+      const res = await fetch(`/api/movies/${movieId}/like`, {
+        method: "POST",
+      });
+      if (res.ok) {
+        const like = await res.json();
+        dispatch(getAllMoviesThunk());
+        return like;
+      }
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
-    dispatch(getAllMoviesThunk());
-    dispatch(getAllReviewsThunk());
+    dispatch(authenticate());
   }, [dispatch]);
-
-  useEffect(() => {}, [userLikedMovies, user.reviews.length]);
-
-  const likeButton = async (e, movieId) => {
-    e.preventDefault();
-    const res = await fetch(`/api/movies/${movieId}/like`, {
-      method: "POST",
-    });
-    if (res.ok) {
-      const like = await res.json();
-      await dispatch(getAllMoviesThunk());
-      return like;
-    }
-  };
 
   const UserMadeMovies = () => {
     return (
@@ -74,6 +74,7 @@ const ProfilePage = () => {
     return (
       <div className="likedMovies">
         <h3>Movies you liked</h3>
+
         {userLikedMovies.map((movie) => {
           return (
             <div key={movie.id}>
@@ -99,7 +100,6 @@ const ProfilePage = () => {
             {review.stars} {review.createdAt.slice(0, 17)} {review.movie}
             <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
             <OpenModalButton
-        
               buttonText={"Edit your review"}
               modalComponent={<EditReviewForm review={review} movie={review.movieId} />}
             />
@@ -111,7 +111,7 @@ const ProfilePage = () => {
 
   return (
     <div className="profileContainer">
-      <OpenModalButton  buttonText={"Add a movie"} modalComponent={<MovieFormPage />} />
+      <OpenModalButton buttonText={"Add a movie"} modalComponent={<MovieFormPage />} />
       <UserMadeMovies />
       <LikedMovies />
       <UserReviews />

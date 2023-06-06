@@ -38,6 +38,7 @@ const ReviewFormPage = ({ movie }) => {
 
     await dispatch(createReviewThunk(reviewFormData));
     await dispatch(getOneMovieThunk(movie.id));
+    closeModal()
 
   };
 

@@ -15,11 +15,17 @@ def reviews():
     reviews = Review.query.all()
     return {'reviews': [review.to_dict() for review in reviews]}
 
+@review_routes.route('/<int:id>')
+def review(id):
+    review = Review.query.get(id)
+    return review.to_dict()
+
 @review_routes.route('/<int:id>/delete', methods=['DELETE'])
 @login_required
 def delete_review(id):
     review = Review.query.get(id)
-    if review.user_id == current_user.id:
+
+    if review and review.user_id == current_user.id:
         db.session.delete(review)
         db.session.commit()
         return 'Review deleted'
