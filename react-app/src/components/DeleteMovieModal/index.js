@@ -4,14 +4,18 @@ import { deleteMovieThunk} from "../../store/movies";
 
 
 import "./deletemovie.css";
+import { authenticate } from "../../store/session";
 
 const DeleteMovieModal = ({ movie }) => {
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
 
-  const deleteMovie = async () => {
+  const deleteMovie = async (e) => {
+    e.preventDefault()
     await dispatch(deleteMovieThunk(movie.id));
+    await dispatch(authenticate())
+
 
 
     closeModal();

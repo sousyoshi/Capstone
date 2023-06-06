@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editReviewThunk} from "../../store/reviews";
+import { editReviewThunk, getAllReviewsThunk, getOneReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-import { getOneMovieThunk } from "../../store/movies";
+
+import { authenticate } from "../../store/session";
 
 const EditReviewForm = ({ review }) => {
   const dispatch = useDispatch();
@@ -23,11 +24,16 @@ const EditReviewForm = ({ review }) => {
     reviewFormData.append("review", review2);
     reviewFormData.append("id", review.id);
 
-    await dispatch(editReviewThunk(reviewFormData));
-    dispatch(getOneMovieThunk(review.movieId));
+    const newReview =  await dispatch(editReviewThunk(reviewFormData));
+console.log(newReview)
+    if (newReview) {
+      dispatch(getOneReviewThunk(newReview.id));
+      await dispatch(authenticate());
 
-    closeModal();
+      closeModal();
+    }
   };
+
   const StarRating = () => {
     return (
       <div className="rating">

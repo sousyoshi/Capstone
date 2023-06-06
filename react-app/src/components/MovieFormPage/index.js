@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createMovieThunk, getAllMoviesThunk } from "../../store/movies";
-import { useHistory } from "react-router-dom";
+import { createMovieThunk } from "../../store/movies";
+
+import { useModal } from "../../context/Modal";
 import "./movieform.css";
+import { authenticate } from "../../store/session";
 
 const MovieFormPage = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const{ closeModal} = useModal();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -52,8 +55,8 @@ const MovieFormPage = () => {
     setHasSubmitted(false);
 
     if (newMovie) {
-       dispatch(getAllMoviesThunk())
-      history.push(`/movies/${newMovie.id}`);
+      dispatch(authenticate());
+      closeModal();
     }
   };
 

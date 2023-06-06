@@ -1,3 +1,5 @@
+import { authenticate } from "./session";
+
 const GET_ALL_MOVIES = "movies/getAll";
 const CREATE_MOVIE = "movie/addOne";
 const DELETE_MOVIE = "movie/deleteOne";
@@ -66,6 +68,7 @@ export const deleteMovieThunk = (movieId) => async (dispatch) => {
   });
   if (res.ok) {
     dispatch(deleteOneMovieAction(movieId));
+
     return { message: "successful" };
   }
 };
