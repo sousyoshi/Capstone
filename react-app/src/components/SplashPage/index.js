@@ -17,7 +17,8 @@ export default function SplashPage() {
     return (
       <>
         {movies.slice(1, 6).map((movie) => (
-          <div key={movie.id}
+          <div
+            key={movie.id}
             style={{
               backgroundImage: `url(${movie.image})`,
               backgroundPosition: "center",
@@ -38,7 +39,8 @@ export default function SplashPage() {
     return (
       <>
         {movies.slice(7, 14).map((movie) => (
-          <div key={movie.id}
+          <div
+            key={movie.id}
             style={{
               backgroundImage: `url(${movie.image})`,
               backgroundPosition: "center",
@@ -93,6 +95,7 @@ export default function SplashPage() {
       </>
     );
   };
+
   return (
     <>
       <CheesyIntro />
@@ -100,7 +103,9 @@ export default function SplashPage() {
         <MadMax />
       </div>
       <CheeseMiddleSection />
-      <div className="container">{<ImageMapper />}</div>
+      <div className="container">
+        <ImageMapper />
+      </div>
       <div className="container">
         <ImageMapper2 />
       </div>

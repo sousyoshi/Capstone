@@ -63,7 +63,7 @@ const EditMovieForm = ({ movie }) => {
   };
   return (
     <>
-     
+
       {hasSubmitted && valErrors.length > 0 && (
         <div>
           <ul>
@@ -90,7 +90,7 @@ const EditMovieForm = ({ movie }) => {
           <div>
             {" "}
             Genre
-            <select name="genre" onChange={(e) => setGenre(e.target.value)}>
+            <select value={genre}   name="genre" onChange={(e) => setGenre(e.target.value)}>
               <option value={''}>Please select an option</option>
               <option value={1}>Crime</option>
               <option value={2}>Fantasy</option>

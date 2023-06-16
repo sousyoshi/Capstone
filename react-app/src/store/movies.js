@@ -1,4 +1,4 @@
-import { authenticate } from "./session";
+
 
 const GET_ALL_MOVIES = "movies/getAll";
 const CREATE_MOVIE = "movie/addOne";

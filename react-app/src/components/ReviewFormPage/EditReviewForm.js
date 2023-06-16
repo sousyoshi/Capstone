@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editReviewThunk, getAllReviewsThunk, getOneReviewThunk } from "../../store/reviews";
+import { editReviewThunk,  getOneReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 
 import { authenticate } from "../../store/session";
+import { getOneMovieThunk } from "../../store/movies";
 
-const EditReviewForm = ({ review }) => {
+const EditReviewForm = ({ movie, review }) => {
   const dispatch = useDispatch();
   const [review2, setReview2] = useState(review.review);
   const [stars, setStars] = useState(review.stars);
   const [hover, setHover] = useState(0);
   const { closeModal } = useModal();
-
+ 
   useEffect(() => {
     setStars(stars);
     setReview2(review2);
@@ -24,11 +25,12 @@ const EditReviewForm = ({ review }) => {
     reviewFormData.append("review", review2);
     reviewFormData.append("id", review.id);
 
-    const newReview =  await dispatch(editReviewThunk(reviewFormData));
-console.log(newReview)
+    const newReview = dispatch(editReviewThunk(reviewFormData));
+
     if (newReview) {
       dispatch(getOneReviewThunk(newReview.id));
-      await dispatch(authenticate());
+      dispatch(getOneMovieThunk(movie.id))
+      dispatch(authenticate());
 
       closeModal();
     }

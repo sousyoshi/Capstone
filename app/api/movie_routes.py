@@ -61,7 +61,7 @@ def add_like(movie_id):
     elif like:
         db.session.delete(like)
         db.session.commit()
-        return {'message': 'Liked Deleted'}
+        
 
     else:
         like = Like(owner=current_user.id, movie_id=movie_id)
