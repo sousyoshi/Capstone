@@ -1,22 +1,22 @@
 import { useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-import { getOneMovieThunk } from "../../store/movies";
 import { useEffect } from "react";
 import { authenticate } from "../../store/session";
+import { getOneMovieThunk } from "../../store/movies";
 
-const DeleteReviewModal = ({ review }) => {
+const DeleteReviewModal = ({ review, movie }) => {
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
 
   useEffect(() => {}, [review]);
 
-  const deleteReview = async (e) => {
+  const deleteReview =  (e) => {
     e.preventDefault();
-    await dispatch(deleteReviewThunk(review.id));
-    await dispatch(authenticate());
-
+    dispatch(deleteReviewThunk(review.id));
+    dispatch(getOneMovieThunk(movie.id));
+    dispatch(authenticate());
     closeModal();
   };
 

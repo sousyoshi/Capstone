@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMoviesThunk } from "../../store/movies";
-import { getAllReviewsThunk } from "../../store/reviews";
+import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import DeleteReviewModal from "../DeleteReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
@@ -24,10 +23,13 @@ const ProfilePage = () => {
     .filter((el) => el.owner === user.id)
     .map((el) => el.movieId);
 
-  const userLikedMovies = userMovieIds.map((id) => {
+
+
+  const userLikedMovies = userMovieIds?.map((id) => {
     const val = moviesObj[id];
     return val;
   });
+
   const likeButton = useCallback(
     async (e, movieId) => {
       e.preventDefault();
@@ -36,7 +38,7 @@ const ProfilePage = () => {
       });
       if (res.ok) {
         const like = await res.json();
-        dispatch(getAllMoviesThunk());
+        dispatch(getOneMovieThunk(movieId));
         return like;
       }
     },
@@ -98,7 +100,7 @@ const ProfilePage = () => {
           <div key={review.id} className="userReviews">
             {review.review}
             {review.stars} {review.createdAt.slice(0, 17)} {review.movie}
-            <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} />} />
+            <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} movie={review.movieId} />} />
             <OpenModalButton
               buttonText={"Edit your review"}
               modalComponent={<EditReviewForm review={review} movie={review.movieId} />}

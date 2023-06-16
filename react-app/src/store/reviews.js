@@ -1,3 +1,5 @@
+import { getOneMovieThunk } from "./movies";
+
 const GET_ALL_REVIEWS = "reviews/getAll";
 const CREATE_REVIEW = "review/addOne";
 const DELETE_REVIEW = "review/delete";
@@ -58,6 +60,7 @@ export const createReviewThunk = (review) => async (dispatch) => {
     const newReview = await res.json();
 
     dispatch(createReviewAction(newReview));
+    dispatch(getOneMovieThunk(newReview.movieId))
     return newReview;
   }
 };

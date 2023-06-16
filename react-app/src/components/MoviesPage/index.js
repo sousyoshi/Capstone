@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMoviesThunk } from "../../store/movies";
+import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -32,37 +32,44 @@ function MoviesPage() {
       items: 4,
     },
   };
-  if (!movies) return <h1>LOADING....</h1>;
 
   const movieGenresMapped = movies.reduce((acc, movie) => {
     acc[movie.genreStr] ? (acc[movie.genreStr] = [...acc[movie.genreStr], movie]) : (acc[movie.genreStr] = [movie]);
     return acc;
   }, {});
 
-  const likeButton = async (e, movieId) => {
-    e.preventDefault();
-    const res = await fetch(`/api/movies/${movieId}/like`, {
-      method: "POST",
-    });
-    if (res.ok) {
-      const like = await res.json();
-      dispatch(getAllMoviesThunk());
-      return like;
-    }
-  };
+  const likeButton = useCallback(
+    async (e, movieId) => {
+      e.preventDefault();
+      const res = await fetch(`/api/movies/${movieId}/like`, {
+        method: "POST",
+      });
+      if (res.ok) {
+        const like = await res.json();
+        const { movieId } = like;
+
+        dispatch(getOneMovieThunk(movieId));
+        return like;
+      }
+    },
+    [dispatch]
+  );
+
+  if (!movies) return <h1>LOADING....</h1>;
 
   const myCarousel = () => {
     return (
       <>
         <div className={styles.searchBar}>
           <input
-            size={50}
+            type="text"
+            value={query}
             placeholder="Search for movies by name, genre, and release year."
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
         <h2>{query.length ? query : "All Films"}</h2>
-        <Carousel responsive={responsive} infinite itemClass="carousel-item-padding-40-px">
+        <Carousel responsive={responsive} infinite>
           {movies
             .filter(
               (movie) =>
@@ -104,24 +111,14 @@ function MoviesPage() {
                 {movieGenresMapped[genreStr].map((movie) => {
                   return (
                     <div key={movie.id}>
-                      <Link  to={`/movies/${movie.id}`}>
+                      <Link to={`/movies/${movie.id}`}>
                         {" "}
                         <img className={styles.carousel} alt="" src={movie.image} />
                       </Link>
-                      {movie.review.reduce((acc, el) => {
-                        const sum = acc + el.stars
-                        const avg = +(sum / movie.review.length)
+                      {!!movie.review.length &&
+                        movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}
+                      {<i className="fa-regular fa-star" />}
 
-
-                        return (
-                          <>
-                            <p>
-                              {!avg ? null : avg}
-                              <i className="fa-regular fa-star" />
-                            </p>
-                          </>
-                        );
-                      }, 0)}
                       {user && (
                         <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
                           {
