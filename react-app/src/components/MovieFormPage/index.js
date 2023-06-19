@@ -20,24 +20,14 @@ const MovieFormPage = () => {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [valErrors, setValErrors] = useState({});
 
-  useEffect(() => {
-
-      const errors = {};
-      if (!title.length) errors.title = ("Please enter a movie title");
-      if (!description.length) errors.description = ("Please enter a synopsis");
-      if (!image.length) errors.image = ("Please provide an image");
-      if (!genre) errors.genre = ("Please provide a genre");
-      if (!image.endsWith(".png") && !image.endsWith(".jpeg") && !image.endsWith(".jpg"))
-        errors.imageSuff = ("Image URL must be end with png, jpeg, or jpg");
-      setValErrors(errors);
-
-  }, [title, description, image, genre, hasSubmitted]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
 
+    if (Object.keys(valErrors).length) return alert("Your form currently has errors!");
+
     const formData = new FormData();
+
     formData.append("title", title);
     formData.append("description", description);
     formData.append("genre", genre);
@@ -45,7 +35,11 @@ const MovieFormPage = () => {
     formData.append("image", image);
     formData.append("trailer", trailer);
 
-    const newMovie = await dispatch(createMovieThunk(formData));
+    await dispatch(createMovieThunk(formData));
+
+    if (Object.keys(valErrors).length === 0) {
+      dispatch(authenticate()).then(() => closeModal());
+    }
 
     setTitle("");
     setDescription("");
@@ -54,12 +48,17 @@ const MovieFormPage = () => {
     setImage("");
     setTrailer("");
     setHasSubmitted(false);
-
-    if (newMovie) {
-      dispatch(authenticate());
-      closeModal();
-    }
   };
+  useEffect(() => {
+    const errors = {};
+    if (!title.length) errors.title = "Please enter a movie title";
+    if (!description.length) errors.description = "Please enter a synopsis";
+    if (!image.length) errors.image = "Please provide an image";
+    if (!genre) errors.genre = "Please provide a genre";
+    if (!image.endsWith(".png") && !image.endsWith(".jpeg") && !image.endsWith(".jpg"))
+      errors.imageSuff = "Image URL must be end with png, jpeg, or jpg";
+    setValErrors(errors);
+  }, [title, description, image, genre]);
 
   return (
     <>
@@ -83,7 +82,7 @@ const MovieFormPage = () => {
             Movie Title
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
-          {valErrors.title && <div className="errors">{valErrors.title}</div>}
+          {hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
           <div>
             <label>
               {" "}
@@ -99,7 +98,7 @@ const MovieFormPage = () => {
                 {" "}
               </textarea>
             </label>
-            {valErrors.description && <div className="errors">{valErrors.description}</div>}
+            {hasSubmitted && valErrors.description && <div className="errors">{valErrors.description}</div>}
           </div>
           <div>
             {" "}
@@ -119,6 +118,7 @@ const MovieFormPage = () => {
               <option value={11}>Mystery</option>
               <option value={12}>Super-hero</option>
             </select>
+            {hasSubmitted && valErrors.genre && <div className="errors">{valErrors.genre}</div>}
           </div>
           <div>
             <label>
@@ -126,6 +126,7 @@ const MovieFormPage = () => {
               Release Year
               <input type="number" min={"1900"} max={2023} value={releaseYear} onChange={(e) => setReleaseYear(e.target.value)} />
             </label>
+            {hasSubmitted && valErrors.releaseYear && <div className="errors">{valErrors.releaseYear}</div>}
           </div>
           <div>
             <label>
@@ -133,6 +134,8 @@ const MovieFormPage = () => {
               Image
               <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
             </label>
+            {hasSubmitted && valErrors.image && <div className="errors">{valErrors.image}</div>}
+            {hasSubmitted && valErrors.imageSuff && <div className="errors">{valErrors.imageSuff}</div>}
           </div>
           <div>
             <label>
