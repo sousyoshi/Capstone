@@ -108,31 +108,32 @@ function MoviesPage() {
             <div key={i}>
               <h2>{genreStr}</h2>
               <Carousel responsive={responsive} infinite>
-                {movieGenresMapped[genreStr].map((movie) => {
-                  return (
-                    <div key={movie.id}>
-                      <Link to={`/movies/${movie.id}`}>
-                        {" "}
-                        <img className={styles.carousel} alt="" src={movie.image} />
-                      </Link>
-                      {!!movie.review.length &&
-                        movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}
-                      {<i className="fa-regular fa-star" />}
+                {movieGenresMapped[genreStr]
+                  .map((movie) => {
+                    return (
+                      <div key={movie.id}>
+                        <Link to={`/movies/${movie.id}`}>
+                          {" "}
+                          <img className={styles.carousel} alt="" src={movie.image} />
+                        </Link>
+                        {!!movie.review.length &&
+                          movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}
+                        {<i className="fa-regular fa-star" />}
 
-                      {user && (
-                        <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
-                          {
-                            <i
-                              className={
-                                movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"
-                              }
-                            />
-                          }
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
+                        {user && (
+                          <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
+                            {
+                              <i
+                                className={
+                                  movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                                }
+                              />
+                            }
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
               </Carousel>
             </div>
           );
