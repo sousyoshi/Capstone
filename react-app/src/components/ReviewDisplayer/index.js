@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import DeleteReviewModal from "../DeleteReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const ReviewDisplayer = ({ movie }) => {
   const sessionUser = useSelector(state=> state.session.user)
-  
+
   const reviews = movie.review.map((review) => (
     <div key={review.id} className="reviewDiv">
       { (

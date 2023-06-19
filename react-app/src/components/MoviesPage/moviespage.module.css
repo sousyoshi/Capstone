@@ -1,6 +1,4 @@
 .mainCarousel {
-
-
   border-radius: 20px;
   transition: transform 0.8s;
 }
@@ -30,7 +28,7 @@
   height: 50%;
 }
 
-#likeButton{
+#likeButton {
   font-size: 2rem;
   position: absolute;
   right: 20px;
@@ -38,13 +36,11 @@
   border: none;
   background-color: transparent;
   color: red;
-
 }
 
+h2 {
+  display: grid;
 
-h2{
-  display: flex;
-align-self: center;
-border: 2px dotted white;
-width: 50%;
+  border: 5px dotted white;
+  width: 100%;
 }
