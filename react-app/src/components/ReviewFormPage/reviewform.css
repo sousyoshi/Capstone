@@ -1,23 +1,27 @@
-.rating .filled    {
-    background-color: transparent;
-    cursor: pointer;
-    border: none;
-    outline: white;
-
+.rating .filled {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  outline: white;
 }
 
-.filled{
-    color:rgb(178, 224, 11);
-
+.filled {
+  color: rgb(178, 224, 11);
+  display: flex;
+  flex-direction: row;
 }
 
-.empty{
-    color: white;
+.empty {
+  color: white;
+  display: flex;
+  
 }
 
- #modal-content .reviewForm{
-    display: flex;
-    flex-flow: column;
-    border-radius: 20px;
- 
+#modal-content .reviewForm {
+  display: inline-block;
+
+
+  border: 2px solid white;
+
+
 }

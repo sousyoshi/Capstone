@@ -2,9 +2,8 @@ import { createReviewThunk } from "../../store/reviews";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-
-import "./reviewform.css";
 import { getOneMovieThunk } from "../../store/movies";
+import "./reviewform.css";
 
 const ReviewFormPage = ({ movie }) => {
   const dispatch = useDispatch();
@@ -36,9 +35,9 @@ const ReviewFormPage = ({ movie }) => {
     reviewFormData.append("review", review);
     reviewFormData.append("movieId", movie.id);
 
-    await dispatch(createReviewThunk(reviewFormData));
-    await dispatch(getOneMovieThunk(movie.id));
-    if (!!valErrors) closeModal();
+    dispatch(createReviewThunk(reviewFormData));
+    dispatch(getOneMovieThunk(movie.id));
+    if (!valErrors.length) closeModal();
   };
 
   const starRating = () => {
@@ -78,8 +77,8 @@ const ReviewFormPage = ({ movie }) => {
       )}{" "}
       <form className="reviewForm" encType="multipart/form-data" onSubmit={handleSubmit}>
         <textarea rows={6} placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
-        <div className="rating-input"></div>
-        {starRating()}
+        <div className="rating-input">{starRating()}</div>
+
         <p>Stars</p>
         <button type="submit">Submit Your Review</button>
       </form>

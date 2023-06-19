@@ -12,13 +12,9 @@ const MoviePage = () => {
   const dispatch = useDispatch();
   const { movieId } = useParams();
   const movie = useSelector((state) => state.movies[movieId]);
-  const reviews = useSelector((state) => Object.values(state.reviews));
-
-  console.log("this", reviews);
-
   const sessionUser = useSelector((state) => state.session.user);
 
-  const userReview = movie?.review.find((el) => el.userId === sessionUser.id);
+
 
   useEffect(() => {
     dispatch(getOneMovieThunk(movieId));
@@ -39,11 +35,11 @@ const MoviePage = () => {
       <div className="plot"> Synopsis: {movie.description}</div>
       {sessionUser && (
         <div className="reviewButton">
-          {!userReview && <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />}
+          {!movie.review.find((review) => review.userId === sessionUser.id) && <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />}
         </div>
       )}
       <div className="reviewDisplay">
-        <ReviewDisplayer movie={movie} sessionUser={sessionUser} />
+        <ReviewDisplayer movie={movie} />
       </div>
     </section>
   );
