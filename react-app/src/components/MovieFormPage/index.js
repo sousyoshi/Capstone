@@ -9,7 +9,7 @@ import { authenticate } from "../../store/session";
 const MovieFormPage = () => {
   const dispatch = useDispatch();
 
-  const{ closeModal} = useModal();
+  const { closeModal } = useModal();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -18,23 +18,24 @@ const MovieFormPage = () => {
   const [image, setImage] = useState("");
   const [trailer, setTrailer] = useState("");
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [valErrors, setValErrors] = useState([]);
+  const [valErrors, setValErrors] = useState({});
 
   useEffect(() => {
-    const errors = [];
-    if (!title) errors.push("Please enter a movie title");
-    if (!description.length) errors.push("Please enter a synopsis");
-    if (!image.length) errors.push("Please provide an image");
-    if (!genre.length) errors.push("Please provide a genre");
-    if (!image.endsWith(".png") && !image.endsWith(".jpeg") && !image.endsWith(".jpg"))
-      errors.push("Image URL must be end with png, jpeg, or jpg");
-    setValErrors(errors);
-  }, [title, description, image, genre]);
+
+      const errors = {};
+      if (!title.length) errors.title = ("Please enter a movie title");
+      if (!description.length) errors.description = ("Please enter a synopsis");
+      if (!image.length) errors.image = ("Please provide an image");
+      if (!genre) errors.genre = ("Please provide a genre");
+      if (!image.endsWith(".png") && !image.endsWith(".jpeg") && !image.endsWith(".jpg"))
+        errors.imageSuff = ("Image URL must be end with png, jpeg, or jpg");
+      setValErrors(errors);
+
+  }, [title, description, image, genre, hasSubmitted]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    if (valErrors.length) return alert("Your form has errors.");
 
     const formData = new FormData();
     formData.append("title", title);
@@ -62,25 +63,27 @@ const MovieFormPage = () => {
 
   return (
     <>
-      <h1>Add a new Movie</h1>
-      {hasSubmitted && valErrors.length > 0 && (
-        <div>
-          <ul>
-            {valErrors.map((error) => (
-              <li className="errors" key={error}>
-                {error}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}{" "}
       <form className="movieform" onSubmit={handleSubmit} encType="multipart/form-data">
+        {" "}
+        {/* {hasSubmitted && valErrors.length && (
+          <div>
+            <ul>
+              {valErrors.map((error) => (
+                <li className="errors" key={error}>
+                  {error}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}{" "} */}
         <fieldset>
+          <h1>Add a new Movie</h1>
           <label>
             {" "}
             Movie Title
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
+          {valErrors.title && <div className="errors">{valErrors.title}</div>}
           <div>
             <label>
               {" "}
@@ -96,6 +99,7 @@ const MovieFormPage = () => {
                 {" "}
               </textarea>
             </label>
+            {valErrors.description && <div className="errors">{valErrors.description}</div>}
           </div>
           <div>
             {" "}

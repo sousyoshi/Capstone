@@ -40,9 +40,11 @@
   color: red;
 
 }
-/*{user && reviewLink(movie)} */
+
 
 h2{
-text-align: center;
+  display: flex;
+align-self: center;
 border: 2px dotted white;
+width: 50%;
 }

@@ -17,6 +17,11 @@ const ProfilePage = () => {
   const moviesObj = useSelector((state) => state.movies);
   const movies = Object.values(moviesObj);
 
+  useEffect(() => {
+    dispatch(authenticate());
+  }, [dispatch]);
+
+
   const userMovieIds = movies
     .map((movie) => movie.like.map((likeObj) => likeObj))
     .flat(Infinity)
@@ -45,16 +50,13 @@ const ProfilePage = () => {
     [dispatch]
   );
 
-  useEffect(() => {
-    dispatch(authenticate());
-  }, [dispatch]);
 
   const UserMadeMovies = () => {
     return (
       <div className="userMovies">
         {" "}
         <h3>Maintain movies you have added</h3>
-        {user.movies.map((movie) => {
+        {user.movies.length ? user.movies.map((movie) => {
           return (
             <div className="movieDiv" key={movie.id}>
               <Link to={`/movies/${movie.id}`}>
@@ -67,7 +69,7 @@ const ProfilePage = () => {
               </div>
             </div>
           );
-        })}
+        }) : <p>You haven't added any movies yet...</p>}
       </div>
     );
   };
@@ -77,7 +79,7 @@ const ProfilePage = () => {
       <div className="likedMovies">
         <h3>Movies you liked</h3>
 
-        {userLikedMovies.map((movie) => {
+        {userLikedMovies.length ? userLikedMovies.map((movie) => {
           return (
             <div key={movie.id}>
               <Link to={`/movies/${movie.id}`}>
@@ -87,7 +89,7 @@ const ProfilePage = () => {
               </Link>{" "}
             </div>
           );
-        })}
+        }): <p> You haven't liked any movies yet... </p>}
       </div>
     );
   };
@@ -96,7 +98,7 @@ const ProfilePage = () => {
     return (
       <div className="userReviewsContainer">
         <h3>Manage your reviews</h3>
-        {user.reviews.map((review) => (
+        {user.reviews.length ? user.reviews.map((review) => (
           <div key={review.id} className="userReviews">
             {review.review}
             {review.stars} {review.createdAt.slice(0, 17)} {review.movie}
@@ -106,7 +108,7 @@ const ProfilePage = () => {
               modalComponent={<EditReviewForm review={review} movie={review.movieId} />}
             />
           </div>
-        ))}
+        )): <p>You haven't reviewed any movies yet... </p>}
       </div>
     );
   };
