@@ -16,7 +16,7 @@ export default function SplashPage() {
   const ImageMapper = () => {
     return (
       <>
-        {movies.slice(1, 6).map((movie) => (
+        {movies.slice(1, 5).map((movie) => (
           <div
             key={movie.id}
             style={{
@@ -38,7 +38,28 @@ export default function SplashPage() {
   const ImageMapper2 = () => {
     return (
       <>
-        {movies.slice(7, 14).map((movie) => (
+        {movies.slice(6, 10).map((movie) => (
+          <div
+            key={movie.id}
+            style={{
+              backgroundImage: `url(${movie.image})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "repeat",
+              width: "15rem",
+              height: "15rem",
+              position: "relative",
+              borderRadius: "20px",
+            }}
+          ></div>
+        ))}
+      </>
+    );
+  };
+  const ImageMapper3 = () => {
+    return (
+      <>
+        {movies.slice(10).map((movie) => (
           <div
             key={movie.id}
             style={{
@@ -67,30 +88,30 @@ export default function SplashPage() {
     );
   };
 
-  const MadMax = () => {
-    return (
-      <>
-        <div
-          style={{
-            backgroundImage: `url("https://thumbs.gfycat.com/ImpassionedDrearyAmericanbulldog.webp")`,
-            backgroundPosition: "center",
-            backgroundSize: "cover",
-            backgroundRepeat: "repeat",
-            width: "10rem",
-            height: "10rem",
-            position: "static",
-            borderRadius: "40px",
-          }}
-        ></div>
-      </>
-    );
-  };
+  // const MadMax = () => {
+  //   return (
+  //     <>
+  //       <div
+  //         style={{
+  //           backgroundImage: `url("https://thumbs.gfycat.com/ImpassionedDrearyAmericanbulldog.webp")`,
+  //           backgroundPosition: "center",
+  //           backgroundSize: "cover",
+  //           backgroundRepeat: "repeat",
+  //           width: "10rem",
+  //           height: "10rem",
+  //           position: "static",
+  //           borderRadius: "40px",
+  //         }}
+  //       ></div>
+  //     </>
+  //   );
+  // };
 
   const CheeseMiddleSection = () => {
     return (
       <>
         <div style={{ display: "inline-block" }}>
-          <h2>Then race on down to Flickpicks where you can review movies, add movies, even like them to watch later.</h2>
+          <h2></h2>
         </div>
       </>
     );
@@ -99,15 +120,16 @@ export default function SplashPage() {
   return (
     <>
       <CheesyIntro />
-      <div className="welcomeContainer">
-        <MadMax />
-      </div>
-      <CheeseMiddleSection />
+      <div className="welcomeContainer"></div>
+
       <div className="container">
         <ImageMapper />
       </div>
       <div className="container">
         <ImageMapper2 />
+      </div>
+      <div className="container">
+        <ImageMapper3 />
       </div>
     </>
   );

@@ -7,10 +7,8 @@
 .reviewBox{
     display: flex;
     flex-flow: column;
+    background-color: white;
+    color: black;
+    border-bottom: 2px solid black;
 
-
-}
-
-.reviewBox button {
-    border-radius: 20px;
 }

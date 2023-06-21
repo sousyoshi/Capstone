@@ -25,22 +25,23 @@
   border-radius: 10px;
   margin: 10px auto;
   width: 50%;
-  height: 30px
+  height: 30px;
 }
 
 #likeButton {
   font-size: 2rem;
   position: absolute;
-  right: 20px;
-  bottom: 20px;
-  border: none;
+  right: 80px;
+  bottom: 30px;
   background-color: transparent;
-  color: red;
+  color: rgb(255, 0, 0);
+  border-radius: 0 20px 20px;
+  border: transparent;
 }
 
 h2 {
   display: grid;
 
-  border: 5px dotted white;
+  border: 5px solid white;
   width: 100%;
 }
