@@ -15,7 +15,7 @@ const DeleteReviewModal = ({ review, movie }) => {
     await dispatch(deleteReviewThunk(review.id));
     await dispatch(getOneMovieThunk(movie.id));
     await dispatch(authenticate());
-    closeModal();
+    await closeModal();
   };
 
   return (
