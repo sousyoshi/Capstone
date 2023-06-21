@@ -1,4 +1,3 @@
-
 import DeleteReviewModal from "../DeleteReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
@@ -6,18 +5,20 @@ import "./reviewdisplayer.css";
 import { useSelector } from "react-redux";
 
 const ReviewDisplayer = ({ movie }) => {
-  const sessionUser = useSelector(state=> state.session.user)
+  const sessionUser = useSelector((state) => state.session.user);
 
   const reviews = movie.review.map((review) => (
     <div key={review.id} className="reviewDiv">
-      { (
+      {
         <>
           {" "}
           <div className="reviewBox">
-            <div>User: {review.user}</div>
+            <div> {review.user}</div>
+            <div>Date: {review.createdAt.slice(0, 17)} </div>{" "}
             <div>
-              Date: {review.createdAt.slice(0, 17)}Rating: {review.stars} <i className="fa-regular fa-star"></i>{" "}
-            </div>{" "}
+              {" "}
+              Rating: {review.stars}  / 10{" "}
+            </div>
             <div>Review: {review.review} </div>
           </div>
           {sessionUser?.id === review.userId && (
@@ -31,7 +32,7 @@ const ReviewDisplayer = ({ movie }) => {
             </div>
           )}
         </>
-      )}
+      }
     </div>
   ));
 

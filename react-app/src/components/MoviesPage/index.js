@@ -108,32 +108,36 @@ function MoviesPage() {
             <div key={i}>
               <h2>{genreStr}</h2>
               <Carousel responsive={responsive} infinite>
-                {movieGenresMapped[genreStr]
-                  .map((movie) => {
-                    return (
-                      <div key={movie.id}>
-                        <Link to={`/movies/${movie.id}`}>
-                          {" "}
-                          <img className={styles.carousel} alt="" src={movie.image} />
-                        </Link>
-                        {!!movie.review.length &&
-                          movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}
-                        {<i className="fa-regular fa-star" />}
-
-                        {user && (
-                          <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
-                            {
-                              <i
-                                className={
-                                  movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"
-                                }
-                              />
-                            }
-                          </button>
-                        )}
+                {movieGenresMapped[genreStr].map((movie) => {
+                  return (
+                    <div key={movie.id}>
+                      <Link to={`/movies/${movie.id}`}>
+                        {" "}
+                        <img className={styles.carousel} alt="" src={movie.image} />
+                      </Link>
+                      {user && (
+                        <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
+                          {
+                            <i
+                              className={
+                                movie.like.find((like) => like.owner === user.id) ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                              }
+                            />
+                          }
+                        </button>
+                      )}
+                      {!!movie.review.length && (
+                        <div>
+                          {movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}{" "}
+                          <i className="fa-regular fa-star" />{" "}
+                        </div>
+                      )}
+                      <div>
+                        <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
                       </div>
-                    );
-                  })}
+                    </div>
+                  );
+                })}
               </Carousel>
             </div>
           );

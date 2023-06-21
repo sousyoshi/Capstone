@@ -10,12 +10,11 @@ const DeleteReviewModal = ({ review, movie }) => {
 
   const { closeModal } = useModal();
 
-  useEffect(() => {}, [review]);
-
   const deleteReview = async (e) => {
     e.preventDefault();
-    await dispatch(deleteReviewThunk(review.id)).then(() => dispatch(getOneMovieThunk(movie.id)));
-    dispatch(authenticate());
+    await dispatch(deleteReviewThunk(review.id));
+    await dispatch(getOneMovieThunk(movie.id));
+    await dispatch(authenticate());
     closeModal();
   };
 

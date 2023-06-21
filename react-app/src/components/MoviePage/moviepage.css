@@ -2,12 +2,13 @@ section {
   display: flex;
   flex-direction: column;
   margin: 20px;
-  border: 2px dotted white;
+  border: 2px solid white;
   border-radius: 20px;
 }
 
 .trailer {
   display: flex;
+  justify-content: center;
   border: 2px solid white;
   width: auto;
   gap: 30px;
@@ -34,7 +35,7 @@ h2 {
 
 .reviewDisplay {
   width: 50%;
-  height: 10rem;
+  height: 100%;
 }
 
 .reviewButton {

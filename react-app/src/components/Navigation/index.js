@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
         <li>
           {sessionUser && (
             <NavLink className='nav' user={sessionUser} exact to={`/users/${sessionUser.id}`}>
-              Profile
+             <i className="fas fa-ticket" />
             </NavLink>
           )}
           <ProfileButton user={sessionUser} />
