@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {  getOneMovieThunk } from "../../store/movies";
-import DeleteReviewModal from "../DeleteReviewModal";
+import DeleteUserReviewModal from "../DeleteReviewModal/DeleteUserReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
 import DeleteMovieModal from "../DeleteMovieModal";
@@ -102,7 +102,7 @@ const ProfilePage = () => {
           <div key={review.id} className="userReviews">
             {review.review}
             {review.stars} {review.createdAt.slice(0, 17)} {review.movie}
-            <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteReviewModal review={review} movie={review.movieId} />} />
+            <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteUserReviewModal review={review} movie={review.movieId} />} />
             <OpenModalButton
               buttonText={"Edit your review"}
               modalComponent={<EditReviewForm review={review} movie={review.movieId} />}
