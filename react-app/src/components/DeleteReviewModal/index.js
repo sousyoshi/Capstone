@@ -1,8 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-import { useEffect } from "react";
-import { authenticate } from "../../store/session";
 import { getOneMovieThunk } from "../../store/movies";
 
 const DeleteReviewModal = ({ review, movie }) => {
@@ -14,7 +12,6 @@ const DeleteReviewModal = ({ review, movie }) => {
     e.preventDefault();
     await dispatch(deleteReviewThunk(review.id));
     await dispatch(getOneMovieThunk(movie.id));
-    await dispatch(authenticate());
     await closeModal();
   };
 

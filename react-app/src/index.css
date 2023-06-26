@@ -29,3 +29,20 @@ button:hover{
   background-color: white;
 }
 
+div #modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+    color: white;
+    background-color: black;
+  }
+
+  div#modal-content button {
+    background-color: black;
+    color: white;
+  }
+
+  div#modal-content button:hover {
+    background-color: white;
+    color: black;
+  }

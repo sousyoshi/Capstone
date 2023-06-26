@@ -23,11 +23,13 @@ export default function SplashPage() {
               backgroundImage: `url(${movie.image})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
-              backgroundRepeat: "repeat",
+            
               width: "15rem",
               height: "15rem",
               position: "relative",
-              borderRadius: "20px",
+
+              border: '1px solid white'
+
             }}
           ></div>
         ))}
@@ -45,11 +47,13 @@ export default function SplashPage() {
               backgroundImage: `url(${movie.image})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
-              backgroundRepeat: "repeat",
+
               width: "15rem",
               height: "15rem",
               position: "relative",
-              borderRadius: "20px",
+
+              border: '1px solid white'
+
             }}
           ></div>
         ))}
@@ -59,18 +63,19 @@ export default function SplashPage() {
   const ImageMapper3 = () => {
     return (
       <>
-        {movies.slice(10).map((movie) => (
+        {movies.slice(10,14).map((movie) => (
           <div
             key={movie.id}
             style={{
               backgroundImage: `url(${movie.image})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
-              backgroundRepeat: "repeat",
+
               width: "15rem",
               height: "15rem",
               position: "relative",
-              borderRadius: "20px",
+             border: '1px solid white'
+
             }}
           ></div>
         ))}
@@ -107,26 +112,26 @@ export default function SplashPage() {
   //   );
   // };
 
-  const CheeseMiddleSection = () => {
-    return (
-      <>
-        <div style={{ display: "inline-block" }}>
-          <h2></h2>
-        </div>
-      </>
-    );
-  };
+  // const CheeseMiddleSection = () => {
+  //   return (
+  //     <>
+  //       <div style={{ display: "inline-block" }}>
+  //         <h2></h2>
+  //       </div>
+  //     </>
+  //   );
+  // };
 
   return (
     <>
       <CheesyIntro />
-      <div className="welcomeContainer"></div>
 
       <div className="container">
         <ImageMapper />
       </div>
       <div className="container">
         <ImageMapper2 />
+
       </div>
       <div className="container">
         <ImageMapper3 />

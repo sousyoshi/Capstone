@@ -2,10 +2,12 @@
   display: flex;
   width: 0 auto;
   height:auto;
-  border: 5px dotted rgb(241, 238, 238);
+  border: 1px solid rgb(7, 7, 7);
   border-radius: 30px;
+  gap: 10px 20px;
   transition: transform .8s;
-  
+  margin: 20px;
+
 
 
 }
@@ -17,19 +19,7 @@
 
 .container div:hover{
 
-  transform: scale(.95);
+
   color: black;
 
 }
-
-
-
-  .welcomeContainer{
-    display: flex;
-    justify-content: center;
-    background-image: url('https://thumbs.gfycat.com/SmartRelievedKakapo.webp');
-    background-size: cover ;
-
-
-
-  }
