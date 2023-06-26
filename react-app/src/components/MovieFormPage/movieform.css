@@ -1,1 +1,20 @@
 
+.movieform{
+    display: flex;
+  justify-content: center;
+  text-align: center;
+  justify-items: start;
+
+}
+
+.movieform input{
+    width: 100%;
+
+}
+
+.movieform label{
+    display: block;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+}

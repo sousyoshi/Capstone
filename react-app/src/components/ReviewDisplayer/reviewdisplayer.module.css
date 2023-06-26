@@ -1,15 +1,31 @@
 .reviewDiv{
     display: grid;
-    width: auto;
+    width: 0 auto;
+
     border: 2px solid white;
 }
 
 .reviewBox{
-    display: flex;
-    flex-flow: column;
+    display: block;
+    flex-flow: row;
     align-items: center;
     background-color: white;
     color: black;
+height: 100%;
+text-align: left;
 
+}
 
+.dateThing{
+    font-size: 10px;
+}
+
+.stars{
+    float: right;
+
+}
+
+.userButtons{
+    display: flex;
+    width: auto;
 }
