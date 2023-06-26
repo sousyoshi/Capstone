@@ -30,6 +30,7 @@ function MoviesPage() {
     mobile: {
       breakpoint: { max: 960, min: 0 },
       items: 4,
+      slidesToSlide: 3,
     },
   };
 
@@ -62,7 +63,7 @@ function MoviesPage() {
       <>
         <div className={styles.searchBar}>
           <input
-            type="text"
+            type="search"
             value={query}
             placeholder="Search for movies by name, genre, and release year."
             onChange={(e) => setQuery(e.target.value)}
@@ -76,7 +77,7 @@ function MoviesPage() {
                 movie.title.toLowerCase().includes(query.toLocaleLowerCase()) ||
                 movie.releaseYear.toString().includes(query) ||
                 movie.genreStr.toLowerCase().includes(query.toLocaleLowerCase())
-            )
+            ).sort((a,b)=> a.releaseYear - b.releaseYear)
             .map((movie) => {
               return (
                 <>
@@ -126,15 +127,15 @@ function MoviesPage() {
                           }
                         </button>
                       )}
-                      {!!movie.review.length && (
+
+                      <div className={styles.movieTitle}>
+                        <Link to={`/movies/${movie.id}`}>{movie.title}{" "}({movie.releaseYear})</Link>
+                      </div> {!!movie.review.length && (
                         <div>
                           {movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}{" "}
                           <i className="fa-regular fa-star" />{" "}
                         </div>
                       )}
-                      <div>
-                        <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
-                      </div>
                     </div>
                   );
                 })}

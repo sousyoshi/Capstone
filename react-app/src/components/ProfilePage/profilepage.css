@@ -1,44 +1,51 @@
-.profileContainer{
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-
-
-    margin: 20px;
-
-
+  margin: 0 auto;
 }
 
-.profileContainer img{
-    width: 150px;
-    height:200px;
-    margin: 20px 20px;
-
-    align-items: center
- ;
-
+.profileContainer img {
+  width: 100px;
+  height: 150px;
+  margin: 20px 20px;
 }
 
-.profileContainer img:hover{
-    box-shadow: 5px 3px 5px rgb(214, 189, 189);
-    transform: scale(1.02);
+.profileContainer img:hover {
+  box-shadow: 5px 3px 5px rgb(214, 189, 189);
+  transform: scale(1.02);
 }
-.likedMovies{
-    border: 2px solid white;
+.likedMovies {
+  display: flex;
+  flex-flow: row wrap;
 
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-    align-content: space-evenly;
-    gap: 20px;
+  align-content: space-evenly;
+}
+.movieDiv {
+  width: 20%;
+}
+.movieDiv a:link, .movieDiv p {
+  text-decoration: none;
+  color: white;
+}
 
+.movieDiv a p:hover {
+  cursor: pointer;
+
+  color: rgb(104, 104, 172);
+}
+.userMovies {
+  border: .9px solid white;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-evenly;
+  padding: 20px 10px;
 
 }
-/* .userMovies{
-border: 2px solid white;
-width: 50%;
+/*
 
 
 

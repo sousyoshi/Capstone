@@ -1,9 +1,8 @@
 import { useDispatch } from "react-redux";
 import { deleteReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
-import { useEffect } from "react";
 import { authenticate } from "../../store/session";
-import { getOneMovieThunk } from "../../store/movies";
+
 
 const DeleteUserReviewModal = ({ review, movie }) => {
   const dispatch = useDispatch();

@@ -1,40 +1,13 @@
-.signupContainer{
-    text-align: center;
-    color: white;
-    background-color: black;
-    outline: 1px solid white;
-    padding: 0 10px;
+.signupContainer {
+text-align: center;
+
+  outline: 1px solid white;
 }
 
-div #modal-content{
-    display: flex;
-    position: absolute;
+.signupContainer form {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
 
-    margin: 0;
-    border-radius: 15px;
-    width: auto;
-    height: auto;
 
 }
-
-div#modal-content button {
-background-color: black;
-color: white;
-
-
-
-  }
-
-  div#modal-content label {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  div#modal-content input {
-      box-sizing: border-box;
-    background-color:  #E8F0FE ;
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 20px;
-  }

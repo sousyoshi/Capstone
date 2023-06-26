@@ -1,29 +1,25 @@
 import DeleteReviewModal from "../DeleteReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
-import "./reviewdisplayer.css";
 import { useSelector } from "react-redux";
+import styles from "./reviewdisplayer.module.css";
 
 const ReviewDisplayer = ({ movie }) => {
   const sessionUser = useSelector((state) => state.session.user);
 
   const reviews = movie.review.map((review) => (
-    <div key={review.id} className="reviewDiv">
+    <div key={review.id} className={styles.reviewDiv}>
       {
         <>
           {" "}
-          <div className="reviewBox">
+          <div className={styles.reviewBox}>
             <div> {review.user}</div>
-            <div>Date: {review.createdAt.slice(0, 17)} </div>{" "}
-            <div>
-              {" "}
-              Rating: {review.stars}  / 10{" "}
-            </div>
-            <div>Review: {review.review} </div>
+            <p>Date: {review.createdAt.slice(0, 17)} </p>
+            <p>Rating: {review.stars} / 10</p>
+            <p>Review: {review.review} </p>
           </div>
           {sessionUser?.id === review.userId && (
             <div>
-              {" "}
               <OpenModalButton
                 buttonText={"Delete your review"}
                 modalComponent={<DeleteReviewModal movie={movie} review={review} />}
