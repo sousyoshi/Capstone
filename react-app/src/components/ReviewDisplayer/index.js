@@ -13,13 +13,13 @@ const ReviewDisplayer = ({ movie }) => {
         <>
           {" "}
           <div className={styles.reviewBox}>
-            <div> {review.user}</div>
-            <p>Date: {review.createdAt.slice(0, 17)} </p>
-            <p>Rating: {review.stars} / 10</p>
-            <p>Review: {review.review} </p>
+             <p className={styles.stars}> {review.stars} / 10</p><div> {review.user}</div>
+            <p className={styles.dateThing}>Date: {review.createdAt.slice(0, 17)} </p>
+
+            <p>{review.review} </p>
           </div>
           {sessionUser?.id === review.userId && (
-            <div>
+            <div className={styles.userButtons}>
               <OpenModalButton
                 buttonText={"Delete your review"}
                 modalComponent={<DeleteReviewModal movie={movie} review={review} />}

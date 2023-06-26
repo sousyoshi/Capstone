@@ -84,10 +84,7 @@ const MovieFormPage = () => {
           </label>{" "}
           {hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
           <div>
-            <label>
-              {" "}
-              Description
-              <textarea
+            <label>Synopsis<textarea
                 minLength={10}
                 rows={10}
                 cols={50}
@@ -102,9 +99,8 @@ const MovieFormPage = () => {
           </div>
           <div>
             {" "}
-            Genre
-            <select name="genre" onChange={(e) => setGenre(e.target.value)}>
-              <option value={""}>Please select an option</option>
+             <select name="genre" onChange={(e) => setGenre(e.target.value)}>
+              <option value={""}>Please select a genre</option>
               <option value={1}>Crime</option>
               <option value={2}>Fantasy</option>
               <option value={3}>Comedy</option>

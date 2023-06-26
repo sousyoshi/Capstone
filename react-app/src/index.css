@@ -46,3 +46,7 @@ div #modal-content {
     background-color: white;
     color: black;
   }
+
+  input, select, textarea{
+    background-color: rgb(138, 152, 235);
+  }
