@@ -5,8 +5,8 @@ Flickpicks is movie database website inspired by [imdB](https://imdb.com) and [N
 **Live Site: [Flickpicks](https://flickpicks-xz8s.onrender.com)
 
 #### Please see below links to project Wiki:
-* [Feature List](https://github.com/tchristenson/SoundCloud-Clone/blob/main/feature_list.md)
-* [Database Schema](https://github.com/tchristenson/SoundCloud-Clone/blob/main/DbDiagram.png)
+* [Feature List]()
+* [Database Schema]()
 
 
 
