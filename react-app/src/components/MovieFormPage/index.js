@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createMovieThunk } from "../../store/movies";
-
 import { useModal } from "../../context/Modal";
-import "./movieform.css";
 import { authenticate } from "../../store/session";
+import "./movieform.css";
 
 const MovieFormPage = () => {
   const dispatch = useDispatch();
@@ -64,17 +63,6 @@ const MovieFormPage = () => {
     <>
       <form className="movieform" onSubmit={handleSubmit} encType="multipart/form-data">
         {" "}
-        {/* {hasSubmitted && valErrors.length && (
-          <div>
-            <ul>
-              {valErrors.map((error) => (
-                <li className="errors" key={error}>
-                  {error}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}{" "} */}
         <fieldset>
           <h1>Add a new Movie</h1>
           <label>
@@ -84,7 +72,9 @@ const MovieFormPage = () => {
           </label>{" "}
           {hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
           <div>
-            <label>Synopsis<textarea
+            <label>
+              Synopsis
+              <textarea
                 minLength={10}
                 rows={10}
                 cols={50}
@@ -99,7 +89,7 @@ const MovieFormPage = () => {
           </div>
           <div>
             {" "}
-             <select name="genre" onChange={(e) => setGenre(e.target.value)}>
+            <select name="genre" onChange={(e) => setGenre(e.target.value)}>
               <option value={""}>Please select a genre</option>
               <option value={1}>Crime</option>
               <option value={2}>Fantasy</option>

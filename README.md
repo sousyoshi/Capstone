@@ -1,148 +1,90 @@
-# Flask React Project
+# Flickpicks
 
-This is the starter for the Flask React project.
+Flickpicks is movie database website inspired by [imdB](https://imdb.com) and [Netflix](https://netflix.com). Flickpicks can be used to add and review movies. Users can also like and search for movies.
 
-## Getting started
-1. Clone this repository (only this branch)
+**Live Site: [Flickpicks](https://flickpicks-xz8s.onrender.com)
 
-2. Install dependencies
+#### Please see below links to project Wiki:
+* [Feature List](https://github.com/tchristenson/SoundCloud-Clone/blob/main/feature_list.md)
+* [Database Schema](https://github.com/tchristenson/SoundCloud-Clone/blob/main/DbDiagram.png)
 
+
+
+#### How to start project locally:
+1. Clone the project repo into the desired location on your machine (https://https://github.com/sousyoshi/Capstone)
+2. Create a **.env** file based on the example with proper settings for your development environment.
+3. cd into the react-app directory and run the command below to install all dependencies
+      ```bash
+      npm install
+      ```
+4. Inside the root directory, run the following command:
       ```bash
       pipenv install -r requirements.txt
       ```
+5. Still inside the root directory, run the commands below. Once executed, the database should be seeded and running:
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+      ```bash
+      pipenv shell
+      flask db init
+      flask db migrate
+      flask db upgrade
+      flask seed all
+      flask run
+      ```
 
-4. Make sure the SQLite3 database connection URL is in the **.env** file
+6. cd into the react-app directory and run the following command:
+      ```bash
+      npm start
+      ```
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
+7. Browse the site and enjoy
 
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+### Splash Page
+![Splash Page]()
+### Movies Page
+![All Movies Page]()
+### Single Movie Page
+![Single Movie Page]()
+### User Profile Page
+![User Profile Page]()
 
-   ```bash
-   pipenv shell
-   ```
+### API Endpoints
+| HTTP Verbs | Endpoints | Action |
+| --- | --- | --- |
+| GET | /api/auth | To authenticate a user |
+| POST | /api/auth/login | To login an existing user account |
+| GET | /api/auth/logout | To logout the current user |
+| POST | /api/auth/signup | To create a new user and log them in |
+| GET | /api/auth/unauthorized | To return unauthorized JSON when login authentication fails |
+| GET | /api/users | Queries for all users and returns each user as an object inside an array |
+| GET | /api/users/:userId | Queries for a single user and returns that user as an object |
+| GET | /api/movies | Queries for all movies and returns the movies as a list of dictionaries |
+| GET | /api/movies/:movieId | Query for an movie by id and returns that movie in a dictionary |
+| DELETE | /api/movies/:movieId/delete | Handles deleting movie by its id if the movie is owned by current user |
+| POST | /api/movies/new | Allows a user to create a new movie |
+| PUT | /api/movies/:movieId/edit | Handles editing an movie's details if the movie owner is the logged in user |
+| GET/DELETE | /api/movies/:movieId/like | Handles liking a movie if an authorized user is logged in |
+| POST | /api/movies/:movieId/reviews | Handles adding a review to a movie if user |
+| GET | /api/reviews | Queries for all reviews and returns the reviews as a list of dictionaries |
+| GET | /api/reviews/:reviewId | Query for a review by id and returns that review in a dictionary |
+| DELETE | /api/reviews/:reviewId/delete | Handles deleting a review by its id if the review is owned by current user |
+| PUT | /api/reviews/:reviewId/edit | Allows a logged in user to edit their review by its id |
+| DELETE | /api/songs/delete/:albumId | Handles deletion of a song by its id if the song is owned by current user |
 
-   ```bash
-   flask db upgrade
-   ```
 
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+### Technologies Used:
+* [Python](https://docs.python.org/3/)
+* [JavaScript](https://devdocs.io/javascript/)
+* [PostgreSQL](https://www.postgresql.org/docs/)
+* [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+* [React](https://react.dev/)
+* [Redux](https://redux.js.org/)
 
 
-## Deployment through Render.com
+## Landing Page
+You can access the Login and Signup Modal here. Also, we have a demo user button for you to check the website.
 
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
+**Home Page: [Flickpicks](https://flickpicks-xz8s.onrender.com)**
 
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
-
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
-
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
-
-### Part A: Configure the Start and Build Commands
-
-Start by giving your application a name.
-
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
-
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
-
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
-
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+### Author
++ [Josh Johnson](https://github.com/sousyoshi)
