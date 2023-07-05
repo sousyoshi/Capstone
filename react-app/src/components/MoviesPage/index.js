@@ -77,7 +77,8 @@ function MoviesPage() {
                 movie.title.toLowerCase().includes(query.toLocaleLowerCase()) ||
                 movie.releaseYear.toString().includes(query) ||
                 movie.genreStr.toLowerCase().includes(query.toLocaleLowerCase())
-            ).sort((a,b)=> a.releaseYear - b.releaseYear)
+            )
+            .sort((a, b) => a.releaseYear - b.releaseYear)
             .map((movie) => {
               return (
                 <>
@@ -127,10 +128,12 @@ function MoviesPage() {
                           }
                         </button>
                       )}
-
                       <div className={styles.movieTitle}>
-                        <Link to={`/movies/${movie.id}`}>{movie.title}{" "}({movie.releaseYear})</Link>
-                      </div> {!!movie.review.length && (
+                        <Link to={`/movies/${movie.id}`}>
+                          {movie.title} ({movie.releaseYear})
+                        </Link>
+                      </div>{" "}
+                      {!!movie.review.length && (
                         <div>
                           {movie.review.map((review) => review.stars).reduce((acc, el) => acc + el) / movie.review.length}{" "}
                           <i className="fa-regular fa-star" />{" "}
