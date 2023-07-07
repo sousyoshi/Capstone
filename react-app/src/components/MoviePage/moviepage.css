@@ -9,6 +9,7 @@ section {
 .trailer {
   display: flex;
   justify-content: center;
+  flex-flow: row;
   border: 2px solid white;
   width: auto;
   gap: 30px;
@@ -16,8 +17,9 @@ section {
 }
 .poster{
  width: 25vh;
- height: 40vh;
+ height: 30vh;
 }
+
 
 .plot {
   text-align: center;
