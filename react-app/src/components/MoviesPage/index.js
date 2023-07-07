@@ -24,7 +24,7 @@ function MoviesPage() {
     },
     tablet: {
       breakpoint: { max: 1024, min: 960 },
-      items: 4,
+      items: 5,
       slidesToSlide: 3,
     },
     mobile: {
@@ -39,6 +39,9 @@ function MoviesPage() {
     return acc;
   }, {});
 
+
+
+
   const likeButton = useCallback(
     async (e, movieId) => {
       e.preventDefault();
@@ -50,7 +53,8 @@ function MoviesPage() {
         const { movieId } = like;
 
         dispatch(getOneMovieThunk(movieId));
-        return like;
+        return like
+
       }
     },
     [dispatch]
@@ -81,7 +85,7 @@ function MoviesPage() {
             .sort((a, b) => a.releaseYear - b.releaseYear)
             .map((movie) => {
               return (
-                <>
+                <div className={styles.movieImage}>
                   <Link key={movie.id} to={`/movies/${movie.id}`}>
                     <img className={styles.carousel} alt="" src={movie.image} title={movie.title} />
                   </Link>
@@ -94,7 +98,7 @@ function MoviesPage() {
                       }
                     </button>
                   )}
-                </>
+                </div>
               );
             })}
         </Carousel>
@@ -112,7 +116,7 @@ function MoviesPage() {
               <Carousel responsive={responsive} infinite>
                 {movieGenresMapped[genreStr].map((movie) => {
                   return (
-                    <div key={movie.id}>
+                    <div className={styles.movieImage} key={movie.id}>
                       <Link to={`/movies/${movie.id}`}>
                         {" "}
                         <img className={styles.carousel} alt="" src={movie.image} />
@@ -130,7 +134,7 @@ function MoviesPage() {
                       )}
                       <div className={styles.movieTitle}>
                         <Link to={`/movies/${movie.id}`}>
-                          {movie.title} ({movie.releaseYear})
+                          {movie.title} ({movie.releaseYear}) 
                         </Link>
                       </div>{" "}
                       {!!movie.review.length && (

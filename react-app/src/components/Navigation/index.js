@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
       {isLoaded && (
         <li>
           {sessionUser && (
-            <NavLink className='nav' user={sessionUser} exact to={`/users/${sessionUser.id}`}>
+            <NavLink className='nav' user={sessionUser} exact to={`/profile`}>
              <i className="fas fa-ticket" />
             </NavLink>
           )}
