@@ -13,7 +13,8 @@ const ReviewDisplayer = ({ movie }) => {
         <>
           {" "}
           <div className={styles.reviewBox}>
-             <p className={styles.stars}> {review.stars} / 10</p><div> {review.user}</div>
+            <p className={styles.stars}> {review.stars} / 10</p>
+            <div> {review.user}</div>
             <p className={styles.dateThing}>Date: {review.createdAt.slice(0, 17)} </p>
 
             <p>{review.review} </p>

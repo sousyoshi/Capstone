@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOneMovieThunk } from "../../store/movies";
+import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import DeleteUserReviewModal from "../DeleteReviewModal/DeleteUserReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
@@ -18,6 +18,7 @@ const ProfilePage = () => {
   const movies = Object.values(moviesObj);
 
   useEffect(() => {
+    dispatch(getAllMoviesThunk());
     dispatch(authenticate());
   }, [dispatch]);
 
@@ -48,7 +49,6 @@ const ProfilePage = () => {
     return (
       <div className="userMovies">
         {" "}
-
         {user.movies.length ? (
           user.movies.map((movie) => {
             return (
@@ -74,8 +74,6 @@ const ProfilePage = () => {
   const LikedMovies = () => {
     return (
       <div className="likedMovies">
-
-
         {userLikedMovies.length ? (
           userLikedMovies.map((movie) => {
             return (
@@ -102,8 +100,14 @@ const ProfilePage = () => {
         {user.reviews.length ? (
           user.reviews.map((review) => (
             <div key={review.id} className="userReviews">
-              {review.review}
-              {review.stars} {review.createdAt.slice(0, 17)} {review.movie}
+              {" "}
+              <img src={moviesObj[review.movieId]?.image} alt="movieposter"></img>
+              <div><p>{review.createdAt.slice(0, 17)}</p>
+                <p> Film: {review.movie}</p>
+                <p> Review: {review.review}</p>
+                <p> Rating: {review.stars}</p>
+
+              </div>
               <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteUserReviewModal review={review} />} />
               <OpenModalButton
                 buttonText={"Edit your review"}
@@ -121,7 +125,7 @@ const ProfilePage = () => {
   return (
     <div className="profileContainer">
       <OpenModalButton buttonText={"Add a movie"} modalComponent={<MovieFormPage />} />
-     <h3>Maintain movies you have added</h3> <UserMadeMovies />
+      <h3>Maintain movies you have added</h3> <UserMadeMovies />
       <h3>Movies you have liked</h3>
       <LikedMovies />
       <UserReviews />

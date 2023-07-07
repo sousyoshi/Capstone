@@ -1,31 +1,29 @@
-.reviewDiv{
-    display: grid;
-    width: 0 auto;
+.reviewDiv {
+  display: grid;
+  width: 0 auto;
 
-    border: 2px solid white;
+  border: 2px solid white;
 }
 
-.reviewBox{
-    display: block;
-    flex-flow: row;
-    align-items: center;
-    background-color: white;
-    color: black;
-height: 100%;
-text-align: left;
-
+.reviewBox {
+  display: block;
+  flex-flow: row;
+  align-items: center;
+  background-color: white;
+  color: black;
+  height: 100%;
+  text-align: left;
 }
 
-.dateThing{
-    font-size: 10px;
+.dateThing {
+  font-size: 10px;
 }
 
-.stars{
-    float: right;
-
+.stars {
+  float: right;
 }
 
-.userButtons{
-    display: flex;
-    width: auto;
+.userButtons {
+  display: flex;
+  width: auto;
 }

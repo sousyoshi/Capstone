@@ -23,15 +23,16 @@ export default function SplashPage() {
               backgroundImage: `url(${movie.image})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
-            
               width: "15rem",
               height: "15rem",
+
               position: "relative",
 
-              border: '1px solid white'
-
+              border: "1px solid white",
             }}
-          ></div>
+          >
+            {" "}
+          </div>
         ))}
       </>
     );
@@ -52,8 +53,7 @@ export default function SplashPage() {
               height: "15rem",
               position: "relative",
 
-              border: '1px solid white'
-
+              border: "1px solid white",
             }}
           ></div>
         ))}
@@ -63,7 +63,7 @@ export default function SplashPage() {
   const ImageMapper3 = () => {
     return (
       <>
-        {movies.slice(10,14).map((movie) => (
+        {movies.slice(10, 14).map((movie) => (
           <div
             key={movie.id}
             style={{
@@ -74,8 +74,7 @@ export default function SplashPage() {
               width: "15rem",
               height: "15rem",
               position: "relative",
-             border: '1px solid white'
-
+              border: "1px solid white",
             }}
           ></div>
         ))}
@@ -85,53 +84,47 @@ export default function SplashPage() {
 
   const CheesyIntro = () => {
     return (
-      <>
-        <div style={{ textAlign: "center", display: "grid" }}>
-          <h1>Got a love for movies? </h1>
-        </div>
-      </>
+      <div style={{ textAlign: "center", display: "flex", alignItems: "center", flexFlow: "column" }}>
+        <h1>Got a love for movies? </h1>
+        <div
+          style={{
+            backgroundImage: `url('nettty.png')`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            width: "35rem",
+            height: "35rem",
+            position: "relative",
+          }}
+        ></div>
+
+        <div
+          style={{
+            backgroundImage: `url('tester.gif')`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+
+            width: "28rem",
+            height: "15rem",
+            position: "absolute",
+            bottom: "46%",
+            borderRadius: "10%",
+            border: "thick solid white",
+            outline: ".2rem solid black",
+          }}
+        ></div>
+        <h2>Flickpicks is an imdb inspired movie database where you can add, like and review movies.</h2>
+      </div>
     );
   };
-
-  // const MadMax = () => {
-  //   return (
-  //     <>
-  //       <div
-  //         style={{
-  //           backgroundImage: `url("https://thumbs.gfycat.com/ImpassionedDrearyAmericanbulldog.webp")`,
-  //           backgroundPosition: "center",
-  //           backgroundSize: "cover",
-  //           backgroundRepeat: "repeat",
-  //           width: "10rem",
-  //           height: "10rem",
-  //           position: "static",
-  //           borderRadius: "40px",
-  //         }}
-  //       ></div>
-  //     </>
-  //   );
-  // };
-
-  // const CheeseMiddleSection = () => {
-  //   return (
-  //     <>
-  //       <div style={{ display: "inline-block" }}>
-  //         <h2></h2>
-  //       </div>
-  //     </>
-  //   );
-  // };
 
   return (
     <>
       <CheesyIntro />
-
       <div className="container">
         <ImageMapper />
       </div>
       <div className="container">
         <ImageMapper2 />
-
       </div>
       <div className="container">
         <ImageMapper3 />

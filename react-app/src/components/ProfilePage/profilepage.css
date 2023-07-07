@@ -45,30 +45,13 @@
   padding: 20px 10px;
 
 }
-/*
-
-
-
-
-
-
 .userReviews{
-    border: 2px dotted rgb(253, 249, 249);
-    width: 50%;
+  display: flex;
+  flex-flow: row ;
+  justify-content: space-evenly;
+   gap: 20px;
+    width: 100%;
+    height: 50%;
+
 
 }
-
-.userButtons{
-    width: auto;
-    display: flex;
-    justify-content: center;
-}
-
-.userReviewContainer{
-    border: 2px dotted white;
-}
-
-.movieDiv{
-    display: flex;
-    justify-content: center;
-} */

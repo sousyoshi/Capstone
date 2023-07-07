@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/">
             <SplashPage />
           </Route>
-          <Route exact path="/users/:userId">
+          <Route exact path="/profile">
             <ProfilePage />
           </Route>
           <Route>

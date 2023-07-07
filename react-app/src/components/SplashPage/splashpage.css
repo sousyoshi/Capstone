@@ -1,11 +1,9 @@
 .container{
   display: flex;
-  width: 0 auto;
-  height:auto;
+  
   border: 1px solid rgb(7, 7, 7);
   border-radius: 30px;
   gap: 10px 20px;
-  transition: transform .8s;
   margin: 20px;
 
 

@@ -29,14 +29,25 @@
 }
 
 #likeButton {
-  font-size: 2rem;
+  font-size: 1.5rem;
   position: absolute;
-  right: 80px;
-  bottom: 30px;
-  background-color: transparent;
+  right: 10px;
+  bottom: 20px;
+  background-color: rgb(235, 230, 240);
   color: rgb(255, 0, 0);
   border-radius: 0 20px 20px;
-  border: transparent;
+
+}
+
+
+#movieImage{
+  position: relative;
+}
+
+#likeButton:hover{
+  transform: scale(.95);
+  box-shadow: 2px 2px 5px white;
+
 }
 
 h2 {
