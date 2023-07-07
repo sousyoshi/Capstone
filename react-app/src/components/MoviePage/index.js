@@ -30,7 +30,7 @@ const MoviePage = () => {
       </h1>
       <div className="trailer">
         <img className="poster" alt="poster" src={movie.image} />
-        <ReactPlayer controls url={movie.trailer}></ReactPlayer>
+        <ReactPlayer className='movieTrailer' controls url={movie.trailer}></ReactPlayer>
       </div>
       <div className="plot"> Synopsis: {movie.description}</div>
       {sessionUser && (
