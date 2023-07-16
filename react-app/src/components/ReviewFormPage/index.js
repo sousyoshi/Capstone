@@ -79,7 +79,6 @@ const ReviewFormPage = ({ movie }) => {
         <textarea rows={6} placeholder="Just a quick review" value={review} onChange={(e) => setReview(e.target.value)}></textarea>
         <div className="rating-input">{starRating()}</div>
 
-        <p>Stars</p>
         <button type="submit">Submit Your Review</button>
       </form>
     </>

@@ -5,6 +5,7 @@ from ..models import db
 from ..forms.movie_form import NewMovie
 from ..forms.edit_movie_form import EditMovie
 from ..forms.review_form import NewReview
+from ..api.aws_image_routes import get_unique_filename, upload_file_to_s3
 
 movie_routes = Blueprint('movies', __name__)
 
@@ -34,12 +35,18 @@ def add_movie():
 
     if form.validate_on_submit():
 
+        image  = form.data['image']
+        image.filename = get_unique_filename(image.filename)
+        image_upload = upload_file_to_s3(image)
+
+
+
         movie = Movie(
             title=form.data['title'], creator_id=current_user.id,
             description = form.data['description'],
             genre = form.data['genre'],
             release_year = form.data['release_year'],
-            image = form.data['image'],
+            image = image_upload['url'],
             trailer = form.data['trailer']
               )
         db.session.add(movie)
@@ -61,7 +68,7 @@ def add_like(movie_id):
     elif like:
         db.session.delete(like)
         db.session.commit()
-        
+
 
     else:
         like = Like(owner=current_user.id, movie_id=movie_id)

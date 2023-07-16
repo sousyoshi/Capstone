@@ -106,7 +106,7 @@ export default function SplashPage() {
             width: "28rem",
             height: "15rem",
             position: "absolute",
-            bottom: "46%",
+            bottom: "50%",
             borderRadius: "10%",
             border: "thin solid white",
             outline: ".2rem solid black",
@@ -129,7 +129,7 @@ export default function SplashPage() {
       <div className="container">
         <ImageMapper3 />
       </div>
-      <footer>Created by: <a href="https://github.com/sousyoshi">Joshua Johnson</a></footer>
+      <footer>Created by: <a href="https://github.com/sousyoshi">Joshua Johnson </a><i class="fa fa-github"></i></footer>
     </>
   );
 }

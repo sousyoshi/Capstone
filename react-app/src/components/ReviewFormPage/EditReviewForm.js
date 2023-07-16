@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { editReviewThunk,  getOneReviewThunk } from "../../store/reviews";
+import { editReviewThunk, getOneReviewThunk } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 
 import { authenticate } from "../../store/session";
@@ -12,7 +12,7 @@ const EditReviewForm = ({ movie, review }) => {
   const [stars, setStars] = useState(review.stars);
   const [hover, setHover] = useState(0);
   const { closeModal } = useModal();
- 
+
   useEffect(() => {
     setStars(stars);
     setReview2(review2);
@@ -29,7 +29,7 @@ const EditReviewForm = ({ movie, review }) => {
 
     if (newReview) {
       dispatch(getOneReviewThunk(newReview.id));
-      dispatch(getOneMovieThunk(movie.id))
+      dispatch(getOneMovieThunk(movie.id));
       dispatch(authenticate());
 
       closeModal();
@@ -61,11 +61,13 @@ const EditReviewForm = ({ movie, review }) => {
   return (
     <>
       {" "}
-      <form onSubmit={handleSubmit} encType="mulitpart/form-data">
-        <textarea value={review2} placeholder="Just a quick review" onChange={(e) => setReview2(e.target.value)}></textarea>
-        <div className="rating-input"></div>
-        <StarRating />
-        <p>Stars</p>
+      <form className="reviewForm" onSubmit={handleSubmit} encType="mulitpart/form-data">
+        <textarea rows={6} value={review2} placeholder="Just a quick review" onChange={(e) => setReview2(e.target.value)}></textarea>
+        <div className="rating-input">
+          <StarRating />
+        </div>
+
+
         <button type="submit" disabled={!review || !stars}>
           Submit Your Review
         </button>

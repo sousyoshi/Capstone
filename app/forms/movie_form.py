@@ -1,7 +1,9 @@
 
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import StringField, IntegerField, TextAreaField, SelectField
 from wtforms.validators import DataRequired
+from app.api.aws_image_routes import ALLOWED_EXTENSIONS
 
 
 
@@ -28,5 +30,5 @@ class NewMovie(FlaskForm):
         (12, 'Super-hero')
     ], validators=[DataRequired()])
     release_year = IntegerField('Release Year')
-    image = StringField('Movie Image', validators=[DataRequired()])
+    image = FileField('Movie Image', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
     trailer = StringField("Movie Trailer")

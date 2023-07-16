@@ -35,6 +35,7 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'movies' : [movie.to_dict() for movie in self.movies],
+            'likeObj' : [like.to_dict() for like in self.likes],
             'reviews' : [review.to_dict() for review in self.reviews],
             'likes': len(self.likes)
 
