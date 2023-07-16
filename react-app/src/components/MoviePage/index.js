@@ -24,6 +24,7 @@ const MoviePage = () => {
  };
   useEffect(() => {
     dispatch(getOneMovieThunk(movieId));
+
   }, [dispatch, movieId]);
 
   if (!movie) return null;

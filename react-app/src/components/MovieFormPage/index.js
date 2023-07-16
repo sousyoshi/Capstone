@@ -120,7 +120,7 @@ const MovieFormPage = () => {
             </label>
             {hasSubmitted && valErrors.image && <div className="errors">{valErrors.image}</div>}
             {hasSubmitted && valErrors.imageSuff && <div className="errors">{valErrors.imageSuff}</div>}
-          </div>{ image && <img alt="fadf" src={URL.createObjectURL(image)}/>}
+          </div>{ image && <img className="prevImage" alt="fadf" src={URL.createObjectURL(image)}/>}
           <div>
             <label>
               {" "}
