@@ -18,8 +18,11 @@ const UserProfilePage = () => {
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
-  const userLikedMovies = userName.likeObj?.map((el) => el.movieId).map((el) => moviesObj[el]);
 
+
+  const userLikedMovies = userName?.likeObj?.map(el=> moviesObj[el.movieId])
+
+console.log(userLikedMovies)
   const UserMadeMovies = () => {
     return (
       <div className="userMovies">
@@ -29,7 +32,7 @@ const UserProfilePage = () => {
               <Link to={`/movies/${movie.id}`}>
                 <img className="movieImage" alt="" src={movie.image}></img>
               </Link>{" "}
-            <p>{movie.title}</p>  <p>Year released: {movie.releaseYear}</p>  <p>Genre: {movie.genreStr}</p> <p>{}</p> <p></p>
+            <p>{movie.title}</p>  <p>Year released: {movie.releaseYear}</p>  <p>Genre: {movie.genreStr}</p>
             </div>
           );
         })}
@@ -86,7 +89,7 @@ const UserProfilePage = () => {
         </>
       ) : null}
       {userName.reviews.length ? <UserReviews /> : <h2>{userName.username} hasn't reviewed any movies yet</h2>}
-      {userName.likes ? <LikedMovies /> : <h2>{userName.username} hasn't liked any movies yet</h2>}
+       <LikedMovies />
     </div>
   );
 };

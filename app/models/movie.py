@@ -20,8 +20,10 @@ class Movie(db.Model):
 
     creator = db.relationship('User', back_populates='movies')
     genre_ = db.relationship('Genre', back_populates='movie_genre')
-    review = db.relationship('Review', back_populates='movie', cascade='all, delete-orphan')
-    likes = db.relationship('Like', back_populates='liked', cascade='all, delete-orphan')
+    review = db.relationship(
+        'Review', back_populates='movie', cascade='all, delete-orphan')
+    likes = db.relationship('Like', back_populates='liked',
+                            cascade='all, delete-orphan')
 
     def to_dict(self):
 
@@ -35,8 +37,8 @@ class Movie(db.Model):
             'image': self.image,
             'trailer': self.trailer,
             'creatorId': self.creator_id,
-            'review' : [review.to_dict() for review in self.review],
+            'review': [review.to_dict() for review in self.review],
             'creator': self.creator.username,
             'like': [like.to_dict() for like in self.likes]
 
- }
+        }

@@ -1,6 +1,6 @@
 .reviewDiv {
   display: grid;
-  width: 0 auto;
+  width: 50%;
 
   border: 2px solid white;
 }
