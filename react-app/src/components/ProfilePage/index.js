@@ -48,7 +48,6 @@ const ProfilePage = () => {
   const UserMadeMovies = () => {
     return (
       <div className="userMovies">
-        {" "}
         {user.movies.length ? (
           user.movies.map((movie) => {
             return (
@@ -96,17 +95,17 @@ const ProfilePage = () => {
   const UserReviews = () => {
     return (
       <div className="userReviewsContainer">
-        <h3>Manage your reviews</h3>
+        <h3>Manage your reviews: {user.reviews.length ? user.reviews.length: null}</h3>
         {user.reviews.length ? (
           user.reviews.map((review) => (
             <div key={review.id} className="userReviews">
               {" "}
               <img src={moviesObj[review.movieId]?.image} alt="movieposter"></img>
-              <div><p>{review.createdAt.slice(0, 17)}</p>
+              <div>
+                <p>{review.createdAt.slice(0, 17)}</p>
                 <p> Film: {review.movie}</p>
                 <p> Review: {review.review}</p>
                 <p> Rating: {review.stars}</p>
-
               </div>
               <OpenModalButton buttonText={"Delete your review"} modalComponent={<DeleteUserReviewModal review={review} />} />
               <OpenModalButton
@@ -125,8 +124,8 @@ const ProfilePage = () => {
   return (
     <div className="profileContainer">
       <OpenModalButton buttonText={"Add a movie"} modalComponent={<MovieFormPage />} />
-      <h3>Maintain movies you have added</h3> <UserMadeMovies />
-      <h3>Movies you have liked</h3>
+      <h3>Maintain movies you have added: {user.movies.length}</h3> <UserMadeMovies />
+      <h3>Movies you have liked: {userLikedMovies.length}</h3>
       <LikedMovies />
       <UserReviews />
     </div>

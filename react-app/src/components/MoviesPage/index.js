@@ -53,6 +53,7 @@ function MoviesPage() {
         const { movieId } = like;
 
         dispatch(getOneMovieThunk(movieId));
+
         return like
 
       }
@@ -119,7 +120,7 @@ function MoviesPage() {
                     <div className={styles.movieImage} key={movie.id}>
                       <Link to={`/movies/${movie.id}`}>
                         {" "}
-                        <img className={styles.carousel} alt="" src={movie.image} />
+                        <img className={styles.carousel} alt="" src={movie.image}></img>
                       </Link>
                       {user && (
                         <button id={styles.likeButton} onClick={(e) => likeButton(e, movie.id)}>
@@ -134,7 +135,7 @@ function MoviesPage() {
                       )}
                       <div className={styles.movieTitle}>
                         <Link to={`/movies/${movie.id}`}>
-                          {movie.title} ({movie.releaseYear}) 
+                          {movie.title} ({movie.releaseYear})
                         </Link>
                       </div>{" "}
                       {!!movie.review.length && (

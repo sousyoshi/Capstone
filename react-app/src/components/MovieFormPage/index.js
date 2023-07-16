@@ -52,10 +52,8 @@ const MovieFormPage = () => {
     const errors = {};
     if (!title.length) errors.title = "Please enter a movie title";
     if (!description.length) errors.description = "Please enter a synopsis";
-    if (!image.length) errors.image = "Please provide an image";
+    if (!image) errors.image = "Please provide an image";
     if (!genre) errors.genre = "Please provide a genre";
-    if (!image.endsWith(".png") && !image.endsWith(".jpeg") && !image.endsWith(".jpg"))
-      errors.imageSuff = "Image URL must be end with png, jpeg, or jpg";
     setValErrors(errors);
   }, [title, description, image, genre]);
 
@@ -118,11 +116,11 @@ const MovieFormPage = () => {
             <label>
               {" "}
               Image
-              <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+              <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
             </label>
             {hasSubmitted && valErrors.image && <div className="errors">{valErrors.image}</div>}
             {hasSubmitted && valErrors.imageSuff && <div className="errors">{valErrors.imageSuff}</div>}
-          </div>
+          </div>{ image && <img alt="fadf" src={URL.createObjectURL(image)}/>}
           <div>
             <label>
               {" "}

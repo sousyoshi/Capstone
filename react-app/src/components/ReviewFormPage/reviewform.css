@@ -14,14 +14,20 @@
 .empty {
   color: white;
   display: flex;
-  
+
 }
 
 #modal-content .reviewForm {
-  display: inline-block;
+  display: grid;
 
 
   border: 2px solid white;
 
 
+}
+
+#modal-content .reviewForm div {
+  display: flex;
+  flex-flow: row;
+  margin: 5px;
 }

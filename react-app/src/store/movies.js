@@ -57,7 +57,7 @@ export const createMovieThunk = (movie) => async (dispatch) => {
   });
   if (res.ok) {
     const movie = await res.json();
-    dispatch(createMovieAction);
+    dispatch(createMovieAction(movie));
     return movie;
   }
 };
@@ -108,7 +108,7 @@ const movieReducer = (state = initialState, action) => {
       return newState;
     }
     case CREATE_MOVIE: {
-      const newState = [...state];
+      const newState = {...state};
       newState[action.movie.id] = action.movie;
       return newState;
     }

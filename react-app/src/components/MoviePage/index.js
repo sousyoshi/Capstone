@@ -1,6 +1,6 @@
 import React, { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect, useState } from "react";
 import { getOneMovieThunk } from "../../store/movies";
 import OpenModalButton from "../OpenModalButton";
 import ReviewFormPage from "../ReviewFormPage";
@@ -13,9 +13,15 @@ const MoviePage = () => {
   const { movieId } = useParams();
   const movie = useSelector((state) => state.movies[movieId]);
   const sessionUser = useSelector((state) => state.session.user);
+  const [hover, setHover] = useState(false)
 
+  const handleMouseEnter = () => {
+    setHover(true);
+ };
 
-
+ const handleMouseLeave = () => {
+    setHover(false);
+ };
   useEffect(() => {
     dispatch(getOneMovieThunk(movieId));
   }, [dispatch, movieId]);
@@ -26,16 +32,23 @@ const MoviePage = () => {
     <section className="movieContainer">
       {" "}
       <h1 className="movietitle">
-        {movie.title} ({movie.releaseYear}) {movie.genreStr}
+        <div>
+          {" "}
+          {movie.title} ({movie.releaseYear}) {movie.genreStr}
+        </div>
+
+        {sessionUser.id === movie.creatorId ? null :<>Added by: <Link to={`/users/${movie.creatorId}`} style={{textDecoration:'none', color: hover ? 'green' : 'rgb(0, 191, 255)',}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}> {movie.creator} </Link></> }
       </h1>
       <div className="trailer">
         <img className="poster" alt="poster" src={movie.image} />
-        <ReactPlayer className='movieTrailer' controls url={movie.trailer}></ReactPlayer>
+        <ReactPlayer className="movieTrailer" controls url={movie.trailer}></ReactPlayer>
       </div>
       <div className="plot"> Synopsis: {movie.description}</div>
       {sessionUser && (
         <div className="reviewButton">
-          {!movie.review.find((review) => review.userId === sessionUser.id) && <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />}
+          {!movie.review.find((review) => review.userId === sessionUser.id) && (
+            <OpenModalButton buttonText={"Leave a review"} modalComponent={<ReviewFormPage movie={movie} />} />
+          )}
         </div>
       )}
       <div className="reviewDisplay">

@@ -12,6 +12,8 @@ import MoviePage from "./components/MoviePage";
 import ReviewFormPage from "./components/ReviewFormPage";
 import SplashPage from "./components/SplashPage";
 import ProfilePage from "./components/ProfilePage";
+import UserProfilePage from "./components/UserProfilePage";
+
 
 
 function App() {
@@ -53,6 +55,7 @@ function App() {
           <Route exact path="/profile">
             <ProfilePage />
           </Route>
+          <Route exact path ='/users/:userId'> <UserProfilePage /></Route>
           <Route>
             404 Page Not Found
           </Route>
