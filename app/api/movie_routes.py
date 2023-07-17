@@ -39,6 +39,10 @@ def add_movie():
         image.filename = get_unique_filename(image.filename)
         image_upload = upload_file_to_s3(image)
 
+        trailer = form.data['trailer']
+        trailer.filename = get_unique_filename(trailer.filename)
+        trailer_upload = upload_file_to_s3(trailer)
+
 
 
         movie = Movie(
@@ -47,7 +51,7 @@ def add_movie():
             genre = form.data['genre'],
             release_year = form.data['release_year'],
             image = image_upload['url'],
-            trailer = form.data['trailer']
+            trailer = trailer_upload['url']
               )
         db.session.add(movie)
         db.session.commit()

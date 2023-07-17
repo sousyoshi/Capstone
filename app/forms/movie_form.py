@@ -31,4 +31,4 @@ class NewMovie(FlaskForm):
     ], validators=[DataRequired()])
     release_year = IntegerField('Release Year')
     image = FileField('Movie Image', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])
-    trailer = StringField("Movie Trailer")
+    trailer =  FileField('Movie Trailer', validators=[FileRequired(), FileAllowed(list(ALLOWED_EXTENSIONS))])

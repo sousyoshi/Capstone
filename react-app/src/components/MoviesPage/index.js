@@ -12,10 +12,15 @@ function MoviesPage() {
   const user = useSelector((state) => state.session.user);
   const [query, setQuery] = useState("");
 
+
   useEffect(() => {
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
+
+
+
+  
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
