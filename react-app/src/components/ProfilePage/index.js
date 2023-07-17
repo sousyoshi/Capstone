@@ -25,7 +25,7 @@ const ProfilePage = () => {
   const userMovieIds = movies
     .map((movie) => movie.like.map((likeObj) => likeObj))
     .flat(Infinity)
-    .filter((el) => el.owner === user.id)
+    .filter((el) => el?.owner === user.id)
     .map((el) => el.movieId);
 
   const userLikedMovies = userMovieIds?.map((id) => moviesObj[id]);
@@ -120,6 +120,7 @@ const ProfilePage = () => {
       </div>
     );
   };
+  if(!movies) return null
 
   return (
     <div className="profileContainer">

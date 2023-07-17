@@ -119,13 +119,13 @@ const MovieFormPage = () => {
               <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
             </label>
             {hasSubmitted && valErrors.image && <div className="errors">{valErrors.image}</div>}
-            {hasSubmitted && valErrors.imageSuff && <div className="errors">{valErrors.imageSuff}</div>}
+            
           </div>{ image && <img className="prevImage" alt="fadf" src={URL.createObjectURL(image)}/>}
           <div>
             <label>
               {" "}
               Trailer
-              <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
+              <input type="file" accept="video/*" onChange={(e) => setTrailer(e.target.files[0])} />
             </label>
           </div>
           <button type="submit">Create Movie</button>

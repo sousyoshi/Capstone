@@ -122,10 +122,10 @@ const movieReducer = (state = initialState, action) => {
       newState[action.movie.id] = action.movie;
       return newState;
     }
-    case EDIT_MOVIE:
+    case EDIT_MOVIE:{
       const newState = { ...state };
       newState[action.movie.id] = action.movie;
-      return newState;
+      return newState;}
     default:
       return state;
   }
