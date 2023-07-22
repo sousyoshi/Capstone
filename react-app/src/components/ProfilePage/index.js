@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
+import { getAllMoviesThunk } from "../../store/movies";
 import DeleteUserReviewModal from "../DeleteReviewModal/DeleteUserReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
