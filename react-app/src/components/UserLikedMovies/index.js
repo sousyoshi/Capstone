@@ -30,7 +30,7 @@ const UserLikedMovies = ({ user }) => {
     [dispatch]
   );
   const userLikedMovies = user.map((id) => movies[id]);
-  console.log("this is the thing i watn totsee,", userLikedMovies);
+  
   const LikedMovies = () => {
     return (
       <div className="likedMovies">

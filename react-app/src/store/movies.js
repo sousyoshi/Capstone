@@ -1,6 +1,5 @@
 import { authenticate } from "./session";
 
-
 const GET_ALL_MOVIES = "movies/getAll";
 const CREATE_MOVIE = "movie/addOne";
 const DELETE_MOVIE = "movie/deleteOne";
@@ -68,8 +67,7 @@ export const deleteMovieThunk = (movieId) => async (dispatch) => {
     method: "DELETE",
   });
   if (res.ok) {
-    await dispatch(authenticate())
-    await dispatch(deleteOneMovieAction(movieId));
+    dispatch(authenticate()).then(() => dispatch(deleteOneMovieAction(movieId)));
 
     return { message: "successful" };
   }
