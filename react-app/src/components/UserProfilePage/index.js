@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import { getAllUsersThunk } from "../../store/users";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import { getAllMoviesThunk } from "../../store/movies";
 import "./userprofile.css";
 
@@ -14,8 +14,8 @@ const UserProfilePage = () => {
   const user = users[userId];
 
   useEffect(() => {
-    dispatch(getAllUsersThunk());
     dispatch(getAllMoviesThunk());
+    dispatch(getAllUsersThunk());
   }, [dispatch]);
 
   const UserMadeMovies = () => {
@@ -84,7 +84,7 @@ const UserProfilePage = () => {
           {" "}
           <UserMadeMovies />
         </>
-      ) : null}
+      ) : <>I make nothing yet</>}
       <LikedMovies />
       {user.reviews.length ? <UserReviews /> : <h2>{user.username} hasn't reviewed any movies yet</h2>}
     </div>
