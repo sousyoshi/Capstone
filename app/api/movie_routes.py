@@ -46,12 +46,13 @@ def add_movie():
 
 
         movie = Movie(
-            title=form.data['title'], creator_id=current_user.id,
+            title=form.data['title'],
+            creator_id=current_user.id,
             description = form.data['description'],
             genre = form.data['genre'],
             release_year = form.data['release_year'],
             image = image_upload['url'],
-            trailer = trailer_upload['url']
+            trailer = trailer_upload['url'],
               )
         db.session.add(movie)
         db.session.commit()
@@ -74,10 +75,12 @@ def add_like(movie_id):
         db.session.commit()
 
 
+
     else:
         like = Like(owner=current_user.id, movie_id=movie_id)
         db.session.add(like)
         db.session.commit()
+
 
 
     return like.to_dict()
@@ -94,12 +97,20 @@ def edit_movie(id):
 
     if form.validate_on_submit():
 
+        image  = form.data['image']
+        image.filename = get_unique_filename(image.filename)
+        image_upload = upload_file_to_s3(image)
+
+        trailer = form.data['trailer']
+        trailer.filename = get_unique_filename(trailer.filename)
+        trailer_upload = upload_file_to_s3(trailer)
+
         movie.title=form.data['title']
         movie.description = form.data['description']
         movie.genre = form.data['genre']
         movie.release_year = form.data['release_year']
-        movie.image = form.data['image']
-        movie.trailer = form.data['trailer']
+        movie.image = image_upload['url']
+        movie.trailer = trailer_upload['url']
 
 
         db.session.commit()
@@ -114,10 +125,11 @@ def edit_movie(id):
 def delete_movie(id):
     """Query for a movie to deleted by its id"""
     movie = Movie.query.get(id)
+
     if movie.creator_id == current_user.id:
         db.session.delete(movie)
         db.session.commit()
-        return "Movie deleted"
+        return 'Movie deleted'
     else:
         return 'Unauthorized user!'
 

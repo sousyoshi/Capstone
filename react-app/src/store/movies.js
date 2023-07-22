@@ -1,3 +1,4 @@
+import { authenticate } from "./session";
 
 
 const GET_ALL_MOVIES = "movies/getAll";
@@ -67,7 +68,8 @@ export const deleteMovieThunk = (movieId) => async (dispatch) => {
     method: "DELETE",
   });
   if (res.ok) {
-    dispatch(deleteOneMovieAction(movieId));
+    await dispatch(authenticate())
+    await dispatch(deleteOneMovieAction(movieId));
 
     return { message: "successful" };
   }
@@ -102,13 +104,15 @@ const movieReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_MOVIES: {
       const newState = { ...state };
+
       action.movies.forEach((movie) => {
         newState[movie.id] = movie;
       });
+
       return newState;
     }
     case CREATE_MOVIE: {
-      const newState = {...state};
+      const newState = { ...state };
       newState[action.movie.id] = action.movie;
       return newState;
     }
@@ -122,10 +126,11 @@ const movieReducer = (state = initialState, action) => {
       newState[action.movie.id] = action.movie;
       return newState;
     }
-    case EDIT_MOVIE:{
+    case EDIT_MOVIE: {
       const newState = { ...state };
       newState[action.movie.id] = action.movie;
-      return newState;}
+      return newState;
+    }
     default:
       return state;
   }

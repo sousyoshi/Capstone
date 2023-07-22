@@ -13,14 +13,17 @@ import ReviewFormPage from "./components/ReviewFormPage";
 import SplashPage from "./components/SplashPage";
 import ProfilePage from "./components/ProfilePage";
 import UserProfilePage from "./components/UserProfilePage";
-
-
+import { getAllMoviesThunk } from "./store/movies";
+import { getAllUsersThunk } from "./store/users";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
-    dispatch(authenticate()).then(() => setIsLoaded(true));
+    dispatch(authenticate())
+      .then(() => dispatch(getAllMoviesThunk()))
+      .then(() => dispatch(getAllUsersThunk()))
+      .then(() => setIsLoaded(true));
   }, [dispatch]);
 
   return (
@@ -28,7 +31,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path="/login" >
+          <Route exact path="/login">
             <LoginFormPage />
           </Route>
           <Route exact path="/signup">
@@ -55,10 +58,11 @@ function App() {
           <Route exact path="/profile">
             <ProfilePage />
           </Route>
-          <Route exact path ='/users/:userId'> <UserProfilePage /></Route>
-          <Route>
-            404 Page Not Found
+          <Route exact path="/users/:userId">
+            {" "}
+            <UserProfilePage />
           </Route>
+          <Route>404 Page Not Found</Route>
         </Switch>
       )}
     </>

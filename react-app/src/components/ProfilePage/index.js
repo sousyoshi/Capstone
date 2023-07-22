@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import DeleteUserReviewModal from "../DeleteReviewModal/DeleteUserReviewModal";
@@ -9,7 +9,9 @@ import EditMovieForm from "../MovieFormPage/EditMovieForm";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import MovieFormPage from "../MovieFormPage";
 import { authenticate } from "../../store/session";
+import UserLikedMovies from "../UserLikedMovies";
 import "./profilepage.css";
+
 
 const ProfilePage = () => {
   const dispatch = useDispatch();
@@ -17,33 +19,20 @@ const ProfilePage = () => {
   const moviesObj = useSelector((state) => state.movies);
   const movies = Object.values(moviesObj);
 
+
   useEffect(() => {
-    dispatch(getAllMoviesThunk());
-    dispatch(authenticate());
+
+    dispatch(authenticate())
+    dispatch(getAllMoviesThunk())
+
+
   }, [dispatch]);
 
-  const userMovieIds = movies
-    .map((movie) => movie.like.map((likeObj) => likeObj))
-    .flat(Infinity)
-    .filter((el) => el?.owner === user.id)
-    .map((el) => el.movieId);
 
-  const userLikedMovies = userMovieIds?.map((id) => moviesObj[id]);
 
-  const likeButton = useCallback(
-    async (e, movieId) => {
-      e.preventDefault();
-      const res = await fetch(`/api/movies/${movieId}/like`, {
-        method: "POST",
-      });
-      if (res.ok) {
-        const like = await res.json();
-        dispatch(getOneMovieThunk(movieId));
-        return like;
-      }
-    },
-    [dispatch]
-  );
+
+
+
 
   const UserMadeMovies = () => {
     return (
@@ -58,7 +47,7 @@ const ProfilePage = () => {
                 <div className="userButtons">
                   {" "}
                   <OpenModalButton buttonText={"Edit your movie"} modalComponent={<EditMovieForm movie={movie} />} />
-                  <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal user={user} movie={movie} />} />
+                  <OpenModalButton buttonText={"Delete your movie"} modalComponent={<DeleteMovieModal  movie={movie} />} />
                 </div>
               </div>
             );
@@ -70,32 +59,34 @@ const ProfilePage = () => {
     );
   };
 
-  const LikedMovies = () => {
-    return (
-      <div className="likedMovies">
-        {userLikedMovies.length ? (
-          userLikedMovies.map((movie) => {
-            return (
-              <div className="movieDiv" key={movie.id}>
-                <Link to={`/movies/${movie.id}`}>
-                  <img alt="" src={movie.image}></img>
-                  <p>{movie.title}</p>
-                  <button onClick={(e) => likeButton(e, movie.id)}>{"Unlike"}</button>
-                </Link>{" "}
-              </div>
-            );
-          })
-        ) : (
-          <p> You haven't liked any movies yet... </p>
-        )}
-      </div>
-    );
-  };
+
+  // const userLikedMovies = user.likeObj.map(id=>moviesObj[id])
+  // const likedMovies = () => {
+  //   return (
+  //     <div className="likedMovies">
+  //       {(
+  //         userLikedMovies.map((movie) => {
+  //           return (
+  //             <div className="movieDiv" key={movie.id}>
+  //               <Link to={`/movies/${movie.id}`}>
+  //                 <img alt="" src={movie.image}></img>
+  //                 <p>{movie.title}</p>
+  //                 <button onClick={(e) => likeButton(e, movie.id)}>{"Unlike"}</button>
+  //               </Link>{" "}
+  //             </div>
+  //           );
+  //         })
+  //       ) || (
+  //         <p> You haven't liked any movies yet... </p>
+  //       )}
+  //     </div>
+  //   );
+  // };
 
   const UserReviews = () => {
     return (
       <div className="userReviewsContainer">
-        <h3>Manage your reviews: {user.reviews.length ? user.reviews.length: null}</h3>
+        <h3>Manage your reviews: {user.reviews.length ? user.reviews.length : null}</h3>
         {user.reviews.length ? (
           user.reviews.map((review) => (
             <div key={review.id} className="userReviews">
@@ -120,14 +111,15 @@ const ProfilePage = () => {
       </div>
     );
   };
-  if(!movies) return null
+  if (!movies ) return <>hey</>;
 
   return (
     <div className="profileContainer">
       <OpenModalButton buttonText={"Add a movie"} modalComponent={<MovieFormPage />} />
       <h3>Maintain movies you have added: {user.movies.length}</h3> <UserMadeMovies />
-      <h3>Movies you have liked: {userLikedMovies.length}</h3>
-      <LikedMovies />
+      {/* <h3>Movies you have liked: {userLikedMovies.length}</h3> */}
+
+      <UserLikedMovies user={user.likeObj} movies={moviesObj}/>
       <UserReviews />
     </div>
   );

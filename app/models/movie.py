@@ -18,7 +18,7 @@ class Movie(db.Model):
     creator_id = db.Column(db.Integer, ForeignKey(
         add_prefix_for_prod('users.id')))
 
-    creator = db.relationship('User', back_populates='movies')
+    creator = db.relationship('User', back_populates='owned_movies')
     genre_ = db.relationship('Genre', back_populates='movie_genre')
     review = db.relationship(
         'Review', back_populates='movie', cascade='all, delete-orphan')

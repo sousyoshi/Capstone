@@ -14,9 +14,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    movies = db.relationship('Movie', back_populates='creator', cascade='all, delete-orphan')
+    owned_movies = db.relationship('Movie', back_populates='creator', cascade='all, delete-orphan')
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan' )
-    likes = db.relationship('Like', backref='users', passive_deletes=True)
+    likes = db.relationship('Like', back_populates='like_obj', cascade='all, delete-orphan')
 
     @property
     def password(self):
@@ -34,9 +34,9 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'movies' : [movie.to_dict() for movie in self.movies],
-            'likeObj' : [like.to_dict() for like in self.likes],
-            'reviews' : [review.to_dict() for review in self.reviews],
-            'likes': len(self.likes)
+            'movies' : [movie.to_dict() for movie in self.owned_movies],
+            'likeObj' : [like.movie_id for like in self.likes],
+            'reviews' : [review.to_dict() for review in self.reviews]
+
 
         }
