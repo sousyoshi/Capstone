@@ -12,6 +12,7 @@ class Like(db.Model):
     movie_id = db.Column(db.Integer, ForeignKey(add_prefix_for_prod('movies.id')))
 
     liked = db.relationship('Movie', back_populates='likes')
+    like_obj = db.relationship('User', back_populates='likes')
 
 
     def to_dict(self):

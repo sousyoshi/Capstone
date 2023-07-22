@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
+import { getOneUserThunk } from "../../store/users";
 import "react-multi-carousel/lib/styles.css";
 import styles from "./moviespage.module.css";
+import { authenticate } from "../../store/session";
 
 function MoviesPage() {
   const dispatch = useDispatch();
@@ -12,15 +14,10 @@ function MoviesPage() {
   const user = useSelector((state) => state.session.user);
   const [query, setQuery] = useState("");
 
-
   useEffect(() => {
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
-
-
-
-  
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -44,9 +41,6 @@ function MoviesPage() {
     return acc;
   }, {});
 
-
-
-
   const likeButton = useCallback(
     async (e, movieId) => {
       e.preventDefault();
@@ -55,17 +49,17 @@ function MoviesPage() {
       });
       if (res.ok) {
         const like = await res.json();
+        console.log("liiiiiiiiiiiiiiiiiiiiii", like);
         const { movieId } = like;
 
-        dispatch(getOneMovieThunk(movieId));
+        dispatch(getOneMovieThunk(movieId)).then(() => dispatch(authenticate()));
 
-        return like
-
+        return like;
       }
     },
     [dispatch]
   );
-
+    console.log('fffffffffffffffffffffffffff', user.likeObj.length)
   if (!movies) return <h1>LOADING....</h1>;
 
   const myCarousel = () => {
@@ -91,7 +85,7 @@ function MoviesPage() {
             .sort((a, b) => a.releaseYear - b.releaseYear)
             .map((movie) => {
               return (
-                <div className={styles.movieImage}>
+                <div key={movie.id} className={styles.movieImage}>
                   <Link key={movie.id} to={`/movies/${movie.id}`}>
                     <img className={styles.carousel} alt="" src={movie.image} title={movie.title} />
                   </Link>

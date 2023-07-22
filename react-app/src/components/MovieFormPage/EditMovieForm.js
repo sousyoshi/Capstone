@@ -24,9 +24,9 @@ const EditMovieForm = ({ movie }) => {
       const errors = [];
       if (!title) errors.push("Please enter a movie title");
       if (!description.length) errors.push("Please enter a synopsis");
-      if (!image.length) errors.push("Please provide an image");
+      if (!image) errors.push("Please provide an image");
       if (!genre.length) errors.push("Please provide a genre");
-      if(!image.endsWith('.png') && !image.endsWith(".jpeg") && !image.endsWith('.jpg')) errors.push('Image URL must be end with png, jpeg, or jpg')
+
       setValErrors(errors);
 
   }, [title, description, image, genre]);
@@ -117,14 +117,15 @@ const EditMovieForm = ({ movie }) => {
             <label>
               {" "}
               Image
-              <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+              <input type="file" accept='image/*' onChange={(e) => setImage(e.target.files[0])} />
+          <div></div>
             </label>
           </div>
           <div>
             <label>
               {" "}
               Trailer
-              <input type="text" value={trailer} onChange={(e) => setTrailer(e.target.value)} />
+              <input type="file" accept="video/*" onChange={(e) => setTrailer(e.target.files[0])} />
             </label>
           </div>
           <button type="submit">Update Movie</button>

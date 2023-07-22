@@ -23,7 +23,7 @@ const MovieFormPage = () => {
     e.preventDefault();
     setHasSubmitted(true);
 
-    if (Object.keys(valErrors).length) return alert("Your form currently has errors!");
+
 
     const formData = new FormData();
 
@@ -34,11 +34,14 @@ const MovieFormPage = () => {
     formData.append("image", image);
     formData.append("trailer", trailer);
 
-    await dispatch(createMovieThunk(formData));
+ const newMovie = await dispatch(createMovieThunk(formData));
 
-    if (Object.keys(valErrors).length === 0) {
+    if ( newMovie && !(valErrors).length) {
       dispatch(authenticate()).then(() => closeModal());
+
     }
+
+
 
     setTitle("");
     setDescription("");
@@ -66,9 +69,9 @@ const MovieFormPage = () => {
           <label>
             {" "}
             Movie Title
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} /> { hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
           </label>{" "}
-          {hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
+
           <div>
             <label>
               Synopsis
@@ -119,7 +122,7 @@ const MovieFormPage = () => {
               <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
             </label>
             {hasSubmitted && valErrors.image && <div className="errors">{valErrors.image}</div>}
-            
+
           </div>{ image && <img className="prevImage" alt="fadf" src={URL.createObjectURL(image)}/>}
           <div>
             <label>
