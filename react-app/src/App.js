@@ -19,6 +19,7 @@ import { getAllUsersThunk } from "./store/users";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  
   useEffect(() => {
     dispatch(authenticate())
       .then(() => dispatch(getAllMoviesThunk()))

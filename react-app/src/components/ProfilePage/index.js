@@ -1,6 +1,6 @@
 import React, {  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMoviesThunk } from "../../store/movies";
+import { getAllMoviesThunk, getOneMovieThunk } from "../../store/movies";
 import DeleteUserReviewModal from "../DeleteReviewModal/DeleteUserReviewModal";
 import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
@@ -119,7 +119,7 @@ const ProfilePage = () => {
       <h3>Maintain movies you have added: {user.movies.length}</h3> <UserMadeMovies />
       {/* <h3>Movies you have liked: {userLikedMovies.length}</h3> */}
 
-      <UserLikedMovies user={user.likeObj} movies={moviesObj}/>
+      <UserLikedMovies user={user.likeObj}/>
       <UserReviews />
     </div>
   );

@@ -1,15 +1,15 @@
-import React, {  useState, useEffect } from "react";
-import { useDispatch} from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { editMovieThunk } from "../../store/movies";
 import { useModal } from "../../context/Modal";
 
-import './movieform.css'
+import "./movieform.css";
 
 const EditMovieForm = ({ movie }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {closeModal} = useModal()
+  const { closeModal } = useModal();
   const [title, setTitle] = useState(movie.title);
   const [description, setDescription] = useState(movie.description);
   const [genre, setGenre] = useState(movie.genre);
@@ -20,21 +20,21 @@ const EditMovieForm = ({ movie }) => {
   const [valErrors, setValErrors] = useState([]);
 
   useEffect(() => {
-
+    if (hasSubmitted) {
       const errors = [];
       if (!title) errors.push("Please enter a movie title");
       if (!description.length) errors.push("Please enter a synopsis");
       if (!image) errors.push("Please provide an image");
-      if (!genre.length) errors.push("Please provide a genre");
+      if (!genre) errors.push("Please provide a genre");
 
       setValErrors(errors);
+    }
+  }, [title, description, image, genre, hasSubmitted]);
 
-  }, [title, description, image, genre]);
-
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setHasSubmitted(true);
-    const errors = []
+    const errors = [];
     if (valErrors.length) return alert("Your form has errors.");
 
     const formData = new FormData();
@@ -46,29 +46,32 @@ const EditMovieForm = ({ movie }) => {
     formData.append("image", image);
     formData.append("trailer", trailer);
     formData.append("id", movie.id);
-    setValErrors(errors)
+    setValErrors(errors);
 
-    await dispatch(editMovieThunk(formData));
+    const editedMovie = await dispatch(editMovieThunk(formData));
+    
+    if (!editedMovie.errors) {
+      setTitle("");
+      setDescription("");
+      setGenre("");
+      setReleaseYear(1900);
+      setImage("");
+      setTrailer("");
+      setHasSubmitted(false);
 
-    setTitle("");
-    setDescription("");
-    setGenre("");
-    setReleaseYear(1900);
-    setImage("");
-    setTrailer("");
-    setHasSubmitted(false);
-
-    history.push(`/movies/${movie.id}`);
-    closeModal()
+      history.push(`/movies/${movie.id}`);
+      closeModal();
+    }
   };
   return (
     <>
-
       {hasSubmitted && valErrors.length > 0 && (
         <div>
           <ul>
             {valErrors.map((error) => (
-              <li className="errors" key={error}>{error}</li>
+              <li className="errors" key={error}>
+                {error}
+              </li>
             ))}
           </ul>
         </div>
@@ -78,20 +81,24 @@ const EditMovieForm = ({ movie }) => {
           <label>
             {" "}
             Movie Title
-            <input  type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </label>{" "}
           <div>
-            <label>
-              {" "}
-              Synopsis: </label>
-              <textarea minLength={10} rows={10} cols={50}   type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
-
+            <label> Synopsis: </label>
+            <textarea
+              minLength={10}
+              rows={10}
+              cols={50}
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </div>
           <div>
             {" "}
             Genre
-            <select value={genre}   name="genre" onChange={(e) => setGenre(e.target.value)}>
-              <option value={''}>Please select an option</option>
+            <select value={genre} name="genre" onChange={(e) => setGenre(e.target.value)}>
+              <option value={""}>Please select an option</option>
               <option value={1}>Crime</option>
               <option value={2}>Fantasy</option>
               <option value={3}>Comedy</option>
@@ -117,8 +124,8 @@ const EditMovieForm = ({ movie }) => {
             <label>
               {" "}
               Image
-              <input type="file" accept='image/*' onChange={(e) => setImage(e.target.files[0])} />
-          <div></div>
+              <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+              <div></div>
             </label>
           </div>
           <div>

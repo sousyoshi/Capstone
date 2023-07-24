@@ -6,7 +6,7 @@
 
 html,
 body {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 10px;
   color: white;
@@ -30,11 +30,13 @@ button:hover{
 }
 
 div #modal-content {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   align-items: center;
     color: white;
     background-color: black;
+    text-align: center;
+    justify-content: space-around;
   }
 
   div#modal-content button {
