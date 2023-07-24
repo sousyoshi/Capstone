@@ -6,13 +6,14 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { authenticate } from "../../store/session";
 import { getAllMoviesThunk } from "../../store/movies";
 
+
 const UserLikedMovies = ({ user }) => {
   const dispatch = useDispatch();
-  const movies = useSelector(state=>state.movies)
+  const movies = useSelector((state) => state.movies);
 
   useEffect(() => {
-      dispatch(authenticate())
-      dispatch(getAllMoviesThunk());
+    dispatch(authenticate());
+    dispatch(getAllMoviesThunk());
   }, [dispatch]);
 
   const likeButton = useCallback(
@@ -30,7 +31,7 @@ const UserLikedMovies = ({ user }) => {
     [dispatch]
   );
   const userLikedMovies = user.map((id) => movies[id]);
-  
+
   const LikedMovies = () => {
     return (
       <div className="likedMovies">
@@ -50,7 +51,12 @@ const UserLikedMovies = ({ user }) => {
   };
 
   if (!movies || !user) return null;
-  return <LikedMovies/>;
+  return (
+    <>
+      <h3>Movies you have liked: {userLikedMovies.length}</h3>{" "}
+      {userLikedMovies.length ? <LikedMovies /> : <>You haven't liked any movies yet...</>}
+    </>
+  );
 };
 
 export default UserLikedMovies;
