@@ -13,6 +13,8 @@ const UserProfilePage = () => {
   const moviesObj = useSelector((state) => state.movies);
   const user = users[userId];
 
+  const userName = user.username[0].toUpperCase() + user.username.slice(1);
+  console.log(userName);
   useEffect(() => {
     dispatch(getAllMoviesThunk());
     dispatch(getAllUsersThunk());
@@ -20,25 +22,28 @@ const UserProfilePage = () => {
 
   const UserMadeMovies = () => {
     return (
-      <div className="userMovies">
-        {user.movies.map((movie) => {
-          return (
-            <div className="movieDiv" key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                <img className="movieImage" alt="" src={movie.image}></img>
-              </Link>{" "}
-              <p>{movie.title}</p> <p>Year released: {movie.releaseYear}</p> <p>Genre: {movie.genreStr}</p>
-            </div>
-          );
-        })}
-      </div>
+      <>
+        <h3>{userName}'s movies</h3>
+        <div className="userMovies">
+          {user.movies.map((movie) => {
+            return (
+              <div className="movieDiv" key={movie.id}>
+                <Link to={`/movies/${movie.id}`}>
+                  <img className="movieImage" alt="" src={movie.image}></img>
+                </Link>{" "}
+                <p>{movie.title}</p> <p>Year released: {movie.releaseYear}</p> <p>Genre: {movie.genreStr}</p>
+              </div>
+            );
+          })}
+        </div>
+      </>
     );
   };
 
   const UserReviews = () => {
     return (
       <div className="userReviewsContainer">
-        <h3>{user.username}'s Reviews</h3>
+        <h3>{userName}'s Reviews</h3>
         {user.reviews.map((review) => (
           <div key={review.id} className="userReviews">
             {" "}
@@ -55,8 +60,8 @@ const UserProfilePage = () => {
     );
   };
 
-  const userLikedMovies = user.likeObj.map(id=>moviesObj[id]);
-  console.log("from that one thing ineed", userLikedMovies);
+  const userLikedMovies = user.likeObj.map((id) => moviesObj[id]);
+
   const LikedMovies = () => {
     return (
       <div className="likedMovies">
@@ -78,15 +83,18 @@ const UserProfilePage = () => {
 
   return (
     <div className="profileContainer">
-      <h3>{user.username}'s </h3>
+      <h1>{userName}'s Profile Page </h1>
       {user.movies.length ? (
         <>
           {" "}
           <UserMadeMovies />
         </>
-      ) : <>I make nothing yet</>}
-      <LikedMovies />
-      {user.reviews.length ? <UserReviews /> : <h2>{user.username} hasn't reviewed any movies yet</h2>}
+      ) : (
+        <>{userName} hasn't added any movies yet</>
+      )}
+      <h3>{userName}'s liked movies</h3>
+      {userLikedMovies.length ? <LikedMovies /> : <h3>{userName} hasn't liked any movies yet</h3>}
+      {user.reviews.length ? <UserReviews /> : <h3>{userName} hasn't reviewed any movies yet</h3>}
     </div>
   );
 };
