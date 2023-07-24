@@ -23,8 +23,6 @@ const MovieFormPage = () => {
     e.preventDefault();
     setHasSubmitted(true);
 
-
-
     const formData = new FormData();
 
     formData.append("title", title);
@@ -34,14 +32,11 @@ const MovieFormPage = () => {
     formData.append("image", image);
     formData.append("trailer", trailer);
 
- const newMovie = await dispatch(createMovieThunk(formData));
+    const newMovie = await dispatch(createMovieThunk(formData));
 
-    if ( newMovie && !(valErrors).length) {
+    if (!newMovie.errors) {
       dispatch(authenticate()).then(() => closeModal());
-
-    }
-
-
+    } else return;
 
     setTitle("");
     setDescription("");
@@ -51,14 +46,18 @@ const MovieFormPage = () => {
     setTrailer("");
     setHasSubmitted(false);
   };
+
   useEffect(() => {
-    const errors = {};
-    if (!title.length) errors.title = "Please enter a movie title";
-    if (!description.length) errors.description = "Please enter a synopsis";
-    if (!image) errors.image = "Please provide an image";
-    if (!genre) errors.genre = "Please provide a genre";
-    setValErrors(errors);
-  }, [title, description, image, genre]);
+    if (hasSubmitted) {
+      const errors = {};
+      if (!title.length) errors.title = "Please enter a movie title";
+      if (!description.length) errors.description = "Please enter a synopsis";
+      if (!image) errors.image = "Please provide an image";
+      if (!genre) errors.genre = "Please provide a genre";
+      if (!trailer) errors.trailer = "Please provide a trailer";
+      setValErrors(errors);
+    }
+  }, [title, description, image, genre, trailer, hasSubmitted]);
 
   return (
     <>
@@ -69,17 +68,16 @@ const MovieFormPage = () => {
           <label>
             {" "}
             Movie Title
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} /> { hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />{" "}
+            {hasSubmitted && valErrors.title && <div className="errors">{valErrors.title}</div>}
           </label>{" "}
-
           <div>
-            <label>
+            <label> {" "}
               Synopsis
               <textarea
                 minLength={10}
                 rows={10}
                 cols={50}
-                placeholder="Movie synopsis"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               >
@@ -119,16 +117,17 @@ const MovieFormPage = () => {
             <label>
               {" "}
               Image
-              <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+              <input className="movieIn" type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
             </label>
             {hasSubmitted && valErrors.image && <div className="errors">{valErrors.image}</div>}
-
-          </div>{ image && <img className="prevImage" alt="fadf" src={URL.createObjectURL(image)}/>}
+          </div>
+          {image && <img className="prevImage" alt="fadf" src={URL.createObjectURL(image)} />}
           <div>
             <label>
               {" "}
               Trailer
-              <input type="file" accept="video/*" onChange={(e) => setTrailer(e.target.files[0])} />
+              <input className="movieIn" type="file" accept="video/*" onChange={(e) => setTrailer(e.target.files[0])} />
+              {hasSubmitted && valErrors.trailer && <div className="errors">{valErrors.trailer}</div>}
             </label>
           </div>
           <button type="submit">Create Movie</button>
