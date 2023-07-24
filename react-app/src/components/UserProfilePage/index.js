@@ -14,7 +14,7 @@ const UserProfilePage = () => {
   const user = users[userId];
 
   const userName = user.username[0].toUpperCase() + user.username.slice(1);
-  console.log(userName);
+ 
   useEffect(() => {
     dispatch(getAllMoviesThunk());
     dispatch(getAllUsersThunk());
