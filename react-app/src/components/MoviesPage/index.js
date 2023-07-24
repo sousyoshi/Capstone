@@ -48,7 +48,7 @@ function MoviesPage() {
       });
       if (res.ok) {
         const like = await res.json();
-        console.log("liiiiiiiiiiiiiiiiiiiiii", like);
+      
         const { movieId } = like;
 
         dispatch(getOneMovieThunk(movieId)).then(() => dispatch(authenticate()));
@@ -58,7 +58,7 @@ function MoviesPage() {
     },
     [dispatch]
   );
-    console.log('fffffffffffffffffffffffffff', user.likeObj.length)
+
   if (!movies) return <h1>LOADING....</h1>;
 
   const myCarousel = () => {
