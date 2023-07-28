@@ -1,5 +1,5 @@
 import React, { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOneMovieThunk } from "../../store/movies";
 import OpenModalButton from "../OpenModalButton";
@@ -13,18 +13,17 @@ const MoviePage = () => {
   const { movieId } = useParams();
   const movie = useSelector((state) => state.movies[movieId]);
   const sessionUser = useSelector((state) => state.session.user);
-  const [hover, setHover] = useState(false)
+  const [hover, setHover] = useState(false);
 
   const handleMouseEnter = () => {
     setHover(true);
- };
+  };
 
- const handleMouseLeave = () => {
+  const handleMouseLeave = () => {
     setHover(false);
- };
+  };
   useEffect(() => {
     dispatch(getOneMovieThunk(movieId));
-
   }, [dispatch, movieId]);
 
   if (!movie) return null;
@@ -38,7 +37,20 @@ const MoviePage = () => {
           {movie.title} ({movie.releaseYear}) {movie.genreStr}
         </div>
 
-        {sessionUser.id === movie.creatorId ? null :<>Added by: <Link to={`/users/${movie.creatorId}`} style={{textDecoration:'none', color: hover ? 'green' : 'rgb(0, 191, 255)',}} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}> {movie.creator} </Link></> }
+        {sessionUser && sessionUser.id === movie.creatorId ? null : (
+          <>
+            Added by:{" "}
+            <Link
+              to={`/users/${movie.creatorId}`}
+              style={{ textDecoration: "none", color: hover ? "white" : "rgb(0, 191, 255)" }}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              {" "}
+              {movie.creator}{" "}
+            </Link>
+          </>
+        )}
       </h1>
       <div className="trailer">
         <img className="poster" alt="poster" src={movie.image} />
