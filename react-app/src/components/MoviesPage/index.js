@@ -24,13 +24,13 @@ function MoviesPage() {
       slidesToSlide: 3,
     },
     tablet: {
-      breakpoint: { max: 1024, min: 960 },
+      breakpoint: { max: 1024, min: 464 },
       items: 5,
       slidesToSlide: 3,
     },
     mobile: {
-      breakpoint: { max: 960, min: 0 },
-      items: 4,
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
       slidesToSlide: 3,
     },
   };
@@ -48,7 +48,7 @@ function MoviesPage() {
       });
       if (res.ok) {
         const like = await res.json();
-      
+
         const { movieId } = like;
 
         dispatch(getOneMovieThunk(movieId)).then(() => dispatch(authenticate()));

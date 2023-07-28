@@ -86,7 +86,7 @@ export default function SplashPage() {
     return (
       <div style={{ textAlign: "center", display: "flex", alignItems: "center", flexFlow: "column" }}>
         <h1>Got a love for movies? </h1>
-        <div
+        {/* <div
           style={{
             backgroundImage: `url('nettty.png')`,
             backgroundPosition: "center",
@@ -95,7 +95,7 @@ export default function SplashPage() {
             height: "35rem",
             position: "relative",
           }}
-        ></div>
+        ></div> */}
 
         <div
           style={{
@@ -105,7 +105,7 @@ export default function SplashPage() {
 
             width: "28rem",
             height: "15rem",
-            position: "absolute",
+           
             bottom: "50%",
             borderRadius: "10%",
             border: "thin solid white",

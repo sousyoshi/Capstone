@@ -14,7 +14,7 @@ const UserProfilePage = () => {
   const user = users[userId];
 
   const userName = user.username[0].toUpperCase() + user.username.slice(1);
- 
+
   useEffect(() => {
     dispatch(getAllMoviesThunk());
     dispatch(getAllUsersThunk());
@@ -92,7 +92,7 @@ const UserProfilePage = () => {
       ) : (
         <>{userName} hasn't added any movies yet</>
       )}
-      <h3>{userName}'s liked movies</h3>
+  
       {userLikedMovies.length ? <LikedMovies /> : <h3>{userName} hasn't liked any movies yet</h3>}
       {user.reviews.length ? <UserReviews /> : <h3>{userName} hasn't reviewed any movies yet</h3>}
     </div>
