@@ -105,7 +105,7 @@ export default function SplashPage() {
 
             width: "28rem",
             height: "15rem",
-           
+
             bottom: "50%",
             borderRadius: "10%",
             border: "thin solid white",

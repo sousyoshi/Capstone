@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 
 import { authenticate } from "../../store/session";
 import { getAllMoviesThunk } from "../../store/movies";
@@ -11,10 +11,13 @@ const UserLikedMovies = ({ user }) => {
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.movies);
 
+
   useEffect(() => {
     dispatch(authenticate());
     dispatch(getAllMoviesThunk());
   }, [dispatch]);
+
+
 
   const likeButton = useCallback(
     async (e, movieId) => {

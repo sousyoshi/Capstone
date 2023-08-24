@@ -61,7 +61,7 @@ function MoviesPage() {
 
   if (!movies) return <h1>LOADING....</h1>;
 
-  const myCarousel = () => {
+  const MyCarousel = () => {
     return (
       <>
         <div className={styles.searchBar}>
@@ -155,8 +155,12 @@ function MoviesPage() {
 
   return (
     <>
-      <div className="mainCarousel">{myCarousel()} </div>
-      <div className="mainCarousel">{<GenreCarousel />}</div>
+      <div className="mainCarousel">
+        <MyCarousel />{" "}
+      </div>
+      <div className="mainCarousel">
+        <GenreCarousel />
+      </div>
     </>
   );
 }
