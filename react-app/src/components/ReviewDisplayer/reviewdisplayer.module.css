@@ -1,7 +1,6 @@
 .reviewDiv {
   display: grid;
   width: 50%;
-
   border: 2px solid white;
 }
 
@@ -9,8 +8,6 @@
   display: block;
   flex-flow: row;
   align-items: center;
-  background-color: white;
-  color: black;
   height: 100%;
   text-align: left;
 }

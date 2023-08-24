@@ -6,7 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import EditReviewForm from "../ReviewFormPage/EditReviewForm";
 import DeleteMovieModal from "../DeleteMovieModal";
 import EditMovieForm from "../MovieFormPage/EditMovieForm";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import MovieFormPage from "../MovieFormPage";
 import { authenticate } from "../../store/session";
 import UserLikedMovies from "../UserLikedMovies";
@@ -34,7 +34,7 @@ const ProfilePage = () => {
 
 
 
-  const UserMadeMovies = () => {
+ const UserMadeMovies = () => {
     return (
       <div className="userMovies">
         {user.movies.length ? (
@@ -83,7 +83,7 @@ const ProfilePage = () => {
   //   );
   // };
 
-  const UserReviews = () => {
+ const UserReviews = () => {
     return (
       <div className="userReviewsContainer">
         <h3>Manage your reviews: {user.reviews.length ? user.reviews.length : null}</h3>
@@ -111,7 +111,7 @@ const ProfilePage = () => {
       </div>
     );
   };
-  if (!movies ) return <>hey</>;
+  if (!movies ) return <><h1>Loading...</h1></>;
 
   return (
     <div className="profileContainer">

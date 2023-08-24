@@ -31,7 +31,7 @@ const UserProfilePage = () => {
                 <Link to={`/movies/${movie.id}`}>
                   <img className="movieImage" alt="" src={movie.image}></img>
                 </Link>{" "}
-                <p>{movie.title}</p> <p>Year released: {movie.releaseYear}</p> <p>Genre: {movie.genreStr}</p>
+                <h3>{movie.title}</h3> <p>Year released: {movie.releaseYear}</p> <p>Genre: {movie.genreStr}</p>
               </div>
             );
           })}
@@ -72,14 +72,16 @@ const UserProfilePage = () => {
                 <img alt="" src={movie.image}></img>
                 <p>{movie.title}</p>
               </Link>{" "}
-            </div>
+              </div>
           );
         })}
       </div>
     );
   };
 
-  if (!user) return <>adsfasdfadf</>;
+
+
+  if (!user) return <>Loasding...</>;
 
   return (
     <div className="profileContainer">
@@ -92,7 +94,7 @@ const UserProfilePage = () => {
       ) : (
         <>{userName} hasn't added any movies yet</>
       )}
-  
+
       {userLikedMovies.length ? <LikedMovies /> : <h3>{userName} hasn't liked any movies yet</h3>}
       {user.reviews.length ? <UserReviews /> : <h3>{userName} hasn't reviewed any movies yet</h3>}
     </div>
